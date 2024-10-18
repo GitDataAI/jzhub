@@ -24,6 +24,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: jzhub-ui-service
+                name: jzhub-service
                 port:
                   number: 80
