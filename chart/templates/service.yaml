@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jzhub-service
+  labels:
+    apptype: jzhub
+spec:
+  type: ClusterIP
+  selector:
+    app: jzhub
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
