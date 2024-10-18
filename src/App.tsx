@@ -5,7 +5,7 @@ const useLoginNavigation = () => {
 
     const LoginClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        console.log("Login click");
+        window.open("https://console.gitdata.ai")
     };
 
     return LoginClick;
@@ -183,7 +183,7 @@ const TestimonialCard = () => {
             <div className="card">                                       
                 <div className="testimonial-header">
                     <div className='log'>
-                        <img src="../public/jiaozifs2.png" alt="Logo" />
+                        <img src="../jiaozifs2.png" alt="Logo" />
                         <span>DataHub</span>
                     </div>
                     <a className='gitHub' href='https://github.com/GitDataAI/jiaozihub'>
