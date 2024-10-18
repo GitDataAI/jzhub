@@ -6,7 +6,7 @@ metadata:
   annotations:
     meta.helm.sh/release-name: jzhub
     nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/proxy-connect-timeout: "30"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "500"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "1800"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "1800"
   labels:
