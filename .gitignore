@@ -21,6 +21,6 @@ node_modules
 # Go workspace file
 go.work
 go.work.sum
-
+dist
 # env file
 .env
