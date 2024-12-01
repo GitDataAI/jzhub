@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gitdata-rust-service
+  namespace: gitdata
+  labels:
+    apptype: gitdata-rust
+spec:
+  type: ClusterIP
+  selector:
+    app: gitdata-rust
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

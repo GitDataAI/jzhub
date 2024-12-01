@@ -1,0 +1,123 @@
+.auth{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: #ededed;
+}
+
+.authw{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 512px;
+  height: 45%;
+  box-shadow: #cccccc 1px 1px 10px;
+  border-radius: .5rem;
+  background: white;
+}
+@media screen and (max-width: 512px) {
+  .authw{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 50%;
+    box-shadow: none;
+  }
+  .auth{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+  }
+}
+.auth-image{
+  position: absolute;
+  width: 13rem;
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.auth-title{
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 10rem;
+}
+.auth-form{
+  position: absolute;
+  left: 50%;
+  margin-top: 24px;
+  width: 50%;
+  transform: translateX(-50%);
+  input{
+    width: 100%;
+    border: 1px solid #cccccc;
+    border-radius: .5rem;
+    padding: .5rem 1rem;
+    margin-top: .5rem;
+    outline: none;
+  }
+  .auth-error{
+    color: red;
+
+  }
+  .auth-button{
+    width: 100%;
+    border: none;
+    border-radius: .5rem;
+    background: #f25e1a;
+    color: white;
+    padding: .5rem;
+    margin-top: 1rem;
+    cursor: pointer;
+    transition: all .3s;
+    &:hover{
+      background: #ff5100;
+    }
+    &:disabled{
+      background: #cccccc;
+      cursor: not-allowed;
+    }
+  }
+}
+.auth-link{
+  position: absolute;
+  bottom: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.auth-intro{
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  img{
+    position: absolute;
+    width: 128px;
+    left: 50%;
+    top: -40%;
+    transform: translateX(-50%);
+  }
+}
+.auth-footer{
+  position: absolute;
+  bottom: 3%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+}
+.vi__container{
+  left: 50%;
+  transform: translateX(-50%);
+  input{
+    border: none;
+  }
+}
