@@ -8,7 +8,7 @@ export class UserApi extends Http{
     async Apply(dto: UserDtoApply): Promise<AxiosResponse<R<string>, never>>{
         return await
             this.post(
-                '/user/apply',
+                '/users/apply',
                 {
                     inner: window.btoa(JSON.stringify(dto))
                 }
@@ -17,7 +17,7 @@ export class UserApi extends Http{
     async LoginByEmail(dto: UserDtoLoginByEmail){
         return await
             this.post(
-                '/user/login/email',
+                '/users/login/email',
                 {
                     inner: window.btoa(JSON.stringify(dto))
                 }
@@ -26,7 +26,7 @@ export class UserApi extends Http{
     async LoginByName(dto: UserDtoLoginByName){
         return await
             this.post(
-                '/user/login/name',
+                '/users/login/name',
                 {
                     inner: window.btoa(JSON.stringify(dto))
                 }
@@ -35,14 +35,14 @@ export class UserApi extends Http{
     async Logout(){
         return await
             this.post(
-                '/user/logout',
+                '/users/logout',
                 {}
             )
     }
     async Local():Promise<AxiosResponse<R<SessionModel>, never>>{
         return await
             this.post(
-                '/user/local',
+                '/users/local',
                 {}
             )
     }
