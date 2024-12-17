@@ -1,0 +1,17 @@
+#!/bin/bash
+
+echo "Starting the docker image"
+
+nginx
+nginx -s reload
+
+mkdir -p /usr/logs
+
+cd /usr/web
+if [ $? -eq 0 ]; then
+    echo "Starting App"
+    node server.js
+else
+    echo "Failed to enter /usr/app directory"
+    exit 1
+fi

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jzhub-deployment
+  namespace: gitdata
+  labels:
+    apptype: jzhub
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: jzhub
+  template:
+    metadata:
+      labels:
+        app: jzhub
+        apptype: jzhub
+        date: "{{ now | unixEpoch }}"
+    spec:
+      containers:
+        - name: jzhub
+          image: gitdatateam/jzhub:{{ .Values.tag }}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80

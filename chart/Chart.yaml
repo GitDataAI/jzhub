@@ -1,0 +1,11 @@
+apiVersion: v2
+name: jzhub
+description: Install jzhub.cn to provide jzhub official web page.
+version: 1.0.0
+home: https://jzhub.cn/
+keywords:
+  - jzhub
+sources:
+  - https://github.com/GitDataAI/jzhub
+maintainers:
+  - name: gitdata-ai team

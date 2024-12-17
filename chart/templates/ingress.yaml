@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jzhub
+  namespace: gitdata
+  annotations:
+    meta.helm.sh/release-name: jzhub
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "30"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "1800"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "1800"
+  labels:
+    apptype: jzhub
+    app.kubernetes.io/managed-by: Helm
+    heritage: Helm
+    release: jzhub
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: jzhub.cn
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: jzhub-service
+                port:
+                  number: 80
