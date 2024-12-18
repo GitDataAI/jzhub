@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import VerificationInput from "react-verification-input";
 import Countdown from "react-countdown";
 import {useNavigate} from "react-router-dom";
-import {UserApi} from "@/api/action/User.tsx";
+import {UsersApi} from "@/api/action/Users.tsx";
 import {EmailApi} from "@/api/action/Email.tsx";
 import {toast} from "@pheralb/toast";
 
@@ -20,7 +20,7 @@ export const Apply = () => {
     })
 
     const email = new EmailApi();
-    const user = new UserApi();
+    const user = new UsersApi();
     const SendCaptcha = () => {
         email.CaptchaSend({
             email: Value.email

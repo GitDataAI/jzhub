@@ -1,9 +1,9 @@
 export interface SessionModel{
     uid: string,
     name: string,
-    pro: boolean,
-    email: string,
     username: string,
-    phone: string,
-    bio: string
+    pro: boolean,
+    status: number,
+    localtime: string,
+    timezone: string,
 }

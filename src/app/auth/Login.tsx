@@ -6,7 +6,7 @@ export const Login = () => {
     const nav = useNavigate();
     const [Value,setValue] = React.useState({
         email:"",
-        password:""
+        passwd:""
     })
     const user = useUser();
 
@@ -15,6 +15,11 @@ export const Login = () => {
         user.LoginInByEmail(Value).then(x=>{
             if (x){
                 nav("/")
+            }else {
+                toast.error({
+                    text: "登录失败",
+                    description: "邮箱或密码错误"
+                })
             }
         })
             .catch(e=>{
@@ -41,7 +46,7 @@ export const Login = () => {
                 <input type="password" onChange={(x)=>{
                     setValue({
                         ...Value,
-                        password:x.target.value
+                        passwd:x.target.value
                     })
                 }} placeholder="请输入密码"/>
                 <button type={"button"} onClick={Submit} className="auth-button">登录</button>

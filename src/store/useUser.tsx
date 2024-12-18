@@ -1,20 +1,20 @@
 import {create} from "zustand";
 import {persist, devtools, createJSONStorage} from "zustand/middleware";
 import {SessionModel} from "@/api/Session.tsx";
-import {UserApi} from "@/api/action/User.tsx";
+import {UsersApi} from "@/api/action/Users.tsx";
 import { toast } from '@pheralb/toast';
 
 export interface useUserImpl{
     model: SessionModel | undefined,
     isLogin: boolean,
     initial: () => Promise<boolean>,
-    LoginInByEmail: (dto: { email: string; password: string }) => Promise<boolean>,
-    LoginInByName: (dto: { username: string; password: string }) => Promise<boolean>,
+    LoginInByEmail: (dto: { email: string; passwd: string }) => Promise<boolean>,
+    LoginInByName: (dto: { username: string; passwd: string }) => Promise<boolean>,
     Logout: () => Promise<boolean>,
 }
 
 
-const api = new UserApi();
+const api = new UsersApi();
 export const useUser = create<useUserImpl>()((devtools(persist(
     (set,get) => ({
         model: undefined,

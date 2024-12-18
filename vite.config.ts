@@ -17,7 +17,7 @@ export default defineConfig({
     server: {
       proxy: {
         "/api": {
-          target: "https://v1.jiaozifs.com",
+          target: "http://127.0.0.1",
           changeOrigin: true,
         },
       },
