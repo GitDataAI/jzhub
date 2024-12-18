@@ -14,4 +14,12 @@ export default defineConfig({
       "@": path.resolve(__dirname, "src"),
     },
   },
+    server: {
+      proxy: {
+        "/api": {
+          target: "https://v1.jiaozifs.com",
+          changeOrigin: true,
+        },
+      },
+    },
 })

@@ -18,7 +18,6 @@ export const Apply = () => {
         p1: "",
         p2: ""
     })
-    const [Code, setCode] = useState("");
 
     const email = new EmailApi();
     const user = new UserApi();
@@ -48,9 +47,9 @@ export const Apply = () => {
                 console.log(e);
             })
     }
-    const CheckCaptcha = () => {
+    const CheckCaptcha = (x: string) => {
         email.CaptchaCheck({
-            code: Code,
+            code: x,
             email: Value.email
         })
             .then(res=>{
@@ -66,7 +65,6 @@ export const Apply = () => {
                         description: "验证码验证失败"
                     })
                     setStep(1);
-                    setCode("")
                 }
             })
     }
@@ -133,9 +131,8 @@ export const Apply = () => {
                     Step === 1 &&(
                         <>
                             <VerificationInput onChange={(x)=>{
-                                setCode(x);
                                 if(x.length === 6){
-                                    CheckCaptcha();
+                                    CheckCaptcha(x);
                                 }
                             }} placeholder="_" />
                             <Countdown
