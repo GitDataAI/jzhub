@@ -6,20 +6,20 @@ export interface RepoModel {
     commit: number;
     headHash: string;
 
-    sshPath: string;
-    httpPath: string;
+    ssh_path: string;
+    http_path: string;
 
     star: number;
 
     fork: number;
-    isFork: boolean;
-    forkFrom?: string;
+    is_fork: boolean;
+    fork_from?: string;
 
     watch: number;
 
     issue: number;
-    openIssue: number;
-    closeIssue: number;
+    open_issue: number;
+    close_issue: number;
 
     pr: number;
     openPr: number;
@@ -32,9 +32,9 @@ export interface RepoModel {
 
     size: number;
 
-    createdAt: Date;
-    updatedAt: Date;
-    createdBy: string;
+    created_at: number[];
+    updated_at: number[];
+    created_by: string;
 }
 
 export interface RepoCreate {

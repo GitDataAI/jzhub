@@ -59,10 +59,10 @@ export class UserAPi extends Http{
         return await this.post('/user/repos',dto)
     }
     async GetLocalSetting():Promise<AxiosResponse<R<UserOv>, never>>{
-        return await this.get('/user/setting',{})
+        return await this.get('/user/settings',{})
     }
     async UpdateLocalSetting(dto: UserUpdate):Promise<AxiosResponse<R<string>, never>>{
-        return await this.patch('/user/setting',dto)
+        return await this.patch('/user/settings',dto)
     }
     async GetLocalStarred():Promise<AxiosResponse<R<RepoModel[]>, never>>{
         return await this.get('/user/starred',{})

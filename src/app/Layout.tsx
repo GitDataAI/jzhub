@@ -10,13 +10,12 @@ export const Layout = () => {
     const info = useInfo();
     const user = useUser();
     useEffect(()=>{
-        user.initial().then(res=>{
-            if (!res){
-                nav("/auth/login")
-            }else{
-                console.log("Welcome")
-            }
-        });
+        info.InitWorkspace().then().catch();
+        if (!user.isLogin){
+            nav("/auth/login")
+        }else {
+            user.initial().then().catch();
+        }
     },[])
     return(
         <div onClick={()=>{

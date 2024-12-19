@@ -1,8 +1,16 @@
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 
-const ProfileHeader = ({username}:{username: string}) => {
-    const [active,setActive] = useState("dashboard");
+
+export interface ProfileHeaderProps{
+    username: string
+    tab?: string
+}
+
+
+
+const ProfileHeader = (props: ProfileHeaderProps) => {
+    const [active,setActive] = useState(props.tab);
     const nav = useNavigate();
     const HeadItem = [
         {
@@ -32,7 +40,7 @@ const ProfileHeader = ({username}:{username: string}) => {
     ]
     const TabHandler = (s:string) => {
         setActive(s)
-        nav(`/${username}?tab=${s}`)
+        nav(`/${props.username}?tab=${s}`)
     }
 
     return(

@@ -1,16 +1,35 @@
-
-const RepositoryCard = () => {
+import {RepoModel} from "@/api/dto/RepoDto.tsx";
+import {RelativeTime} from '@primer/react'
+const RepositoryCard = ({repo}: {repo: RepoModel}) => {
+    const [year, dayOfYear, offsetSeconds, hour, minute, nanosecond] = repo.updated_at;
+    const lastUpdated = new Date(Date.UTC(year, 0, dayOfYear, hour, minute, nanosecond / 1000000));
+    console.log(offsetSeconds);
     return (
         <div className="repository-card">
-            <h2 className="repo-name">GitDataAi</h2>
-            <span className="visibility">Public</span>
-            <p className="forked-from">Forked from <a href="https://github.com/GitDataAi/jzfs">GitDataAi/jzfs</a></p>
-            <p className="description">A Git-like Version Control File System for AI & Data Product Management.</p>
+            <h2 className="repo-name">{repo.name}</h2>
+            <span className="visibility">{repo.visible ? 'Public' : 'Private'}</span>
+            {
+                repo.is_fork ? (
+                    <p className="forked-from">Forked from <a href={repo.fork_from}>{repo.fork_from}</a></p>
+                ) : null
+            }
+            <p className="description">{repo.description}</p>
             <div className="stats">
-                <span className="language">Rust</span>
-                <span className="other">Other</span>
+                {
+                    repo.topic.map((topic, index) => {
+                        return <span key={index} className="other">{topic}</span>
+                    })
+                }
             </div>
-            <p className="last-updated">Updated 2 weeks ago</p>
+            <p className="last-updated">Updated <RelativeTime date={lastUpdated} noTitle={true}/></p>
+            <div className="repo-data">
+                <p className="forks">Forks: {repo.fork}</p>
+                <p className="stars">Stars: {repo.star}</p>
+                <p className="watchers">Watchers: {repo.watch}</p>
+                <p className="issues">Issues: {repo.issue}</p>
+                <p className="pr">Pr: {repo.pr}</p>
+                <p className="size">Size: {repo.size}</p>
+            </div>
         </div>
     );
 };

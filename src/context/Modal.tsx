@@ -1,7 +1,6 @@
-import {useInfo} from "@/store/useInfo.tsx";
+// import {useInfo} from "@/store/useInfo.tsx";
 // import {useState} from "react";
-// import {HeaderCreate} from "@/context/modal/HeaderCreate.tsx";
-// import {ChangeWorkSpace} from "@/context/modal/ChangeWorkSpace.tsx";
+// import RightMenuPops from "@/context/modal/RightMenuPops.tsx";
 
 export interface ModelProps{
     children: JSX.Element;
@@ -9,10 +8,10 @@ export interface ModelProps{
 
 export const Modal = (props: ModelProps) => {
     // const [showId,setShowId] = useState(useInfo().ModelShowId);
-    useInfo.subscribe((x)=>{
-        console.log(x.ModelShowId)
-        // setShowId(x.ModelShowId)
-    })
+    // useInfo.subscribe((x)=>{
+    //     console.log(x.ModelShowId)
+    //     setShowId(x.ModelShowId)
+    // })
     return(
         <div className="model">
             {props.children}

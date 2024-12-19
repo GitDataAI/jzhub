@@ -1,6 +1,7 @@
 import {UserOv} from "@/api/dto/UsersDto.tsx";
 import {Avatar} from "@primer/react";
 import {UserAPi} from "@/api/action/User.tsx";
+import {useUser} from "@/store/useUser.tsx";
 
 export interface ProfileInfoProps{
     ov?: UserOv
@@ -13,6 +14,7 @@ export interface ProfileInfoProps{
 
 const ProfileInfo = (props: ProfileInfoProps) => {
     console.log(props.ov)
+    const user = useUser();
     const user_api = new UserAPi();
     const UploadAvatar = () => {
         const file_btn = document.getElementById('hiddenFileInput');
@@ -55,7 +57,17 @@ const ProfileInfo = (props: ProfileInfoProps) => {
                 <div className="profile-info-info">
                     <h1>{props.ov?.username}</h1>
                     <p>{props.ov?.name}</p>
-                    <button>Edit profile</button>
+                    {
+                        user.model?.username != props.ov?.username ? (
+                            <button className="follow-button" onClick={() => {
+                                if (props.ov?.username) {
+                                    user_api.LocalAddFollow(props.ov?.username).then(res => {
+                                        console.log(res)
+                                    })
+                                }
+                            }}>Follow</button>
+                        ):<button>Edit profile</button>
+                    }
                     <div className="stats">
                         <span>{props.follow.follower} followers · {props.follow.following} following</span>
                     </div>

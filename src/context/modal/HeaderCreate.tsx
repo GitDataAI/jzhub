@@ -1,6 +1,6 @@
 import {GoOrganization, GoProject, GoRepo, GoRepoPush} from "react-icons/go";
 
-
+// 已废弃
 
 export const HeaderCreate = () => {
     return(
@@ -27,7 +27,6 @@ export const HeaderCreate = () => {
                         <GoOrganization/>
                         <span>New Organization</span>
                     </li>
-
                 </ul>
             </div>
         </>
