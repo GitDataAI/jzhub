@@ -22,10 +22,10 @@ export interface RepoModel {
     close_issue: number;
 
     pr: number;
-    openPr: number;
-    closePr: number;
+    open_pr: number;
+    close_pr: number;
 
-    isEmpty: boolean;
+    is_empty: boolean;
     visible: boolean;
 
     topic: string[];
@@ -47,4 +47,37 @@ export interface RepoCreate {
     topic?: string[];
     visible: boolean;
     default_branch: string;
+}
+
+export interface RepoBranchModel{
+    uid: string,
+    repo_id: string,
+    branch: string,
+    protect: boolean,
+    visible: boolean,
+    head?: string,
+
+    created_at: [],
+    updated_at: [],
+
+    created_by: string,
+}
+
+export interface RepoCommitModel{
+    uid: string,
+    repo_id: string,
+    branch_id: string,
+    commit_user: string,
+    commit_email: string,
+
+    commit_id: string,
+
+    created_at: []
+}
+
+export interface RepoTree{
+    name: string,
+    id_dir: boolean,
+    path: string,
+    children: RepoTree[]
 }

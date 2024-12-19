@@ -13,3 +13,10 @@ export interface GroupDesc {
     createdAt: Date;
     updatedAt: Date;
 }
+
+export interface GroupCreate{
+    name: string;
+    description: string;
+    contact: string
+}
+

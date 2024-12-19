@@ -2,7 +2,7 @@ import {useInfo} from "@/store/useInfo.tsx";
 import {IoIosNotificationsOutline} from "react-icons/io";
 import {useNavigate} from "react-router-dom";
 import {useUser} from "@/store/useUser.tsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {GoOrganization, GoProject, GoRepo, GoRepoPush} from "react-icons/go";
 
 export const LayoutHeader = () => {
@@ -15,9 +15,9 @@ export const LayoutHeader = () => {
             setShowCreate(false);
         }
     })
-    useUser.subscribe((data)=>{
-        setAvatar(data.Avatar);
-    })
+    useEffect(()=>{
+        setAvatar(user.Avatar)
+    },[])
     const nav = useNavigate();
     const CreateItem = [
         {

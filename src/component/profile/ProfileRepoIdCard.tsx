@@ -1,11 +1,15 @@
 import {RepoModel} from "@/api/dto/RepoDto.tsx";
 import {RelativeTime} from '@primer/react'
+import {useNavigate} from "react-router-dom";
 const RepositoryCard = ({repo}: {repo: RepoModel}) => {
     const [year, dayOfYear, offsetSeconds, hour, minute, nanosecond] = repo.updated_at;
     const lastUpdated = new Date(Date.UTC(year, 0, dayOfYear, hour, minute, nanosecond / 1000000));
     console.log(offsetSeconds);
+    const nav = useNavigate();
     return (
-        <div className="repository-card">
+        <div className="repository-card" onClick={()=>{
+            nav(`/${repo.owner}/${repo.name}`)
+        }}>
             <h2 className="repo-name">{repo.name}</h2>
             <span className="visibility">{repo.visible ? 'Public' : 'Private'}</span>
             {
