@@ -16,7 +16,7 @@ export const LayoutHeader = () => {
         }
     })
     useEffect(()=>{
-        setAvatar(user.Avatar)
+        setAvatar(user.user?.profile?.avatar || "")
     },[])
     const nav = useNavigate();
     const CreateItem = [

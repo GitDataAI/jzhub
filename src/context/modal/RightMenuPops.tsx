@@ -37,7 +37,7 @@ const RightMenuPops = () => {
     return(
         <div className="right-menu-pops">
             <div>
-                <img className="right-menu-pops-avatar" src={user.Avatar} alt={user.model?.username}/>
+                <img className="right-menu-pops-avatar" src={user.user?.profile?.avatar || ""} alt={user.model?.username}/>
                 <span className="right-menu-pops-username">
                     <a>{user.model?.username}</a>
                 </span>
