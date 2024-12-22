@@ -1,14 +1,10 @@
-import {UserOv} from "@/api/dto/UsersDto.tsx";
 import {Avatar} from "@primer/react";
 import {UserAPi} from "@/api/action/User.tsx";
 import {useUser} from "@/store/useUser.tsx";
+import {GraphQLUserModel} from "@/api/graphql/user/Struct.tsx";
 
 export interface ProfileInfoProps{
-    ov?: UserOv
-    follow: {
-        following: number,
-        follower: number
-    }
+    ov?: GraphQLUserModel
 }
 
 
@@ -48,20 +44,20 @@ const ProfileInfo = (props: ProfileInfoProps) => {
                 <input type="file" id="hiddenFileInput" style={{
                     display: 'none'
                 }} accept={"image/*"}/>
-                <Avatar src={`${props.ov?.avatar}`} id={"avatar"} alt="Profile Image"
+                <Avatar src={`${props.ov?.profile?.avatar}`} id={"avatar"} alt="Profile Image"
                         className="profile-image-info"
                         onClick={() => {
                             UploadAvatar()
                         }}/>
 
                 <div className="profile-info-info">
-                    <h1>{props.ov?.username}</h1>
-                    <p>{props.ov?.name}</p>
+                    <h1>{props.ov?.profile?.username}</h1>
+                    <p>{props.ov?.profile?.name}</p>
                     {
-                        user.model?.username != props.ov?.username ? (
+                        user.model?.username != props.ov?.profile?.username ? (
                             <button className="follow-button" onClick={() => {
-                                if (props.ov?.username) {
-                                    user_api.LocalAddFollow(props.ov?.username).then(res => {
+                                if (props.ov?.profile?.username) {
+                                    user_api.LocalAddFollow(props.ov?.profile.username).then(res => {
                                         console.log(res)
                                     })
                                 }
@@ -69,14 +65,14 @@ const ProfileInfo = (props: ProfileInfoProps) => {
                         ):<button>Edit profile</button>
                     }
                     <div className="stats">
-                        <span>{props.follow.follower} followers · {props.follow.following} following</span>
+                        <span>{props.ov?.data?.follow.length} followers · {props.ov?.data?.following.length} following</span>
                     </div>
                     <div className="location-time">
-                        <span>{props.ov?.timezone}</span>
-                        <span>{props.ov?.localtime}</span>
+                        <span>{props.ov?.profile?.timezone}</span>
+                        <span>{props.ov?.profile?.localtime}</span>
                     </div>
                     <div className="links">
-                        {props.ov?.website?.map((item, index) => (
+                        {props.ov?.profile?.website?.map((item, index) => (
                             <a key={index} href={item}>{item}</a>
                         ))}
                     </div>

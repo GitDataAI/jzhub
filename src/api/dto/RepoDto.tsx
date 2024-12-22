@@ -77,7 +77,7 @@ export interface RepoCommitModel{
 
 export interface RepoTree{
     name: string,
-    id_dir: boolean,
+    is_dir: boolean,
     path: string,
     children: RepoTree[]
 }

@@ -4,12 +4,13 @@ import {Box, Breadcrumbs, Button, Label, PageHeader, UnderlineNav} from "@primer
 import {GoEye, GoGitPullRequest, GoRepoForked} from "react-icons/go";
 import {FaBoxTissue} from "react-icons/fa";
 import {useEffect, useState} from "react";
-import {RepoAPi} from "@/api/action/Repo.tsx";
-import {RepoBranchModel, RepoModel, RepoTree} from "@/api/dto/RepoDto.tsx";
+import {RepoTree} from "@/api/dto/RepoDto.tsx";
 import {CiSettings, CiStar} from "react-icons/ci";
 import {BsFiles} from "react-icons/bs";
 import {useInfo} from "@/store/useInfo.tsx";
 import RepoFile from "@/component/Repos/RepoFile.tsx";
+import {useRepo} from "@/store/useRepo.tsx";
+import {GraphQLRepoBranchOv, GraphQLRepoModel} from "@/api/graphql/repo/Struct.tsx";
 
 const RepoLayout = () => {
     const { owner, repo } = useParams();
@@ -17,36 +18,30 @@ const RepoLayout = () => {
     const [tab, setTab] = useState(searchParams.get('tab'))
     const info = useInfo();
     const [Active, setActive] = useState("Files");
-    const repo_api = new RepoAPi();
-    const [Repo, setRepo] = useState<RepoModel>();
-    const [Branches, setBranches] = useState<RepoBranchModel[]>([]);
-    const [selectbranch, setSelectBranch] = useState<RepoBranchModel>();
+    const repo_graphql = useRepo();
+    const [Repo, setRepo] = useState<GraphQLRepoModel>();
     const [Tree, setTree] = useState<RepoTree>()
     const [Load, setLoad] = useState(false);
+    const [isEmpty, setIsEmpty] = useState(false);
+    const [SelectBranch,setSelectBranch] = useState<GraphQLRepoBranchOv>();
     useEffect(()=>{
-       repo_api.Info(owner!,repo!).then(res=>{
-           if (res.data.code === 200 && res.status === 200){
-               setRepo({
-                   ...res.data.data!,
-                   owner: owner!,
-                   name: repo!
-               });
-           }
-       })
-        repo_api.GetBranch(owner!,repo!).then(res=>{
-            if (res.data.code === 200 && res.status === 200){
-                setBranches(res.data.data!)
-                setSelectBranch(res.data.data![0])
-                repo_api.Tree(owner!,repo!,res.data.data![0].branch).then(res=>{
-                    setTree(res.data.data!)
-                    setLoad(true)
-                })
-            }
-        })
         info.setHref({
             label: `${owner}/${repo}`,
             url: `/${owner}/${repo}`
         })
+        repo_graphql.getModel(owner!, repo!).then(res=>{
+            setRepo(res)
+            if (res.branchs && res.branchs.length > 0){
+                let selectbranch = res.branchs[0].branch;
+                repo_graphql.getTree(owner!, repo!, selectbranch).then(res=>{
+                    setTree(res.tree!)
+                    setSelectBranch(res.branchs![0])
+                    setLoad(true)
+                })
+            }else {
+                setIsEmpty(true)
+            }
+        });
         if (!tab){
             setSearchParams({tab:'files'})
             setTab('files')
@@ -62,13 +57,13 @@ const RepoLayout = () => {
             label: "Issues",
             url: "issues",
             icon: <FaBoxTissue/>,
-            count: Repo?.open_issue || 0
+            count: Repo?.data?.open_issue || 0
         },
         {
             label: "Pull requests",
             url: "pr",
             icon: <GoGitPullRequest/>,
-            count: Repo?.open_pr || 0
+            count: Repo?.data?.open_pr || 0
         },
         {
             label: "Setting",
@@ -78,7 +73,10 @@ const RepoLayout = () => {
 
     ]
     return(
-        <>
+        <div onClick={(e)=>{
+            info.setModelShowId(0);
+            e.preventDefault();
+        }}>
             <LayoutHeader/>
             <Box>
                 <PageHeader className="repo-header" role="banner" aria-label={`${owner}/${repo}`}>
@@ -94,7 +92,7 @@ const RepoLayout = () => {
                             </Breadcrumbs>
                         </PageHeader.Title>
                         <PageHeader.TrailingVisual>
-                            <Label className="label">{Repo?.visible ? "Public" : "Private"}</Label>
+                            <Label className="label">{Repo?.profile?.visible ? "Public" : "Private"}</Label>
                         </PageHeader.TrailingVisual>
                     </PageHeader.TitleArea>
                     <PageHeader.Navigation>
@@ -114,9 +112,9 @@ const RepoLayout = () => {
                         </UnderlineNav>
                     </PageHeader.Navigation>
                     <PageHeader.Actions>
-                            <Button count={Repo?.fork} className="repo-header-btn" variant="default"><GoEye/><a>Watch</a></Button>
-                            <Button count={Repo?.fork} className="repo-header-btn" variant="default"><GoRepoForked/><a>Fork</a></Button>
-                            <Button count={Repo?.star} className="repo-header-btn" variant="default"><CiStar/><a>Starred</a></Button>
+                            <Button count={Repo?.data!.watch} className="repo-header-btn" variant="default"><GoEye/><a>Watch</a></Button>
+                            <Button count={Repo?.data!.fork} className="repo-header-btn" variant="default"><GoRepoForked/><a>Fork</a></Button>
+                            <Button count={Repo?.data!.star} className="repo-header-btn" variant="default"><CiStar/><a>Starred</a></Button>
                     </PageHeader.Actions>
                 </PageHeader>
                 {
@@ -124,19 +122,27 @@ const RepoLayout = () => {
                         <div className="repo-body">
                             {
                                 tab === 'files' && Load ?
-                                    <RepoFile model={Repo!} branches={Branches} info={{
-                                        owner: owner!,
-                                        repo: repo!
-                                    }} selectBranch={selectbranch!} tree={Tree!}/>
+                                    <>
+                                        {
+                                            isEmpty ?
+                                            <>
+
+                                            </>:
+                                            <>
+                                                <RepoFile model={Repo!} branches={Repo!.branchs!} info={{
+                                                    owner: owner!,
+                                                    repo: repo!
+                                                }} isEmpty={isEmpty} selectBranch={SelectBranch!} tree={Tree!}/>
+                                            </>
+                                        }
+                                    </>
                                     : null
                             }
                         </div>
                     ) : null
                 }
-
             </Box>
-
-        </>
+        </div>
     )
 }
 

@@ -3,6 +3,7 @@
     top: 100px;
     width: 80%;
     left: 50%;
+    z-index: 1;
     transform: translateX(-50%);
     .label{
         background-color: #f0f0f0;
@@ -16,6 +17,9 @@
             font-size: 18px;
             cursor: pointer;
         }
+    }
+    button{
+        z-index: 1;
     }
 }
 .repo-header-btn{
@@ -34,10 +38,7 @@
     width: 80%;
     left: 50%;
     transform: translateX(-50%);
-    li{
-        display: flex;
-        border-bottom: 1px #f3f3f3 solid;
-    }
+
 }
 .repo-file{
     .repository-header {
@@ -81,6 +82,15 @@
 
             .code-button {
                 margin-right: 0;
+                .clone-info{
+                    color: black;
+                    align-items: center;
+                    position: absolute;
+                    margin-top: 10px;
+                    transform: translateX(-50%);
+                    width: 200px;
+                    border: 1px saddlebrown solid;
+                }
             }
         }
     }

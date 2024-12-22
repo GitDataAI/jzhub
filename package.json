@@ -23,6 +23,7 @@
     "react-use": "^17.5.1",
     "react-verification-input": "^4.1.2",
     "styled-components": "^6.1.13",
+    "uuid": "^11.0.3",
     "zustand": "^5.0.1"
   },
   "devDependencies": {
