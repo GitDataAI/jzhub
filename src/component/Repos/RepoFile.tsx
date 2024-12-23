@@ -6,8 +6,8 @@ import {useEffect, useState} from "react";
 import type { ItemInput } from "@primer/react/lib/SelectPanel/types";
 import {FaFileAlt} from "react-icons/fa";
 import {GraphQLRepoBranchOv, GraphQLRepoModel} from "@/api/graphql/repo/Struct.tsx";
-import {useFiles} from "@/store/useFiles.tsx";
-
+import Markdown from "react-markdown";
+import Editor from '@monaco-editor/react';
 export interface RepoFileProps{
     model: GraphQLRepoModel,
     branches: GraphQLRepoBranchOv[],
@@ -17,7 +17,14 @@ export interface RepoFileProps{
         repo: string
     },
     tree: RepoTree,
-    isEmpty: boolean
+    isEmpty: boolean,
+    clickFile(path: string, filename: string): void,
+    showFile: boolean,
+    showNow: {
+        path: string,
+        branch: string,
+        data: Uint8Array
+    } | null
 }
 
 const RepoFile = (props: RepoFileProps) => {
@@ -29,7 +36,6 @@ const RepoFile = (props: RepoFileProps) => {
         text: props.selectBranch.branch,
         id: props.selectBranch.uid
     });
-    const file = useFiles();
     useEffect(()=>{
        for(let i=0;i<props.branches.length;i++) {
            if (props.branches[i] != null) {
@@ -39,20 +45,86 @@ const RepoFile = (props: RepoFileProps) => {
        }
     },[])
     const [open, setOpen] = useState(false)
-
-    if (props.isEmpty) {
-        return (
-            <div className="repo-file">
-
-            </div>
-        )
-    }
-    const ClickFind = (path: string, filename: string) => {
-        console.log(path, filename)
-        file.getFiles(props.info.owner, props.info.repo, props.selectBranch.branch, path).then(res=>{
-            console.log(res)
-        })
-    }
+    const [FIleElement, setFIleElement] = useState<JSX.Element | null>(null)
+    useEffect(()=>{
+        const FIleType = (filename: string) => {
+            const type = filename.split(".").pop()
+            const uint8Array = new Uint8Array([...props.showNow!.data]);
+            const decoder = new TextDecoder('utf-8');
+            const str = decoder.decode(uint8Array);
+            if (type === "md" || type === "markdown" || type === "mdx") {
+                return <Markdown className={"repo-readme-content"}>{str}</Markdown>
+            }
+            if (type === "png" || type === "jpg" || type === "jpeg" || type === "gif" || type === "bmp" || type === "svg") {
+                return <img src={URL.createObjectURL(new Blob([props.showNow!.data]))} alt={filename}/>
+            }
+            if (type === "txt" ||
+                type === "log" ||
+                type === "json" ||
+                type === "xml" ||
+                type === "html" ||
+                type === "css" ||
+                type === "js" ||
+                type === "ts" ||
+                type === "tsx" ||
+                type === "jsx" ||
+                type === "yml" ||
+                type === "yaml" ||
+                type === "conf" ||
+                type === "ini" ||
+                type === "java" ||
+                type === "c" ||
+                type === "cpp" ||
+                type === "h" ||
+                type === "hpp" ||
+                type === "php" ||
+                type === "py" ||
+                type === "rb" ||
+                type === "go" ||
+                type === "rs" ||
+                type === "cmake" ||
+                type === "makefile" ||
+                type === "dockerfile" ||
+                type === "sh" ||
+                type === "bat" ||
+                type === "ps1" ||
+                type === "cmd" ||
+                type === "gitignore" ||
+                type === "gitattributes" ||
+                type === "gitmodules" ||
+                type === "gitconfig") {
+                return (
+                    <>
+                        <Editor onChange={() => {
+                            return false;
+                        }} height="50vh" defaultLanguage={type} value={str} options={{
+                            readOnly: true,
+                            selectOnLineNumbers: true,
+                            automaticLayout: true,
+                            minimap: {
+                                enabled: false
+                            },
+                            lineNumbers: "on",
+                            renderLineHighlight: "none",
+                            scrollBeyondLastLine: false,
+                            scrollbar: {
+                                vertical: "auto",
+                                horizontal: "hidden"
+                            }
+                        }}/>
+                    </>
+                )
+            }
+            console.log(type)
+            return (
+                <div className="repo-file-disable">
+                    <h1>This file is not currently supported for viewing</h1>
+                </div>
+            )
+        }
+        setFIleElement(FIleType(props.showNow!.path));
+        
+    }, [props.showNow])
     return (
         <div className="repo-file">
             <div className="repository-header">
@@ -69,18 +141,44 @@ const RepoFile = (props: RepoFileProps) => {
                 </FormControl>
                 <div className="branch-info">branch:{props.branches.length}</div>
                 <div className="right">
-                    <input type="text" placeholder="Go to file" className="file-search"/>
-                    <Button className="add-file">Add file</Button>
-                    <Button className="code-button" variant="primary">Clone
-
-                    </Button>
-
+                    {
+                        props.showFile ?
+                            <>
+                                <input type="text" placeholder="Go to file" className="file-search"/>
+                                <Button className="add-file">Add file</Button>
+                                <Button className="code-button" variant="primary">Clone</Button>
+                            </>
+                            :
+                            null
+                    }
                 </div>
             </div>
-            <div className="repo-file-body">
+            <div className={props.showFile ? "repo-file-body" : "repo-file-body-side"}>
                 <TreeView aria-label="Files">
-                    {FilePageBuild(props.tree.children, ClickFind)}
+                {FilePageBuild(props.tree.children, props.clickFile)}
                 </TreeView>
+                {
+                    props.showFile ? null : (
+                        <div className="repo-file-content">
+                            <div className="repo-file-content-header">
+                                <a>
+                                    Path: {props.showNow?.path}
+                                </a>
+                                <a>
+                                    Size: {
+                                    props.showNow!.data.length > 1024 ?
+                                        (props.showNow!.data.length / 1024).toFixed(2) + "kb"
+                                        :
+                                        props.showNow?.data.length + "b"
+                                }
+                                </a>
+                            </div>
+                            <div className="repo-file-content-body">
+                                {FIleElement}
+                            </div>
+                        </div>
+                    )
+                }
             </div>
         </div>
     )

@@ -9,6 +9,11 @@ export default defineConfig({
       react(),
       tsconfigPaths()
   ],
+  build:{
+    rollupOptions:{
+      external: ['compression']
+    }
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),

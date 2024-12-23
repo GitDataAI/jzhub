@@ -5,7 +5,8 @@ import {Breadcrumbs, RelativeTime} from "@primer/react";
 import {GraphQLRepoCommits} from "@/api/graphql/repo/Struct.tsx";
 import {useRepo} from "@/store/useRepo.tsx";
 
-const ActivePage = () => {
+
+const RepoActivePage = () => {
     const { owner, repo } = useParams();
     const nav = useNavigate();
     // const [Repo, setRepo] = useState<GraphQLRepoModel>();
@@ -88,4 +89,4 @@ const ActivePage = () => {
 }
 
 
-export default ActivePage
+export default RepoActivePage

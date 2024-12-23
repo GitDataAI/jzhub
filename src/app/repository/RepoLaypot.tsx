@@ -15,6 +15,7 @@ import RepoInfo from "@/component/Repos/RepoInfo.tsx";
 import {useFiles} from "@/store/useFiles.tsx";
 import ReactMarkdown from "react-markdown";
 import RepoEmpty from "@/component/Repos/RepoEmpty.tsx";
+import RepoSetting from "@/component/Repos/RepoSetting.tsx";
 
 const RepoLayout = () => {
     const { owner, repo } = useParams();
@@ -23,12 +24,18 @@ const RepoLayout = () => {
     const info = useInfo();
     const [Active, setActive] = useState("Files");
     const repo_graphql = useRepo();
+    const file = useFiles();
     const [Repo, setRepo] = useState<GraphQLRepoModel>();
     const [Tree, setTree] = useState<RepoTree>()
     const [Load, setLoad] = useState(false);
     const [isEmpty, setIsEmpty] = useState(false);
     const [SelectBranch,setSelectBranch] = useState<GraphQLRepoBranchOv>();
     const [Readme, setReadme] = useState<string>("")
+    const [ShowFile, setShowFile] = useState<null | {
+        path: string,
+        branch: string,
+        data: Uint8Array
+    }>(null);
     const files = useFiles();
     const nav = useNavigate();
     useEffect(()=>{
@@ -92,8 +99,17 @@ const RepoLayout = () => {
             url: "setting",
             icon: <CiSettings />
         },
-
     ]
+    const ClickFind = (path: string, filename: string) => {
+        console.log(path, filename)
+        file.getFiles(owner!, repo!, SelectBranch!.branch!, path).then(res=>{
+            setShowFile({
+                path: path,
+                branch: SelectBranch?.branch || "",
+                data: res
+            });
+        })
+    }
     return(
         <div onClick={(e)=>{
             info.setModelShowId(0);
@@ -156,20 +172,45 @@ const RepoLayout = () => {
                                                 }}/>
                                             </>:
                                             <div>
-                                                <RepoFile model={Repo!} branches={Repo!.branchs!} info={{
-                                                    owner: owner!,
-                                                    repo: repo!
-                                                }} isEmpty={isEmpty} selectBranch={SelectBranch!} tree={Tree!}/>
-                                                {Readme.length > 0 ?
-                                                    <div className="repo-readme">
-                                                        <div className="repo-readme-select">
-                                                            <a>README</a>
-                                                        </div>
-                                                        <div className="repo-readme-content">
-                                                            <ReactMarkdown>{Readme}</ReactMarkdown>
-                                                        </div>
-                                                        </div>
-                                                    :null
+                                                {
+                                                    ShowFile === null ? (
+                                                        <>
+                                                            <RepoFile model={Repo!} branches={Repo!.branchs!} info={{
+                                                                owner: owner!,
+                                                                repo: repo!
+                                                            }}
+                                                                      isEmpty={isEmpty}
+                                                                      selectBranch={SelectBranch!}
+                                                                      tree={Tree!}
+                                                                      clickFile={ClickFind}
+                                                                      showFile={true}
+                                                                      showNow={ShowFile}
+                                                            />
+                                                            {Readme.length > 0 ?
+                                                                <div className="repo-readme">
+                                                                    <div className="repo-readme-select">
+                                                                        <a>README</a>
+                                                                    </div>
+                                                                    <div className="repo-readme-content">
+                                                                        <ReactMarkdown>{Readme}</ReactMarkdown>
+                                                                    </div>
+                                                                </div>
+                                                                :null
+                                                            }
+                                                        </>
+                                                    ):(
+                                                        <>
+                                                            <RepoFile model={Repo!} branches={Repo!.branchs!} info={{
+                                                                owner: owner!,
+                                                                repo: repo!
+                                                            }} isEmpty={isEmpty}
+                                                                      selectBranch={SelectBranch!}
+                                                                      tree={Tree!}
+                                                                      clickFile={ClickFind}
+                                                                      showFile={false}
+                                                                      showNow={ShowFile}/>
+                                                        </>
+                                                    )
                                                 }
                                             </div>
                                         }
@@ -179,6 +220,13 @@ const RepoLayout = () => {
                                         }} isEmpty={isEmpty} data={Repo!.data!}/>
                                     </>
                                     : null
+                            }
+                            {
+                                tab === 'setting' ? (
+                                    <>
+                                        <RepoSetting/>
+                                    </>
+                                ): null
                             }
                         </div>
                     ) : null
