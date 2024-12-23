@@ -34,9 +34,18 @@ export interface GraphQLRepoModel {
     profile?: GraphQLRepoProfile | null;
     data?: GraphQLRepoData | null;
     branchs?: GraphQLRepoBranchOv[] | null;
-    tree?: RepoTree | null;
+    tree?: RepoTreeModel | null;
     license?: GraphQLRepoLicense[] | null;
     readme?: number[] | null;
+}
+
+export interface RepoTreeModel{
+    branch: string,
+    hash: string,
+    owner: string,
+    repo: string,
+    time: number,
+    tree: RepoTree
 }
 
 export interface GraphQLRepoProfile {

@@ -34,7 +34,7 @@ const RepoLayout = () => {
             if (res.branchs && res.branchs.length > 0){
                 let selectbranch = res.branchs[0].branch;
                 repo_graphql.getTree(owner!, repo!, selectbranch).then(res=>{
-                    setTree(res.tree!)
+                    setTree(res.tree!.tree)
                     setSelectBranch(res.branchs![0])
                     setLoad(true)
                 })
