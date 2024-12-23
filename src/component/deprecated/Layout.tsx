@@ -1,9 +1,11 @@
-import { LayoutSidebar } from "@/component/layout/Sidebar";
-import Repository from "./Repository";
-import NullRepository from "../../component/Repos/NullRepository.tsx";
+import { LayoutSidebar } from "@/component/layout/Sidebar.tsx";
+import Repository from "./Repository.tsx";
+import NullRepository from "../Repos/NullRepository.tsx";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
+
+/// Deprecated, Please use RepoLayout instead
 const RepositoryLayout = () => {
   const { name } = useParams<{ name?: string }>(); // name could be undefined
 
