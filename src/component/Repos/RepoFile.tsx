@@ -122,8 +122,9 @@ const RepoFile = (props: RepoFileProps) => {
                 </div>
             )
         }
-        setFIleElement(FIleType(props.showNow!.path));
-        
+        if (props.showNow !== null) {
+            setFIleElement(FIleType(props.showNow!.path));
+        }
     }, [props.showNow])
     return (
         <div className="repo-file">
