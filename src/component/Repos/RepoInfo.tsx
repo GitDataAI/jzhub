@@ -1,8 +1,9 @@
 import {GraphQLRepoData, GraphQLRepoProfile} from "@/api/graphql/repo/Struct.tsx";
-import {FaReadme, FaStar} from "react-icons/fa";
+import {FaStar} from "react-icons/fa";
 import {FiActivity} from "react-icons/fi";
 import {IoMdEye} from "react-icons/io";
 import {FaCodeFork} from "react-icons/fa6";
+import {ActionList, Heading} from "@primer/react";
 
 export interface RepoInfoProps{
     model: GraphQLRepoProfile,
@@ -19,23 +20,52 @@ export interface RepoInfoProps{
 const RepoInfo = (props: RepoInfoProps) => {
     return(
         <div className="repo-info">
-            <h1>About</h1>
-            <p className="repo-info-bio">{props.model.description}</p>
-            <div className="repo-info-list">
-                <FaReadme /> <p>Readme</p>
-            </div>
-            <div className="repo-info-list">
-                <FiActivity /> <p>Activity</p>
-            </div>
-            <div className="repo-info-list">
-                <FaStar /> <p>{props.data.star} Starred</p>
-            </div>
-            <div className="repo-info-list">
-                <IoMdEye /> <p>{props.data.watch} Watching</p>
-            </div>
-            <div className="repo-info-list">
-                <FaCodeFork /> <p>{props.data.fork} Fork</p>
-            </div>
+            <Heading as="h1" id="list-heading" sx={{
+                fontSize: 3,
+                marginX: 3
+            }}>
+                About
+            </Heading>
+            <ActionList>
+                <ActionList.Group>
+                    <ActionList.Item>
+                        {props.model.description}
+                    </ActionList.Item>
+                </ActionList.Group>
+                <ActionList.Group>
+                    <ActionList.Item>
+                        <ActionList.LeadingVisual>
+                            <IoMdEye />
+                        </ActionList.LeadingVisual>
+                        {props.data.watch} watching
+                    </ActionList.Item>
+                    <ActionList.Item>
+                        <ActionList.LeadingVisual>
+                            <FiActivity />
+                        </ActionList.LeadingVisual>
+                        Activity
+                    </ActionList.Item>
+                    <ActionList.Item>
+                        <ActionList.LeadingVisual>
+                            <FaStar />
+                        </ActionList.LeadingVisual>
+                        MIT License
+                    </ActionList.Item>
+                    <ActionList.Item>
+                        <ActionList.LeadingVisual>
+                            <FaStar />
+                        </ActionList.LeadingVisual>
+                        {props.data.star} stars
+                    </ActionList.Item>
+                    <ActionList.Item>
+                        <ActionList.LeadingVisual>
+                            <FaCodeFork />
+                        </ActionList.LeadingVisual>
+                        {props.data.fork} forks
+                    </ActionList.Item>
+                </ActionList.Group>
+
+            </ActionList>
         </div>
     )
 }

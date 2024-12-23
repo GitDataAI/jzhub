@@ -1,6 +1,6 @@
 import { LayoutSidebar } from "@/component/layout/Sidebar";
 import Repository from "./Repository";
-import NullRepository from "./NullRepository";
+import NullRepository from "../../component/Repos/NullRepository.tsx";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
