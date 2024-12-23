@@ -98,7 +98,12 @@ export const useRepo = create<useRepoImpl>()((devtools(persist(
                 repo: repo,
                 profile: false,
                 data: false,
-                branchs: null,
+                branchs: {
+                    commit: {
+                        offset: 0,
+                        size: 5
+                    }
+                },
                 tree: {
                     branch: branch
                 },
