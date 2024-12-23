@@ -116,15 +116,6 @@ const RepoNew = () => {
                         <p>You choose who can see and commit to this repository.</p>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="default_branch">set default branch</label>
-                        <input id="default_branch" name="default_branch" type="text" required onChange={(x)=>{
-                            setCreateOption({
-                                ...createOption,
-                                default_branch: x.target.value
-                            })
-                        }}/>
-                    </div>
-                    <div className="form-group">
                         <label htmlFor="license">Choose a license</label>
                         <select id="license" name="license" ref={selectLicenseRef}>
                             <option value="none">None</option>

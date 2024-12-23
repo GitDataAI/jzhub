@@ -58,7 +58,8 @@ const RepoFile = (props: RepoFileProps) => {
             if (type === "png" || type === "jpg" || type === "jpeg" || type === "gif" || type === "bmp" || type === "svg") {
                 return <img src={URL.createObjectURL(new Blob([props.showNow!.data]))} alt={filename}/>
             }
-            if (type === "txt" ||
+            if (
+                type === "txt" ||
                 type === "log" ||
                 type === "json" ||
                 type === "xml" ||
@@ -92,7 +93,9 @@ const RepoFile = (props: RepoFileProps) => {
                 type === "gitignore" ||
                 type === "gitattributes" ||
                 type === "gitmodules" ||
-                type === "gitconfig") {
+                type === "gitconfig"
+            )
+            {
                 return (
                     <>
                         <Editor onChange={() => {
