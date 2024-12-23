@@ -4,6 +4,7 @@ import {FiActivity} from "react-icons/fi";
 import {IoMdEye} from "react-icons/io";
 import {FaCodeFork} from "react-icons/fa6";
 import {ActionList, Heading} from "@primer/react";
+import {useNavigate} from "react-router-dom";
 
 export interface RepoInfoProps{
     model: GraphQLRepoProfile,
@@ -18,6 +19,7 @@ export interface RepoInfoProps{
 
 
 const RepoInfo = (props: RepoInfoProps) => {
+    const nav = useNavigate();
     return(
         <div className="repo-info">
             <Heading as="h1" id="list-heading" sx={{
@@ -33,13 +35,9 @@ const RepoInfo = (props: RepoInfoProps) => {
                     </ActionList.Item>
                 </ActionList.Group>
                 <ActionList.Group>
-                    <ActionList.Item>
-                        <ActionList.LeadingVisual>
-                            <IoMdEye />
-                        </ActionList.LeadingVisual>
-                        {props.data.watch} watching
-                    </ActionList.Item>
-                    <ActionList.Item>
+                    <ActionList.Item onClick={()=>{
+                        nav(`/${props.info.owner}/${props.info.repo}/active`)
+                    }}>
                         <ActionList.LeadingVisual>
                             <FiActivity />
                         </ActionList.LeadingVisual>
@@ -47,10 +45,16 @@ const RepoInfo = (props: RepoInfoProps) => {
                     </ActionList.Item>
                     <ActionList.Item>
                         <ActionList.LeadingVisual>
-                            <FaStar />
+                            <IoMdEye />
                         </ActionList.LeadingVisual>
-                        MIT License
+                        {props.data.watch} watching
                     </ActionList.Item>
+                    {/*<ActionList.Item>*/}
+                    {/*    <ActionList.LeadingVisual>*/}
+                    {/*        <FaStar />*/}
+                    {/*    </ActionList.LeadingVisual>*/}
+                    {/*    MIT License*/}
+                    {/*</ActionList.Item>*/}
                     <ActionList.Item>
                         <ActionList.LeadingVisual>
                             <FaStar />

@@ -7,7 +7,8 @@ import ExploreLayout from "@/app/ExploreLayout.tsx";
 import WorkSpaceLayout from "@/app/WorkSpaceLayout.tsx";
 import StarredLayout from "@/app/StarredLayout.tsx";
 import HistoryLayout from "@/app/HistoryLayout.tsx";
-import RepoLayout from "@/app/RepoLaypot.tsx";
+import RepoLayout from "@/app/repository/RepoLaypot.tsx";
+import ActivePage from "@/app/repository/ActivePage.tsx";
 
 export const BaseRouter = ():RouteObject[] => {
     return [
@@ -56,7 +57,11 @@ export const BaseRouter = ():RouteObject[] => {
         },
         {
             path: "/:owner/:repo",
-            element: <RepoLayout/>
+            element: <RepoLayout/>,
+        },
+        {
+            path: "/:owner/:repo/active",
+            element: <ActivePage/>
         }
     ]
 }
