@@ -11,6 +11,9 @@ import {useInfo} from "@/store/useInfo.tsx";
 import RepoFile from "@/component/Repos/RepoFile.tsx";
 import {useRepo} from "@/store/useRepo.tsx";
 import {GraphQLRepoBranchOv, GraphQLRepoModel} from "@/api/graphql/repo/Struct.tsx";
+import RepoInfo from "@/component/Repos/RepoInfo.tsx";
+import {useFiles} from "@/store/useFiles.tsx";
+import ReactMarkdown from "react-markdown";
 
 const RepoLayout = () => {
     const { owner, repo } = useParams();
@@ -24,6 +27,8 @@ const RepoLayout = () => {
     const [Load, setLoad] = useState(false);
     const [isEmpty, setIsEmpty] = useState(false);
     const [SelectBranch,setSelectBranch] = useState<GraphQLRepoBranchOv>();
+    const [Readme, setReadme] = useState<string>("")
+    const files = useFiles();
     useEffect(()=>{
         info.setHref({
             label: `${owner}/${repo}`,
@@ -36,12 +41,22 @@ const RepoLayout = () => {
                 repo_graphql.getTree(owner!, repo!, selectbranch).then(res=>{
                     setTree(res.tree!.tree)
                     setSelectBranch(res.branchs![0])
+                    let child = res.tree!.tree.children.find(item=>item.name.toUpperCase() === 'README.MD')
+                    if (child){
+                        files.getFiles(owner!, repo!, selectbranch, child.path).then(res=>{
+                            const uint8Array = new Uint8Array([...res]);
+                            const decoder = new TextDecoder('utf-8');
+                            const markdownString = decoder.decode(uint8Array);
+                            setReadme(markdownString)
+                        })
+                    }
                     setLoad(true)
                 })
             }else {
                 setIsEmpty(true)
             }
         });
+
         if (!tab){
             setSearchParams({tab:'files'})
             setTab('files')
@@ -128,13 +143,28 @@ const RepoLayout = () => {
                                             <>
 
                                             </>:
-                                            <>
+                                            <div>
                                                 <RepoFile model={Repo!} branches={Repo!.branchs!} info={{
                                                     owner: owner!,
                                                     repo: repo!
                                                 }} isEmpty={isEmpty} selectBranch={SelectBranch!} tree={Tree!}/>
-                                            </>
+                                                {Readme.length > 0 ?
+                                                    <div className="repo-readme">
+                                                        <div className="repo-readme-select">
+                                                            <a>README</a>
+                                                        </div>
+                                                        <div className="repo-readme-content">
+                                                            <ReactMarkdown>{Readme}</ReactMarkdown>
+                                                        </div>
+                                                        </div>
+                                                    :null
+                                                }
+                                            </div>
                                         }
+                                        <RepoInfo model={Repo!.profile!} info={{
+                                            owner: owner!,
+                                            repo: repo!
+                                        }} isEmpty={isEmpty} data={Repo!.data!}/>
                                     </>
                                     : null
                             }

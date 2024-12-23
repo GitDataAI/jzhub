@@ -6,6 +6,7 @@ import {useEffect, useState} from "react";
 import type { ItemInput } from "@primer/react/lib/SelectPanel/types";
 import {FaFileAlt} from "react-icons/fa";
 import {GraphQLRepoBranchOv, GraphQLRepoModel} from "@/api/graphql/repo/Struct.tsx";
+import {useFiles} from "@/store/useFiles.tsx";
 
 export interface RepoFileProps{
     model: GraphQLRepoModel,
@@ -28,6 +29,7 @@ const RepoFile = (props: RepoFileProps) => {
         text: props.selectBranch.branch,
         id: props.selectBranch.uid
     });
+    const file = useFiles();
     useEffect(()=>{
        for(let i=0;i<props.branches.length;i++) {
            if (props.branches[i] != null) {
@@ -45,6 +47,12 @@ const RepoFile = (props: RepoFileProps) => {
             </div>
         )
     }
+    const ClickFind = (path: string, filename: string) => {
+        console.log(path, filename)
+        file.getFiles(props.info.owner, props.info.repo, props.selectBranch.branch, path).then(res=>{
+            console.log(res)
+        })
+    }
     return (
         <div className="repo-file">
             <div className="repository-header">
@@ -59,7 +67,7 @@ const RepoFile = (props: RepoFileProps) => {
                     >
                     </SelectPanel>
                 </FormControl>
-                <div className="branch-info">{props.branches.length} Branches </div>
+                <div className="branch-info">branch:{props.branches.length}</div>
                 <div className="right">
                     <input type="text" placeholder="Go to file" className="file-search"/>
                     <Button className="add-file">Add file</Button>
@@ -71,14 +79,15 @@ const RepoFile = (props: RepoFileProps) => {
             </div>
             <div className="repo-file-body">
                 <TreeView aria-label="Files">
-                    {FilePageBuild(props.tree.children)}
+                    {FilePageBuild(props.tree.children, ClickFind)}
                 </TreeView>
             </div>
         </div>
     )
 }
 
-const FilePageBuild = (tree: RepoTree[]) => {
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+const FilePageBuild = (tree: RepoTree[], click: Function) => {
     tree.sort((a,b)=>{
         if (a.is_dir !== b.is_dir){
             return a.is_dir ? -1 : 1
@@ -86,7 +95,7 @@ const FilePageBuild = (tree: RepoTree[]) => {
         return a.name.localeCompare(b.name)
     })
     return tree.map((value, index)=>{
-        const child = FilePageBuild(value.children);
+        const child = FilePageBuild(value.children,click);
         if (value.is_dir) {
             return(
                 <TreeView.Item key={index} id={value.path}>
@@ -102,7 +111,10 @@ const FilePageBuild = (tree: RepoTree[]) => {
         }else {
             return (
 
-                <TreeView.Item key={index} id={value.path}>
+                <TreeView.Item onSelect={()=>{
+                    click(value.path, value.name)
+
+                }} key={index} id={value.path}>
                     <TreeView.LeadingVisual>
                         <FaFileAlt />
                     </TreeView.LeadingVisual>
