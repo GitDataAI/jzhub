@@ -1,4 +1,4 @@
-import {useParams, useSearchParams} from "react-router-dom";
+import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 import {LayoutHeader} from "@/component/layout/Header.tsx";
 import {Box, Breadcrumbs, Button, Label, PageHeader, UnderlineNav} from "@primer/react";
 import {GoEye, GoGitPullRequest, GoRepoForked} from "react-icons/go";
@@ -14,6 +14,7 @@ import {GraphQLRepoBranchOv, GraphQLRepoModel} from "@/api/graphql/repo/Struct.t
 import RepoInfo from "@/component/Repos/RepoInfo.tsx";
 import {useFiles} from "@/store/useFiles.tsx";
 import ReactMarkdown from "react-markdown";
+import RepoEmpty from "@/component/Repos/RepoEmpty.tsx";
 
 const RepoLayout = () => {
     const { owner, repo } = useParams();
@@ -29,6 +30,7 @@ const RepoLayout = () => {
     const [SelectBranch,setSelectBranch] = useState<GraphQLRepoBranchOv>();
     const [Readme, setReadme] = useState<string>("")
     const files = useFiles();
+    const nav = useNavigate();
     useEffect(()=>{
         info.setHref({
             label: `${owner}/${repo}`,
@@ -51,9 +53,14 @@ const RepoLayout = () => {
                         })
                     }
                     setLoad(true)
+                }).catch(()=>{
+                    setIsEmpty(true)
+                    setLoad(true)
                 })
             }else {
+                console.log("No branch")
                 setIsEmpty(true)
+                setLoad(true)
             }
         });
 
@@ -98,7 +105,9 @@ const RepoLayout = () => {
                     <PageHeader.TitleArea>
                         <PageHeader.Title className="title">
                             <Breadcrumbs>
-                             <Breadcrumbs.Item>
+                             <Breadcrumbs.Item onClick={()=>{
+                                 nav(`/${owner}`)
+                             }}>
                                  {owner}
                              </Breadcrumbs.Item>
                              <Breadcrumbs.Item>
@@ -141,7 +150,10 @@ const RepoLayout = () => {
                                         {
                                             isEmpty ?
                                             <>
-
+                                                <RepoEmpty model={Repo!} info={{
+                                                    owner: owner!,
+                                                    repo: repo!
+                                                }}/>
                                             </>:
                                             <div>
                                                 <RepoFile model={Repo!} branches={Repo!.branchs!} info={{
