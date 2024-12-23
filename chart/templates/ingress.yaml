@@ -1,30 +1,30 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: gitdata-rust
+  name: gitdata-ui
   namespace: gitdata
   annotations:
-    meta.helm.sh/release-name: gitdata-rust
+    meta.helm.sh/release-name: gitdata-ui
     nginx.ingress.kubernetes.io/proxy-connect-timeout: "30"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "1800"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "1800"
     nginx.ingress.kubernetes.io/rewrite-target: /
   labels:
-    apptype: gitdata-rust
+    apptype: gitdata-ui
     app.kubernetes.io/managed-by: Helm
     heritage: Helm
-    release: gitdata-rust
+    release: gitdata-ui
 spec:
   ingressClassName: {{.Values.ingress_name}}
   rules:
-    - host: devcloud.gitdata.ai
+    - host: jzhub.io
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: gitdata-rust-service
+                name: gitdata-ui-service
                 port:
                   number: 80
 
@@ -33,28 +33,28 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: gitdata-rust-api
+  name: gitdata-ui-api
   namespace: gitdata
   annotations:
-    meta.helm.sh/release-name: gitdata-rust-api
+    meta.helm.sh/release-name: gitdata-ui-api
     nginx.ingress.kubernetes.io/proxy-connect-timeout: "30"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "1800"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "1800"
   labels:
-    apptype: gitdata-rust-api
+    apptype: gitdata-ui-api
     app.kubernetes.io/managed-by: Helm
     heritage: Helm
-    release: gitdata-rust-api
+    release: gitdata-ui-api
 spec:
   ingressClassName: {{.Values.ingress_name}}
   rules:
-    - host: devcloud.gitdata.ai
+    - host: jzhub.io
       http:
         paths:
           - path: /api
             pathType: Prefix
             backend:
               service:
-                name: jzfs-rust-service
+                name: jzfs-api-service
                 port:
                   number: 80

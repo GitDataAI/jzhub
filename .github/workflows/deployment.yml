@@ -43,8 +43,8 @@ jobs:
       - name: Build and push
         run: |
           ls dist
-          docker build -t gitdatateam/gitdatarust:${{ steps.version.outputs.version }} . 
-          docker push gitdatateam/gitdatarust:${{ steps.version.outputs.version }}
+          docker build -t gitdatateam/gitdata-ui:${{ steps.version.outputs.version }} . 
+          docker push gitdatateam/gitdata-ui:${{ steps.version.outputs.version }}
           
       - name: Deploy
         uses: WyriHaximus/github-action-helm3@v3

@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import VerificationInput from "react-verification-input";
 import Countdown from "react-countdown";
 import {useNavigate} from "react-router-dom";
-import {UserApi} from "@/api/action/User.tsx";
+import {UsersApi} from "@/api/action/Users.tsx";
 import {EmailApi} from "@/api/action/Email.tsx";
 import {toast} from "@pheralb/toast";
 
@@ -18,10 +18,9 @@ export const Apply = () => {
         p1: "",
         p2: ""
     })
-    const [Code, setCode] = useState("");
 
     const email = new EmailApi();
-    const user = new UserApi();
+    const user = new UsersApi();
     const SendCaptcha = () => {
         email.CaptchaSend({
             email: Value.email
@@ -48,9 +47,9 @@ export const Apply = () => {
                 console.log(e);
             })
     }
-    const CheckCaptcha = () => {
+    const CheckCaptcha = (x: string) => {
         email.CaptchaCheck({
-            code: Code,
+            code: x,
             email: Value.email
         })
             .then(res=>{
@@ -66,7 +65,6 @@ export const Apply = () => {
                         description: "验证码验证失败"
                     })
                     setStep(1);
-                    setCode("")
                 }
             })
     }
@@ -133,9 +131,8 @@ export const Apply = () => {
                     Step === 1 &&(
                         <>
                             <VerificationInput onChange={(x)=>{
-                                setCode(x);
                                 if(x.length === 6){
-                                    CheckCaptcha();
+                                    CheckCaptcha(x);
                                 }
                             }} placeholder="_" />
                             <Countdown
