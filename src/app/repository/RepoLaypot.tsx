@@ -84,6 +84,13 @@ const RepoLayout = () => {
             setTab('files')
         }
     },[])
+    const FluseTree = (branch:string, commit?:string) => {
+        repo_graphql.getTree(owner!, repo!, branch).then(res=>{
+            setTree(res.tree!.tree);
+            console.log(commit);
+            setSelectBranch(res.branchs!.find(item=>item.branch === branch))
+        })
+    }
     const HeaderItem = [
         {
             label: "Files",
@@ -202,6 +209,7 @@ const RepoLayout = () => {
                                                                       clickFile={ClickFind}
                                                                       showFile={true}
                                                                       showNow={ShowFile}
+                                                                      FlushTree={FluseTree}
                                                             />
                                                             {Readme.length > 0 ?
                                                                 <div className="repo-readme">
@@ -247,6 +255,7 @@ const RepoLayout = () => {
                                                                       selectBranch={SelectBranch!}
                                                                       tree={Tree!}
                                                                       clickFile={ClickFind}
+                                                                      FlushTree={FluseTree}
                                                                       showFile={false}
                                                                       showNow={ShowFile}/>
                                                         </>

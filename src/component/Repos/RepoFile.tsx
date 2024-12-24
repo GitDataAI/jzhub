@@ -31,7 +31,8 @@ export interface RepoFileProps{
         path: string,
         branch: string,
         data: Uint8Array
-    } | null
+    } | null,
+    FlushTree(branch:string, commit?:string):void,
 }
 
 const RepoFile = (props: RepoFileProps) => {
@@ -172,7 +173,10 @@ const RepoFile = (props: RepoFileProps) => {
                     <SelectPanel
                        items={items}
                        onOpenChange={setOpen}
-                       onSelectedChange={setSelected}
+                       onSelectedChange={(x:ItemInput)=>{
+                           props.FlushTree(x.text)
+                           setSelected(x)
+                       }}
                        selected={selected}
                        onFilterChange={()=>{}}
                        open={open}
