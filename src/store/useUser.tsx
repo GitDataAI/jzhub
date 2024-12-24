@@ -121,6 +121,6 @@ export const useUser = create<useUserImpl>()((devtools(persist(
     }),
     {
         name: "GitDataAiUsers",
-        storage: createJSONStorage(() => sessionStorage),
+        storage: createJSONStorage(() => localStorage),
     }
 ))))
