@@ -10,15 +10,17 @@ export const LayoutHeader = () => {
     const user = useUser();
     const [Avatar, setAvatar] = useState('');
     const [ShowCreate, setShowCreate] = useState(false);
+    const [TranX, setTranX] = useState<string>("0")
+    const nav = useNavigate();
     useInfo.subscribe((data)=>{
         if (data.ModelShowId != 1){
+            setTranX('0')
             setShowCreate(false);
         }
     })
     useEffect(()=>{
         setAvatar(user.user?.profile?.avatar || "")
     },[])
-    const nav = useNavigate();
     const CreateItem = [
         {
             icon: <GoRepo/>,
@@ -58,10 +60,19 @@ export const LayoutHeader = () => {
                 </button>
             </div>
             <div className="layout-header-right">
-                <div className="layout-header-right-search">
+                <div className="layout-header-right-search" style={{
+                    transform: `translateX(${TranX})`,
+                    transition: 'all 0.5s ease-in-out'
+                }}>
                     <p>Ctrl+F</p>
                 </div>
-                <div className="layout-header-right-create">
+                <div className="layout-header-right-create" style={{
+                    transform: `translateX(${TranX})`,
+                    transition: 'all 0.5s ease-in-out'
+
+                }}>
+                    <div className="layout-header-right-create-">
+                    </div>
                     <button onClick={(e) => {
                         info.setModelShowId(1);
                         setShowCreate(true);
@@ -83,7 +94,10 @@ export const LayoutHeader = () => {
                         }
                     </button>
                 </div>
-                <div className="layout-header-right-notifications">
+                <div className="layout-header-right-notifications" style={{
+                    transform: `translateX(${TranX})`,
+                    transition: 'all 0.5s ease-in-out'
+                }}>
                     <IoIosNotificationsOutline/>
                 </div>
                 <div className="layout-header-right-avatar">

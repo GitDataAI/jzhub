@@ -4,10 +4,17 @@ import {useEffect, useState} from "react";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 import type { ItemInput } from "@primer/react/lib/SelectPanel/types";
+import { Icon } from '@fluentui/react/lib/Icon';
 import {FaFileAlt} from "react-icons/fa";
 import {GraphQLRepoBranchOv, GraphQLRepoModel} from "@/api/graphql/repo/Struct.tsx";
-import Markdown from "react-markdown";
 import Editor from '@monaco-editor/react';
+import {getFileTypeIconProps, initializeFileTypeIcons} from "@fluentui/react-file-type-icons";
+import rehypeHighlight from "rehype-highlight";
+import CodeBlock from "@/utils/CodeBlock.tsx";
+import remarkHtml from "remark-html";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
+import ReactMarkdown from "react-markdown";
 export interface RepoFileProps{
     model: GraphQLRepoModel,
     branches: GraphQLRepoBranchOv[],
@@ -18,7 +25,7 @@ export interface RepoFileProps{
     },
     tree: RepoTree,
     isEmpty: boolean,
-    clickFile(path: string, filename: string): void,
+    clickFile(path?: string, filename?: string): void,
     showFile: boolean,
     showNow: {
         path: string,
@@ -46,14 +53,41 @@ const RepoFile = (props: RepoFileProps) => {
     },[])
     const [open, setOpen] = useState(false)
     const [FIleElement, setFIleElement] = useState<JSX.Element | null>(null)
+    const [EditStatus,setEditStatus] = useState(false);
+    const [CanEdit, setCanEdit] = useState(false);
     useEffect(()=>{
         const FIleType = (filename: string) => {
+            setEditStatus(false);
+            setCanEdit(false);
             const type = filename.split(".").pop()
             const uint8Array = new Uint8Array([...props.showNow!.data]);
             const decoder = new TextDecoder('utf-8');
             const str = decoder.decode(uint8Array);
             if (type === "md" || type === "markdown" || type === "mdx") {
-                return <Markdown className={"repo-readme-content"}>{str}</Markdown>
+                return <ReactMarkdown
+                    components={{
+                        code({
+                                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                                 node,
+                                 className, children, ...props }) {
+                            const match = /language-(\w+)/.exec(className || '');
+                            return match ? (
+                                <CodeBlock
+                                    language={match[1]}
+                                    value={String(children).replace(/\n$/, '')}
+                                />
+                            ) : (
+                                <code className={className} {...props}>
+                                    {children}
+                                </code>
+                            );
+                        },
+                    }}
+                    unwrapDisallowed={true}
+                    skipHtml={false}
+                    remarkPlugins={[remarkHtml,remarkGfm]}
+                    className="prose prose-zinc max-w-none dark:prose-invert"
+                    rehypePlugins={[rehypeHighlight,rehypeRaw]}>{str}</ReactMarkdown>
             }
             if (type === "png" || type === "jpg" || type === "jpeg" || type === "gif" || type === "bmp" || type === "svg") {
                 return <img src={URL.createObjectURL(new Blob([props.showNow!.data]))} alt={filename}/>
@@ -96,12 +130,13 @@ const RepoFile = (props: RepoFileProps) => {
                 type === "gitconfig"
             )
             {
+                setCanEdit(true);
                 return (
                     <>
                         <Editor onChange={() => {
                             return false;
                         }} height="50vh" defaultLanguage={type} value={str} options={{
-                            readOnly: true,
+                            readOnly: !EditStatus,
                             selectOnLineNumbers: true,
                             automaticLayout: true,
                             minimap: {
@@ -129,6 +164,7 @@ const RepoFile = (props: RepoFileProps) => {
             setFIleElement(FIleType(props.showNow!.path));
         }
     }, [props.showNow])
+    initializeFileTypeIcons();
     return (
         <div className="repo-file">
             <div className="repository-header">
@@ -176,6 +212,20 @@ const RepoFile = (props: RepoFileProps) => {
                                         props.showNow?.data.length + "b"
                                 }
                                 </a>
+                                <span onClick={()=>{
+                                    props.clickFile(undefined, undefined);
+                                }}>
+                                    close
+                                </span>
+                                {
+                                    CanEdit ? (
+                                        <span onClick={() => {
+                                            setEditStatus(!EditStatus)
+                                        }}>
+                                           Edit
+                                        </span>
+                                    ): null
+                                }
                             </div>
                             <div className="repo-file-content-body">
                                 {FIleElement}
@@ -211,14 +261,19 @@ const FilePageBuild = (tree: RepoTree[], click: Function) => {
                 </TreeView.Item>
             )
         }else {
+            const ext = value.name.split(".").pop();
             return (
-
                 <TreeView.Item onSelect={()=>{
                     click(value.path, value.name)
-
                 }} key={index} id={value.path}>
                     <TreeView.LeadingVisual>
-                        <FaFileAlt />
+                        {
+                            ext ? (
+                                <Icon {...getFileTypeIconProps({ extension: ext, size: 16 })} />
+                            ) : (
+                                <FaFileAlt/>
+                            )
+                        }
                     </TreeView.LeadingVisual>
                     {value.name}
                 </TreeView.Item>

@@ -71,6 +71,6 @@ export const useInfo = create<useInfoImpl>()((devtools(persist(
     }),
     {
         name: "GitDataAiInfo",
-        storage: createJSONStorage(() => sessionStorage),
+        storage: createJSONStorage(() => localStorage),
     }
 ))))

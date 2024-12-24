@@ -16,6 +16,13 @@ import {useFiles} from "@/store/useFiles.tsx";
 import ReactMarkdown from "react-markdown";
 import RepoEmpty from "@/component/Repos/RepoEmpty.tsx";
 import RepoSetting from "@/component/Repos/RepoSetting.tsx";
+import rehypeHighlight from "rehype-highlight";
+import remarkGfm from 'remark-gfm';
+import remarkHtml from 'remark-html';
+import rehypeRaw from 'rehype-raw';
+import CodeBlock from "@/utils/CodeBlock.tsx";
+
+
 
 const RepoLayout = () => {
     const { owner, repo } = useParams();
@@ -57,6 +64,7 @@ const RepoLayout = () => {
                             const decoder = new TextDecoder('utf-8');
                             const markdownString = decoder.decode(uint8Array);
                             setReadme(markdownString)
+                            console.log(markdownString)
                         })
                     }
                     setLoad(true)
@@ -100,15 +108,24 @@ const RepoLayout = () => {
             icon: <CiSettings />
         },
     ]
-    const ClickFind = (path: string, filename: string) => {
+    const ClickFind = (path?: string, filename?: string) => {
         console.log(path, filename)
-        file.getFiles(owner!, repo!, SelectBranch!.branch!, path).then(res=>{
-            setShowFile({
-                path: path,
-                branch: SelectBranch?.branch || "",
-                data: res
-            });
-        })
+        if (filename){
+            if (path){
+                file.getFiles(owner!, repo!, SelectBranch!.branch!, path).then(res=>{
+                    setShowFile({
+                        path: path,
+                        branch: SelectBranch?.branch || "",
+                        data: res
+                    });
+                })
+            }else {
+                setShowFile(null)
+            }
+        }else {
+            setShowFile(null)
+        }
+
     }
     return(
         <div onClick={(e)=>{
@@ -192,7 +209,30 @@ const RepoLayout = () => {
                                                                         <a>README</a>
                                                                     </div>
                                                                     <div className="repo-readme-content">
-                                                                        <ReactMarkdown>{Readme}</ReactMarkdown>
+                                                                        <ReactMarkdown
+                                                                            components={{
+                                                                                code({
+                                                                                         // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                                                                                         node,
+                                                                                         className, children, ...props }) {
+                                                                                    const match = /language-(\w+)/.exec(className || '');
+                                                                                    return match ? (
+                                                                                        <CodeBlock
+                                                                                            language={match[1]}
+                                                                                            value={String(children).replace(/\n$/, '')}
+                                                                                        />
+                                                                                    ) : (
+                                                                                        <code className={className} {...props}>
+                                                                                            {children}
+                                                                                        </code>
+                                                                                    );
+                                                                                },
+                                                                            }}
+                                                                            unwrapDisallowed={true}
+                                                                            skipHtml={false}
+                                                                            remarkPlugins={[remarkHtml,remarkGfm]}
+                                                                            className="prose prose-zinc max-w-none dark:prose-invert"
+                                                                            rehypePlugins={[rehypeHighlight,rehypeRaw]}>{Readme}</ReactMarkdown>
                                                                     </div>
                                                                 </div>
                                                                 :null

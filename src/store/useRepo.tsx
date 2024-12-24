@@ -124,6 +124,6 @@ export const useRepo = create<useRepoImpl>()((devtools(persist(
     }),
     {
         name: "GitDataAiRepo",
-        storage: createJSONStorage(() => sessionStorage),
+        storage: createJSONStorage(() => localStorage),
     }
 ))))

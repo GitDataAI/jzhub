@@ -25,6 +25,6 @@ export const useFiles = create<useFilesImpl>()((devtools(persist(
     }),
     {
         name: "GitDataAiFiles",
-        storage: createJSONStorage(() => sessionStorage),
+        storage: createJSONStorage(() => localStorage),
     }
 ))))
