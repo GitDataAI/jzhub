@@ -45,6 +45,7 @@ const RepoLayout = () => {
     }>(null);
     const files = useFiles();
     const nav = useNavigate();
+    const [NotFound, setNotFound] = useState(false);
     useEffect(()=>{
         info.setHref({
             label: `${owner}/${repo}`,
@@ -77,6 +78,9 @@ const RepoLayout = () => {
                 setIsEmpty(true)
                 setLoad(true)
             }
+        }).catch(res=>{
+            console.log(res)
+            setNotFound(true);
         });
 
         if (!tab){
@@ -84,6 +88,15 @@ const RepoLayout = () => {
             setTab('files')
         }
     },[])
+    // TODO 404
+    if (NotFound){
+        return (
+            <>
+                <LayoutHeader/>
+                404
+            </>
+        )
+    }
     const FluseTree = (branch:string, commit?:string) => {
         repo_graphql.getTree(owner!, repo!, branch).then(res=>{
             setTree(res.tree!.tree);
