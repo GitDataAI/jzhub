@@ -50,6 +50,7 @@ export const useUser = create<useUserImpl>()((devtools(persist(
                                 text: "用户数据错误",
                                 description: "用户数据请求失败"
                             })
+                            return false
                         }
                     })
                     return true

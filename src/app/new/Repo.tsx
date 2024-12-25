@@ -4,6 +4,7 @@ import {RepoCreate} from "@/api/dto/RepoDto.tsx";
 import {toast} from "@pheralb/toast";
 import {useUser} from "@/store/useUser.tsx";
 import {UserAPi} from "@/api/action/User.tsx";
+import {useNavigate} from "react-router-dom";
 
 const RepoNew = () => {
     const user = useUser();
@@ -21,6 +22,7 @@ const RepoNew = () => {
     });
     const selectOwnRef = useRef(null);
     const selectLicenseRef = useRef(null);
+    const nav = useNavigate();
     const Commit = () => {
         // @ts-nocheck
         let option = createOption;
@@ -50,6 +52,8 @@ const RepoNew = () => {
                         text: "Create success",
                         description: "You can see your repository in your profile"
                     })
+                    user.initial().then().catch();
+                    nav(`/${user.model!.username}/${createOption.name}`)
                 }else{
                     toast.error({
                         text: "Create failed",
