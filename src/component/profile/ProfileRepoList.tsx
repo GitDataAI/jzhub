@@ -2,12 +2,15 @@ import RepositoryCard from "@/component/profile/ProfileRepoIdCard.tsx";
 import {useState} from "react";
 import {useUser} from "@/store/useUser.tsx";
 import {useNavigate} from "react-router-dom";
-import {GraphQLUserRepo} from "@/api/graphql/user/Struct.tsx";
+import {GraphQLUserModel, GraphQLUserRepo} from "@/api/graphql/user/Struct.tsx";
 
-const ProfileRepoList = () => {
-    const user = useUser();
+
+export interface ProfileRepoListProps{
+    user: GraphQLUserModel
+}
+const ProfileRepoList = (props: ProfileRepoListProps) => {
     const nav = useNavigate();
-    const [RepoList, setRepoList] = useState<GraphQLUserRepo[]>(user.user!.repo!);
+    const [RepoList, setRepoList] = useState<GraphQLUserRepo[]>(props.user!.repo!);
     useUser.subscribe((data)=>{
         setRepoList(data.user!.repo!)
     })

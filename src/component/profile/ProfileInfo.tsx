@@ -13,8 +13,12 @@ const ProfileInfo = (props: ProfileInfoProps) => {
     const user = useUser();
     const user_api = new UserAPi();
     const UploadAvatar = () => {
-        const file_btn = document.getElementById('hiddenFileInput');
-        file_btn?.click();
+        if (user.model){
+            if (props.ov?.profile?.uid === user.model.uid){
+                const file_btn = document.getElementById('hiddenFileInput');
+                file_btn?.click();
+            }
+        }
     }
     document.getElementById('hiddenFileInput')?.addEventListener('change', function(e) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
