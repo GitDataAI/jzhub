@@ -7,6 +7,7 @@ import { GoOrganization, GoProject, GoRepo, GoRepoPush } from "react-icons/go";
 
 export const LayoutHeader = () => {
   const info = useInfo();
+  console.log(info, "info");
   const user = useUser();
   const [Avatar, setAvatar] = useState("");
   const [ShowCreate, setShowCreate] = useState(false);
@@ -76,7 +77,6 @@ export const LayoutHeader = () => {
               e.stopPropagation();
             }}
           >
-            {" "}
             +
             {ShowCreate ? (
               <div className="layout-header-right-create-card">
