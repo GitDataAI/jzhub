@@ -1,7 +1,7 @@
 import {Http} from "@/api/http.tsx";
 import {AxiosResponse} from "axios";
 import {R} from "@/api/R.tsx";
-import {RepoBranchModel, RepoCommitModel, RepoModel, RepoTree} from "@/api/dto/RepoDto.tsx";
+import {RepoBranchModel, RepoCommitModel, RepoFileUpload, RepoModel, RepoTree} from "@/api/dto/RepoDto.tsx";
 
 export class RepoAPi extends Http{
     async Info(owner: string, repo: string): Promise<AxiosResponse<R<RepoModel>, never>> {
@@ -24,5 +24,8 @@ export class RepoAPi extends Http{
     }
     async Tree(owner: string, repo: string, branch: string): Promise<AxiosResponse<R<RepoTree>, never>> {
         return await this.get(`/repos/${owner}/${repo}/tree/${branch}`)
+    }
+    async FileUpload(owner:string, repo:string, branch:string,dto: RepoFileUpload): Promise<AxiosResponse<R<string>, never>> {
+        return await this.post(`/repos/${owner}/${repo}/branches/${branch}/upfile`,dto)
     }
 }

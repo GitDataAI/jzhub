@@ -1,13 +1,13 @@
 import {RepoTree} from "@/api/dto/RepoDto.tsx";
 import {Button, FormControl, SelectPanel, TreeView} from "@primer/react";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 import type { ItemInput } from "@primer/react/lib/SelectPanel/types";
 import { Icon } from '@fluentui/react/lib/Icon';
 import {FaFileAlt} from "react-icons/fa";
 import {GraphQLRepoBranchOv, GraphQLRepoModel} from "@/api/graphql/repo/Struct.tsx";
-import Editor from '@monaco-editor/react';
+import Editor, {OnMount} from '@monaco-editor/react';
 import {getFileTypeIconProps, initializeFileTypeIcons} from "@fluentui/react-file-type-icons";
 import rehypeHighlight from "rehype-highlight";
 import CodeBlock from "@/utils/CodeBlock.tsx";
@@ -15,6 +15,8 @@ import remarkHtml from "remark-html";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import ReactMarkdown from "react-markdown";
+import {editor, IScrollEvent} from "monaco-editor";
+import IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
 export interface RepoFileProps{
     model: GraphQLRepoModel,
     branches: GraphQLRepoBranchOv[],
@@ -33,6 +35,7 @@ export interface RepoFileProps{
         data: Uint8Array
     } | null,
     FlushTree(branch:string, commit?:string):void,
+    UpNextBlock():void,
 }
 
 const RepoFile = (props: RepoFileProps) => {
@@ -56,6 +59,20 @@ const RepoFile = (props: RepoFileProps) => {
     const [FIleElement, setFIleElement] = useState<JSX.Element | null>(null)
     const [EditStatus,setEditStatus] = useState(false);
     const [CanEdit, setCanEdit] = useState(false);
+    let editorRef = useRef<IStandaloneCodeEditor>(null);
+    const handleScroll = async (e: IScrollEvent) => {
+        const { scrollTop, scrollHeight } = e;
+        if (scrollTop + window.innerHeight / 2 >= scrollHeight - 10) {
+            console.log("Reached bottom, loading more data...");
+            props.UpNextBlock();
+        }
+    };
+    const handleEditorMount: OnMount = (editor) => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        editorRef.current = editor;
+        editor.onDidScrollChange((e) => handleScroll(e));
+    };
     useEffect(()=>{
         const FIleType = (filename: string) => {
             setEditStatus(false);
@@ -136,21 +153,26 @@ const RepoFile = (props: RepoFileProps) => {
                     <>
                         <Editor onChange={() => {
                             return false;
-                        }} height="50vh" defaultLanguage={type} value={str} options={{
-                            readOnly: !EditStatus,
-                            selectOnLineNumbers: true,
-                            automaticLayout: true,
-                            minimap: {
-                                enabled: false
-                            },
-                            lineNumbers: "on",
-                            renderLineHighlight: "none",
-                            scrollBeyondLastLine: false,
-                            scrollbar: {
-                                vertical: "auto",
-                                horizontal: "hidden"
+                        }} height="50vh"
+                                onMount={handleEditorMount}
+                                defaultLanguage={type}
+                                value={str}
+                                options={{
+                                    readOnly: !EditStatus,
+                                    selectOnLineNumbers: true,
+                                    automaticLayout: true,
+                                    minimap: {
+                                        enabled: false
+                                    },
+                                    lineNumbers: "on",
+                                    renderLineHighlight: "none",
+                                    scrollBeyondLastLine: false,
+                                    scrollbar: {
+                                        vertical: "auto",
+                                        horizontal: "hidden"
+                                    }
                             }
-                        }}/>
+                        }/>
                     </>
                 )
             }

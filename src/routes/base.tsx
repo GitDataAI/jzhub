@@ -3,7 +3,7 @@ import {Layout} from "../app/Layout.tsx";
 import ProfileLayout from "@/app/Profile.tsx";
 import RepoNew from "@/app/new/Repo.tsx";
 import NewGroup from "@/app/new/Group.tsx";
-import ExploreLayout from "@/app/ExploreLayout.tsx";
+import ExploreLayout from "@/app/explore/ExploreLayout.tsx";
 import WorkSpaceLayout from "@/app/WorkSpaceLayout.tsx";
 import StarredLayout from "@/app/StarredLayout.tsx";
 import HistoryLayout from "@/app/HistoryLayout.tsx";

@@ -2,7 +2,7 @@ import {LayoutHeader} from "../component/layout/Header.tsx";
 import {LayoutSidebar} from "@/component/layout/Sidebar.tsx";
 import {useInfo} from "@/store/useInfo.tsx";
 import {useUser} from "@/store/useUser.tsx";
-import {useNavigate} from "react-router-dom";
+import {Outlet, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 
 export const Layout = () => {
@@ -32,6 +32,9 @@ export const Layout = () => {
                 <LayoutHeader/>
                 <div className="layout-content">
                     <LayoutSidebar/>
+                    <div className="layout-body">
+                        <Outlet/>
+                    </div>
                 </div>
             </div>
         )

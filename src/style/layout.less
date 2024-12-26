@@ -204,12 +204,19 @@
   width: 100%;
   height: calc(100vh - 64px);
   left: 0;
+  .layout-body{
+    position: absolute;
+    top: 64px;
+    left: 200px;
+    width: calc(100% - 200px);
+    height: calc(100% - 64px);
+  }
 }
 .layout-sidebar{
   position: absolute;
   top: 64px;
   left: 0;
-  width: 256px;
+  width: 200px;
   height: calc(100vh - 64px);
   background: #f4f6f8;
   border-right: 1px #c5c5c5 solid;
@@ -242,7 +249,7 @@
   .layout-sidebar-handsome{
     position: absolute;
     height: 40px;
-    width: 80%;
+    width: 100%;
     left: 10%;
     top: 20px;
     img{

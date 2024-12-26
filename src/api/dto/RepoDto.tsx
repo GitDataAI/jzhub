@@ -81,3 +81,10 @@ export interface RepoTree{
     path: string,
     children: RepoTree[]
 }
+
+export interface RepoFileUpload{
+    file_name: string,
+    path: string,
+    msg: string,
+    content: Uint8Array
+}

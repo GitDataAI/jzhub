@@ -23,7 +23,6 @@ import rehypeRaw from 'rehype-raw';
 import CodeBlock from "@/utils/CodeBlock.tsx";
 
 
-
 const RepoLayout = () => {
     const { owner, repo } = useParams();
     const [searchParams, setSearchParams] = useSearchParams()
@@ -41,11 +40,38 @@ const RepoLayout = () => {
     const [ShowFile, setShowFile] = useState<null | {
         path: string,
         branch: string,
-        data: Uint8Array
+        block: number,
+        total: number,
+        data: Uint8Array,
+        blocks: number[]
     }>(null);
     const files = useFiles();
     const nav = useNavigate();
     const [NotFound, setNotFound] = useState(false);
+    const [BlockLoading, setBlockLoading] = useState(false);
+    const NextBlock = () => {
+        setBlockLoading(true);
+        const block = Number(localStorage.getItem("block")!);
+        if (BlockLoading){
+            console.log("BlockLoading")
+            return;
+        }
+        file.getFiles(owner!, repo!, SelectBranch!.branch!, ShowFile!.path, undefined,  block).then(res=>{
+            const blocks = ShowFile?.blocks;
+            if (!(res.current in blocks!)){
+                blocks?.push(res.current);
+                setShowFile((pre)=>({
+                    path: pre!.path,
+                    branch: pre!.branch,
+                    block: res.current,
+                    total: res.total,
+                    data: new Uint8Array([...pre!.data, ...res.data]),
+                    blocks: blocks!
+                }));
+                localStorage.setItem("block", String(res.current + 1))
+            }
+        })
+    }
     useEffect(()=>{
         info.setHref({
             label: `${owner}/${repo}`,
@@ -60,8 +86,8 @@ const RepoLayout = () => {
                     setSelectBranch(res.branchs![0])
                     let child = res.tree!.tree.children.find(item=>item.name.toUpperCase() === 'README.MD')
                     if (child){
-                        files.getFiles(owner!, repo!, selectbranch, child.path).then(res=>{
-                            const uint8Array = new Uint8Array([...res]);
+                        files.getFiles(owner!, repo!, selectbranch, child.path, undefined, -1).then(res=>{
+                            const uint8Array = new Uint8Array([...res.data]);
                             const decoder = new TextDecoder('utf-8');
                             const markdownString = decoder.decode(uint8Array);
                             setReadme(markdownString)
@@ -98,6 +124,7 @@ const RepoLayout = () => {
         )
     }
     const FluseTree = (branch:string, commit?:string) => {
+        localStorage.setItem("block", '1')
         repo_graphql.getTree(owner!, repo!, branch).then(res=>{
             setTree(res.tree!.tree);
             console.log(commit);
@@ -129,14 +156,18 @@ const RepoLayout = () => {
         },
     ]
     const ClickFind = (path?: string, filename?: string) => {
+        localStorage.setItem("block", '1')
         console.log(path, filename)
         if (filename){
             if (path){
-                file.getFiles(owner!, repo!, SelectBranch!.branch!, path).then(res=>{
+                file.getFiles(owner!, repo!, SelectBranch!.branch!, path, undefined, 0).then(res=>{
                     setShowFile({
                         path: path,
                         branch: SelectBranch?.branch || "",
-                        data: res
+                        data: res.data,
+                        block: res.current,
+                        total: res.total,
+                        blocks: [res.current]
                     });
                 })
             }else {
@@ -145,7 +176,6 @@ const RepoLayout = () => {
         }else {
             setShowFile(null)
         }
-
     }
     return(
         <div onClick={(e)=>{
@@ -223,6 +253,7 @@ const RepoLayout = () => {
                                                                       showFile={true}
                                                                       showNow={ShowFile}
                                                                       FlushTree={FluseTree}
+                                                                      UpNextBlock={NextBlock}
                                                             />
                                                             {Readme.length > 0 ?
                                                                 <div className="repo-readme">
@@ -270,6 +301,7 @@ const RepoLayout = () => {
                                                                       clickFile={ClickFind}
                                                                       FlushTree={FluseTree}
                                                                       showFile={false}
+                                                                      UpNextBlock={NextBlock}
                                                                       showNow={ShowFile}/>
                                                         </>
                                                     )
