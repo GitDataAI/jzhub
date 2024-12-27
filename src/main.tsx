@@ -14,6 +14,6 @@ createRoot(document.getElementById('root')!).render(
                           </Modal>
                         </BaseStyles>
                   </ThemeProvider>
-      <Toaster position="top-right"/>\
+      <Toaster position="top-right"/>
   </React.Fragment>
 )
