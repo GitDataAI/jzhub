@@ -61,11 +61,19 @@ const ProfileInfo = (props: ProfileInfoProps) => {
                         user.model?.username != props.ov?.profile?.username ? (
                             <button className="follow-button" onClick={() => {
                                 if (props.ov?.profile?.username) {
+                                    if (user.user!.data!.following.includes(props.ov?.profile?.uid)) {
+                                        return;
+                                    }
                                     user_api.LocalAddFollow(props.ov?.profile.username).then(res => {
+                                        user.initial().then(res => {
+                                            console.log(res)
+                                        })
                                         console.log(res)
                                     })
                                 }
-                            }}>Follow</button>
+                            }}>{
+                                props.ov?.data?.following.includes(user.model!.uid) ? <a>Following</a> : <a>Follow</a>
+                            }</button>
                         ):<button>Edit profile</button>
                     }
                     <div className="stats">
