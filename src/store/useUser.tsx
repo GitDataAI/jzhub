@@ -12,7 +12,6 @@ export interface useUserImpl{
     isLogin: boolean,
     initial: () => Promise<boolean>,
     LoginInByEmail: (dto: { email: string; passwd: string }) => Promise<boolean>,
-    LoginInByName: (dto: { username: string; passwd: string }) => Promise<boolean>,
     Logout: () => Promise<boolean>,
 }
 
@@ -69,24 +68,6 @@ export const useUser = create<useUserImpl>()((devtools(persist(
         LoginInByEmail: async (dto) => {
             try {
                 const model = await api.LoginByEmail(dto);
-                if (model.status === 200 && model.data.code === 200){
-                    get().initial();
-                    return true
-                }else {
-                    return false
-                }
-            }catch (e){
-                toast.error({
-                    text: "登录失败",
-                    description: "登录请求失败"
-                })
-                console.log(e);
-                return false
-            }
-        },
-        LoginInByName: async (dto) => {
-            try {
-                const model = await api.LoginByName(dto);
                 if (model.status === 200 && model.data.code === 200){
                     get().initial();
                     return true
