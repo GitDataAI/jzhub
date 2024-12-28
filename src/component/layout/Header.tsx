@@ -101,7 +101,7 @@ export const LayoutHeader = () => {
             alt="GitDataAi"
             onClick={(e) => {
               info.setModelShowId(3);
-              nav(`/${user.model?.username}`);
+              window.location.href = `/${user.model?.username}`;
               e.stopPropagation();
             }}
           />
