@@ -36,6 +36,7 @@ const useUser = create<useUserImpl>()(devtools(persist(
                 toast.error({
                     text: "获取用户信息失败",
                 })
+                window.location.href = "/auth/login";
             }
         },
         logout: async () => {
