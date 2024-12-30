@@ -1,0 +1,60 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gitdata-ui
+  namespace: gitdata
+  annotations:
+    meta.helm.sh/release-name: gitdata-ui
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "30"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "1800"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "1800"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  labels:
+    apptype: gitdata-ui
+    app.kubernetes.io/managed-by: Helm
+    heritage: Helm
+    release: gitdata-ui
+spec:
+  ingressClassName: {{.Values.ingress_name}}
+  rules:
+    - host: jzhub.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: gitdata-ui-service
+                port:
+                  number: 80
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gitdata-ui-api
+  namespace: gitdata
+  annotations:
+    meta.helm.sh/release-name: gitdata-ui-api
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "30"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "1800"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "1800"
+  labels:
+    apptype: gitdata-ui-api
+    app.kubernetes.io/managed-by: Helm
+    heritage: Helm
+    release: gitdata-ui-api
+spec:
+  ingressClassName: {{.Values.ingress_name}}
+  rules:
+    - host: jzhub.io
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: jzfs-api-service
+                port:
+                  number: 80

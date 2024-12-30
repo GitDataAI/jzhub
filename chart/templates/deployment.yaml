@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: gitdata
+  name: gitdata-ui
+  labels:
+    apptype: gitdata-ui
+spec:
+  replicas: {{ .Values.replicas}}
+  selector:
+    matchLabels:
+      app: gitdata-ui
+  template:
+    metadata:
+      labels:
+        app: gitdata-ui
+        apptype: gitdata-ui
+    spec:
+      containers:
+        - name: gitdata-ui
+          image: gitdatateam/gitdata-ui:{{ .Values.tag }}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
