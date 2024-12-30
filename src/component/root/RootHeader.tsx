@@ -4,7 +4,7 @@ import {ActionIcon, Drawer, Input, Menu, Modal, NavLink} from "@mantine/core";
 import {CiSearch, CiSettings, CiTextAlignRight} from "react-icons/ci";
 import UserAvatarButton from "./UserAvatarButton.tsx";
 import {IoAddOutline} from "react-icons/io5";
-import {GoGitPullRequest, GoIssueOpened, GoRepo, GoRepoPush} from "react-icons/go";
+import {GoGitPullRequest, GoIssueOpened, GoPackage, GoRepo, GoRepoPush} from "react-icons/go";
 import {LuMessageSquareText} from "react-icons/lu";
 import {HiUserGroup} from "react-icons/hi";
 import {useInfo} from "../../store/useInfo.tsx";
@@ -18,6 +18,16 @@ import {useNavigate} from "react-router";
 const RootHeader = () => {
     const user = useUser();
     const info = useInfo();
+    const [HeaderInfo, setHeaderInfo] = useState<{
+        label: string,
+        url: string
+    }>({
+        label: info.local.label,
+        url: info.local.url
+    });
+    useInfo.subscribe((state)=>{
+        setHeaderInfo(state.local)
+    })
     const nav = useNavigate();
     const [isLogin, setIsLogin] = useState(false);
     const [avatar, setAvatar] = useState("");
@@ -75,8 +85,10 @@ const RootHeader = () => {
                 }} size="lg" variant="default" >
                     <CiTextAlignRight />
                 </ActionIcon>
-                <a>
-                    {info.local.label}
+                <a onClick={()=>{
+                    nav(`${HeaderInfo.url}`)
+                }}>
+                    {HeaderInfo.label}
                 </a>
             </div>
             <div className="root-header-left-logo">
@@ -181,10 +193,14 @@ const RootHeader = () => {
                 }
                 <div className="root-header-model-right-menu">
                     <NavLink label="Profile" onClick={()=>{
-                        nav(`/${user.user!.username}`)
+                        nav(`/${user.user!.username}?tab=dashboard`)
                     }} leftSection={<CgProfile/>}/>
-                    <NavLink label="You Repository" leftSection={<GoRepo/>}/>
-                    <NavLink label="You Issues" childrenOffset={28} leftSection={<GoIssueOpened/>}/>
+                    <NavLink label="You Repository" onClick={()=>{
+                        nav(`/${user.user!.username}?tab=repository`)
+                    }}  leftSection={<GoRepo/>}/>
+                    <NavLink label="You Package"  onClick={()=>{
+                        nav(`/${user.user!.username}?tab=package`)
+                    }}  childrenOffset={28} leftSection={<GoPackage/>}/>
                     <NavLink label="You Pull Request" leftSection={<GoGitPullRequest/>}/>
                     <hr/>
                     <NavLink label="Setting" leftSection={<CiSettings />}/>

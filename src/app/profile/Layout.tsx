@@ -7,8 +7,10 @@ import {UsersApi} from "../../lib/api/UsersApi.tsx";
 import {Box, LoadingOverlay, Tabs} from "@mantine/core";
 import UserIdcard from "../../component/profile/UserIdcard.tsx";
 import RepositoryList from "./RepositoryList.tsx";
+import {useInfo} from "../../store/useInfo.tsx";
 const ProfileLayout = () => {
     const user = useUser();
+    const info = useInfo();
     const users_api = new UsersApi();
     const { username } = useParams();
     const [ UserModel, setUserModel ] = useState<SessionModel | null>(null);
@@ -24,7 +26,11 @@ const ProfileLayout = () => {
         }else {
             setTabValue(Tab.get("tab")!);
         }
+        if (username){
+            info.setLocal(username, `/${username}`)
+        }
         if (user.user){
+
             if (user.user.username === username){
                 setUserModel(user.user);
                 setLoading(true);
