@@ -27,13 +27,12 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
+      - uses: oven-sh/setup-bun@v2
         with:
-          version: 9
+          bun-version: latest
 
       - name: Install dependencies
-        run: pnpm install
+        run: bun install
 
       - name: Build project
-        run: pnpm run build
+        run: bun run build

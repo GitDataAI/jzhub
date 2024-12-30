@@ -1,0 +1,56 @@
+.auth
+  position: fixed
+  width: 100vw
+  height: 100vh
+  background: #5863f0
+  &-window
+    border-radius: 5px
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+    width: 30%
+    height: 50%
+    min-width: 600px
+    min-height: 400px
+    background: #ffffff
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.4)
+    &-header
+      margin-top: 20px
+      align-content: center
+      align-items: center
+      justify-content: center
+      display: flex
+      img
+        padding: 10px
+        top: 50%
+        width: 50%
+        left: 50%
+      &-title
+        font-size: 1.5rem
+        font-weight: 500
+        display: flex
+        justify-content: center
+    &-from
+      margin-top: 50px
+      padding: 20px
+      width: 60%
+      margin-left: 20%
+      &-button
+        margin-top: 20px
+        width: 100%
+      &-forget
+        font-size: 0.8rem
+        margin-right: 10px
+    &-footer
+      margin-top: 20px
+      align-content: center
+      width: 80%
+      margin-left: 10%
+      &-about
+        display: flex
+        margin-top: 20px
+        font-size: 0.8rem
+        a
+          text-decoration: none
+          margin-left: 10px

@@ -1,37 +1,25 @@
 import {Outlet} from "react-router-dom";
-// import {useUser} from "@/store/useUser.tsx";
-// import {useEffect, useState} from "react";
 
-export const AuthLayout = () => {
-    // const user = useUser();
-    // const nav = useNavigate();
-    // const [show, setShow] = useState(false);
-    // useEffect(()=>{
-    //     if (user.isLogin){
-    //         user.initial().then(res=>{
-    //             if (res){
-    //                 nav("/")
-    //             }else {
-    //                 setShow(true)
-    //             }
-    //         })
-    //     }
-    // },[nav, user])
-    return (
-        <>
-            {/*{show ?*/}
-            {/*    <div className="auth">*/}
-            {/*        <div className="authw">*/}
-            {/*            <Outlet/>*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*    : null*/}
-            {/*}*/}
-            <div className="auth">
-                <div className="authw">
-                    <Outlet/>
+const AuthLayout = () => {
+    return(
+        <div className="auth">
+            <div className="auth-window">
+                <div className="auth-window-header">
+                    <img src="/gitdata-ai.png" alt="logo"/>
+                </div>
+                <Outlet/>
+                <div className="auth-window-footer">
+                    <a>GitData.AI 是一个用于数据产品（例如AI模型）的开发、管理、交易的一站式协作平台，帮助您高效地开发和探索数据产品。</a>
+                    <br/>
+                    <div className="auth-window-footer-about">
+                        <a>© 2023 GitData.AI</a>
+                        <a>隐私政策</a>
+                        <a>服务条款</a>
+                    </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
+
+export default AuthLayout

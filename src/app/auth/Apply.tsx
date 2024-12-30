@@ -1,191 +1,202 @@
-import React, {useState} from "react";
-import VerificationInput from "react-verification-input";
-import Countdown from "react-countdown";
-import {useNavigate} from "react-router-dom";
-import {UsersApi} from "@/api/action/Users.tsx";
-import {EmailApi} from "@/api/action/Email.tsx";
+import {Button, Input} from "@mantine/core";
+import {useNavigate} from "react-router";
+import {useState} from "react";
+import {EmailApis} from "../../lib/api/EmailApis.tsx";
+import {UsersApi} from "../../lib/api/UsersApi.tsx";
 import {toast} from "@pheralb/toast";
 
-export const Apply = () => {
+const Apply = () => {
     const nav = useNavigate();
-    const [Step, setStep] = React.useState(0);
-    const [Value,setValue] = React.useState({
-        email:"",
-        password:"",
-        username:""
+    const [Step, setStep] = useState(1);
+    const [Loading, setLoading ] = useState(false);
+    const email = new EmailApis();
+    const users = new UsersApi();
+    const [Option, setOption] = useState<{
+        email: string,
+        name: string,
+        code: string,
+        password: string
+        password2: string
+    }>({
+        email: "",
+        name: "",
+        code: "",
+        password: "",
+        password2: ""
     })
-    const [Passwd,setPasswd] = useState({
-        p1: "",
-        p2: ""
-    })
-
-    const email = new EmailApi();
-    const user = new UsersApi();
-    const SendCaptcha = () => {
-        email.CaptchaSend({
-            email: Value.email
-        })
-            .then(res=>{
-                if (res.data.code === 200) {
-                    toast.success({
-                        text: "验证码发送成功",
-                        description: "验证码已发送到您的邮箱"
-                    })
-                    setStep(1);
-                }else {
-                    toast.error({
-                        text: "验证码发送失败",
-                        description: "验证码发送失败"
-                    })
-                }
-            })
-            .catch(e=>{
+    const Next = () => {
+        if (Step === 1){
+            setLoading(true)
+            if (Option.email === "" || Option.name === "") {
                 toast.error({
-                    text: "验证码发送失败",
-                    description: "验证码发送失败"
+                    text: "邮箱或用户名不能为空"
                 })
-                console.log(e);
+                setLoading(false)
+                return;
+            }
+            email.SendCaptcha(Option.email).then(() => {
+                setStep(2)
+                toast.success({
+                    text: "验证码已发送，请检查您的邮箱"
+                })
+                setLoading(false)
+                return;
             })
-    }
-    const CheckCaptcha = (x: string) => {
-        email.CaptchaCheck({
-            code: x,
-            email: Value.email
-        })
-            .then(res=>{
+        }else if (Step === 2){
+            if (Option.code === "") {
+                toast.error({
+                    text: "验证码不能为空"
+                })
+            }
+            setLoading(true)
+            email.VerifyCaptcha(Option.email, Option.code).then(res => {
                 if (res.data.code === 200) {
-                    toast.success({
-                        text: "验证码验证成功",
-                        description: "验证码验证成功"
-                    })
-                    setStep(2);
-                }else {
+                    setStep(3)
+                    setLoading(false)
+                    return;
+                }else{
                     toast.error({
-                        text: "验证码验证失败",
-                        description: "验证码验证失败"
+                        text: "验证码校验失败，请检查验证码是否正确"
                     })
-                    setStep(1);
+                    setLoading(false)
+                    return;
                 }
             })
-    }
-    const Submit = () => {
-        if (Passwd.p1 === Passwd.p2){
-            user.Apply({
-                email: Value.email,
-                password: Passwd.p1,
-                username: Value.username
-            })
-                .then(res=>{
+            setLoading(true)
+        }else if (Step === 3){
+            if (Option.password === "" || Option.password2 === "") {
+                toast.error({
+                    text: "密码不能为空"
+                })
+                setLoading(false)
+                return;
+            }else if (Option.password !== Option.password2) {
+                toast.error({
+                    text: "两次密码不一致"
+                })
+                setLoading(false)
+                return;
+            }else{
+                users.apply({
+                    email: Option.email,
+                    username: Option.name,
+                    password: Option.password
+                }).then((res) => {
                     if (res.data.code === 200) {
                         toast.success({
-                            text: "注册成功",
-                            description: "注册成功"
+                            text: "注册成功，请登录"
                         })
-                        nav("/auth/login");
-                    }else {
+                        nav("/auth/login")
+                    }else{
                         toast.error({
-                            text: "注册失败",
+                            text: "注册失败，请检查您的输入"
                         })
                     }
                 })
-        }else {
-            toast.error({
-                text: "两次密码不一致",
-            })
+            }
+            setLoading(true)
         }
     }
-
-    const Next = () => {
-        if (Step === 0) {
-            SendCaptcha();
-        }
-        return
-    }
-    return(
+    return (
         <>
-            <img src="/gitdata-ai.png" alt="" className="auth-image"/>
-            <h1 className="auth-title">
-                注册以继续
+            <h1 className="auth-window-header-title">
+                登录以继续
             </h1>
-            <form className="auth-form">
+            <div className="auth-window-from">
                 {
-                    Step === 0 &&(
+                    Step === 1? (
                         <>
-                            <input onChange={(e)=>{
-                                setValue({
-                                    ...Value,
-                                    email:e.target.value
-                                })
-                            }} type="email" placeholder="请输入邮箱"/>
-                            <input onChange={(x)=>{
-                                setValue({
-                                    ...Value,
-                                    username:x.target.value
-                                })
-                            }} type="tel" placeholder="请输入用户名"/>
-                            <button onClick={()=> Next()} type={"button"} className="auth-button">发送验证码</button>
+                            <Input.Wrapper label="邮箱" description="">
+                                <Input onChange={(x)=>{
+                                    setOption({
+                                        ...Option,
+                                        email: x.target.value
+                                    })
+                                }} placeholder="请输入您的邮箱"/>
+                            </Input.Wrapper>
+                            <Input.Wrapper label="用户名" description="">
+                                <Input onChange={(x)=>{
+                                    setOption({
+                                        ...Option,
+                                        name: x.target.value
+                                    })
+                                }} placeholder="请输入您的用户名"/>
+                            </Input.Wrapper>
                         </>
-                    )
+                    ):null
                 }
                 {
-                    Step === 1 &&(
+                    Step === 2? (
                         <>
-                            <VerificationInput onChange={(x)=>{
-                                if(x.length === 6){
-                                    CheckCaptcha(x);
-                                }
-                            }} placeholder="_" />
-                            <Countdown
-                                date={Date.now() + 60000}
-                                autoStart={true}
-                                renderer={({ completed, formatted }) => (
-                                    <div>
-                                        {completed ? (
-                                            <button onClick={()=> SendCaptcha()} type={"button"} className="auth-button">发送验证码</button>
-                                        ) : (
-                                            <button disabled={true} type={"button"} className="auth-button">{formatted.seconds}秒后重试</button>
-                                        )}
-                                    </div>
-                                )}
-                            ></Countdown>
+                            <Input.Wrapper label="验证码" description="">
+                                <Input onChange={(x)=>{
+                                    setOption({
+                                        ...Option,
+                                        code: x.target.value
+                                    })
+                                }} placeholder="请输入您的验证码"/>
+                            </Input.Wrapper>
                         </>
-                    )
+                    ):null
                 }
                 {
-                    Step === 2 &&(
+                    Step === 3? (
                         <>
-                            <input onChange={(x)=>{
-                                setPasswd({
-                                    ...Passwd,
-                                    p1:x.target.value
-                                })
-                            }} type="password" placeholder="请输入密码"/>
-                            <input onChange={(x)=>{
-                                setPasswd({
-                                    ...Passwd,
-                                    p2:x.target.value
-                                })
-                            }} type="password" placeholder="请确认密码"/>
-                            <button onClick={Submit} type={"button"} className="auth-button">注册</button>
+                            <Input.Wrapper label="密码" description="">
+                                <Input type="password" onChange={(x)=>{
+                                    setOption({
+                                        ...Option,
+                                        password: x.target.value
+                                    })
+                                }} placeholder="请输入您的密码"/>
+                            </Input.Wrapper>
+                            <Input.Wrapper  label="确认密码" description="">
+                                <Input type="password" onChange={(x)=>{
+                                    setOption({
+                                        ...Option,
+                                        password2: x.target.value
+                                    })
+                                }} placeholder="请再次输入您的密码"/>
+                            </Input.Wrapper>
                         </>
-                    )
+                    ):null
                 }
-            </form>
-            <div className="auth-link">
-                <a href={"#"} onClick={()=> nav("/auth/login")}>已有账号？立即登录</a>
-            </div>
-            <p className="auth-intro">
-                <img src="/gitdata-ai.png" alt="GitDataAi"/>
-                <br/>
-                GitData.AI 是一个用于数据产品（例如AI模型）的开发、管理、交易的一站式协作平台，帮助您高效地开发和探索数据产品。</p>
 
-            <div className="auth-footer">
-                <br/>
-                <a href={"#"}>© 2023 GitData.ai </a>
-                <a href={"#"}>隐私政策</a>
-                <a href={"#"}> | </a>
-                <a href={"#"}>用户协议</a>
+                <div className="auth-window-from-button" style={{
+                    marginTop: "20px"
+                }}>
+                    <Button
+                        variant="gradient"
+                        gradient={{from: 'teal', to: 'green', deg: 225}}
+                        fullWidth
+                        type="button"
+                        onClick={Next}
+                        justify="center">{
+                        Loading ? "加载中..." : (
+                            <>
+                                {
+                                    (Step === 1)||(Step === 2) ? "下一步" : "登录"
+                                }
+                            </>
+                        )
+                    }</Button>
+                </div>
+
+                <div className="auth-window-from-button">
+                    <Button
+                        variant="default"
+                        fullWidth
+                        type="button"
+                        justify="center"
+                        onClick={() => {
+                            nav("/auth/login")
+                        }}
+                    >返回登录</Button>
+                </div>
+
             </div>
         </>
     )
 }
+
+export default Apply

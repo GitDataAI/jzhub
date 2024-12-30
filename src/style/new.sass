@@ -1,0 +1,31 @@
+@media screen and (min-width: 789px)
+  .new
+    position: absolute
+    top: 50%
+    left: 50%
+    width: 789px
+    height: calc(100vh - 200px)
+    transform: translate(-50%, -50%)
+
+@media screen and (max-width: 789px)
+  .new
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+    width: 80vw
+    height: 80vh
+
+
+.new
+  &-btn
+    position: absolute
+    right: 0
+
+  &-content
+    &-owner
+      display: flex
+      align-items: center
+      .mantine-Select-root
+        margin-left: 10px
+        margin-right: 10px

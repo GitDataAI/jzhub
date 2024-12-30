@@ -1,19 +1,24 @@
-import React from 'react'
+import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
-import './style/app.less'
+import '@mantine/core/styles.css';
+import {BrowserRouter} from "react-router";
+import "./style/app.sass"
+import {createTheme, MantineProvider} from "@mantine/core";
 import { Toaster } from '@pheralb/toast';
-import {Modal} from "@/context/Modal.tsx";
-import {BaseStyles, ThemeProvider} from "@primer/react";
+
+const theme = createTheme({
+    /** Put your mantine theme override here */
+});
+
+
 createRoot(document.getElementById('root')!).render(
-  <React.Fragment>
-                  <ThemeProvider>
-                      <BaseStyles>
-                          <Modal>
-                              <App />
-                          </Modal>
-                        </BaseStyles>
-                  </ThemeProvider>
+  <StrictMode>
+      <MantineProvider theme={theme}>
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
+      </MantineProvider>
       <Toaster position="top-right"/>
-  </React.Fragment>
+  </StrictMode>,
 )

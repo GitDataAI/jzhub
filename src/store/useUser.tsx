@@ -1,108 +1,68 @@
 import {create} from "zustand";
+import {SessionModel} from "../lib/model/UserModel.tsx";
 import {persist, devtools, createJSONStorage} from "zustand/middleware";
-import {SessionModel} from "@/api/Session.tsx";
-import {UsersApi} from "@/api/action/Users.tsx";
-import { toast } from '@pheralb/toast';
-import {GraphQLUserModel} from "@/api/graphql/user/Struct.tsx";
-import {UserGraphql} from "@/api/graphql/user/Handler.tsx";
+import {UsersApi} from "../lib/api/UsersApi.tsx";
+import {toast} from "@pheralb/toast";
+import {UserApi} from "../lib/api/UserApi.tsx";
 
 export interface useUserImpl{
-    model: SessionModel | undefined,
-    user: GraphQLUserModel | undefined,
-    isLogin: boolean,
-    initial: () => Promise<boolean>,
-    LoginInByEmail: (dto: { email: string; passwd: string }) => Promise<boolean>,
-    Logout: () => Promise<boolean>,
+    user: SessionModel | null;
+    init: () => Promise<void>;
+    logout: () => Promise<void>;
 }
 
 
-const api = new UsersApi();
-const graphql = new UserGraphql();
-export const useUser = create<useUserImpl>()((devtools(persist(
-    (set,get) => ({
-        model: undefined,
-        isLogin: false,
-        user: undefined,
-        initial: async () => {
+const users = new UsersApi();
+const user = new UserApi();
+const useUser = create<useUserImpl>()(devtools(persist(
+    (set, get) => ({
+        user: null,
+        init: async () => {
             try {
-                const model = await api.Local();
-                if (model.status === 200 && model.data.code === 200){
+                const res = await user.Local();
+                if (res && res.data.code === 200){
                     set({
-                        model: model.data.data,
-                        isLogin: true
+                        ...get,
+                        user: res.data.data
                     });
-                    graphql.Query({
-                        username: model.data.data?.username,
-                        profile: true,
-                        repo: true,
-                        data: true,
-                        keys: true,
-                        email: true,
-                        groups: true
-                    }).then(res=>{
-                        if (res.status === 200 && res.data.code === 200){
-                            set({
-                                user: res.data.data
-                            })
-                        }else {
-                            toast.error({
-                                text: "用户数据错误",
-                                description: "用户数据请求失败"
-                            })
-                            return false
-                        }
-                    })
-                    return true
-                }else {
+                }else if (res && res.data.code === 401){
                     toast.error({
-                        text: "登录失败",
-                        description: "登录请求失败"
+                        text: "用户未登录",
+                        description: "请先登录"
                     })
-                    return false
+                    window.location.href = "/auth/login";
                 }
-            }catch (e){
-                console.log(e);
-                return false
-            }
-        },
-        LoginInByEmail: async (dto) => {
-            try {
-                const model = await api.LoginByEmail(dto);
-                if (model.status === 200 && model.data.code === 200){
-                    get().initial();
-                    return true
-                }else {
-                    return false
-                }
-            }catch (e){
+            }catch{
                 toast.error({
-                    text: "登录失败",
-                    description: "登录请求失败"
+                    text: "获取用户信息失败",
                 })
-                console.log(e);
-                return false
             }
         },
-        Logout: async () => {
+        logout: async () => {
             try {
-                const model = await api.Logout();
-                if (model.status === 200 && model.data.code === 200){
+                const res = await users.logout();
+                if (res && res.data.code === 200){
                     set({
-                        model: undefined,
-                        isLogin: false
+                        ...get,
+                        user: null
                     });
-                    return true
-                }else {
-                    return false
+                    toast.success({
+                        text: "登出成功"
+                    })
+                    window.location.href = "/auth/login";
                 }
-            }catch (e){
-                console.log(e);
-                return false
+            }catch{
+                toast.error({
+                    text: "登出失败",
+                })
             }
         }
     }),
     {
-        name: "GitDataAiUsers",
-        storage: createJSONStorage(() => localStorage),
+        name: "GitDataAI-User",
+        storage:  createJSONStorage(() => localStorage)
     }
-))))
+    )
+))
+
+export default useUser
