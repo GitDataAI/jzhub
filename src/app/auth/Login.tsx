@@ -35,11 +35,13 @@ const Login = () => {
                 toast.error({
                     text: "登录失败，请检查您的输入"
                 })
+                setLoading(false)
             }
         }).catch(()=>{
             toast.error({
                 text: "登录失败，请检查您的输入"
             })
+            setLoading(false)
         })
     }
     return(

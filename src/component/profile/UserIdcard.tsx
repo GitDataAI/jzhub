@@ -82,6 +82,10 @@ const UserIdcard = (props: UserIdcardProps) => {
            setIsMe(false);
        }
     },[])
+    const UploadAvatar = () => {
+        document.getElementById("avatar-upload")!.click();
+
+    }
     return(
         <div className="profile-idcard">
             <Modal
@@ -186,7 +190,22 @@ const UserIdcard = (props: UserIdcardProps) => {
                 display: "flex"
             }}>
                 <div className="profile-idcard-avatar">
-                    <img src={props.model.avatar_url} alt="avatar"/>
+                    <img onClick={()=>UploadAvatar()} src={props.model.avatar_url} alt="avatar"/>
+                    <input onChange={(x)=>{
+                        if (x.target.files) {
+                            user_api.UploadAvatar(x.target.files[0]).then(res=>{
+                                if (res.data.code === 200) {
+                                    toast.success({
+                                        text: "Upload avatar success",
+                                    })
+                                    user.init().then().catch(()=>{});
+                                    window.location.reload();
+                                }
+                            });
+                        }
+                    }} type="file" id="avatar-upload" style={{
+                        display: "none"
+                    }}/>
                 </div>
                 <div className="profile-idcard-name">
                     <h1>{props.model.name}</h1>
