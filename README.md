@@ -1,50 +1,86 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# JZLab
+JZLab is the self-hosted version of GitData.AI that allows you to deploy and manage your own DataHub and Workflow on-prem.
+<p align="left">
+  <a href="https://www.npmjs.com/package/npm">
+    </a>
+    <a href="http://www.typescriptlang.org/"><img src="https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg?style=flat-square" height="20"></a>
+  <br/>
+</p>
 
-Currently, two official plugins are available:
+<a href="https://github.com/GitDataAI/jzlab"><img src="https://github.com/GitDataAI/jzlab/blob/main/public/gitdata.ai-black-redpanda.pngraw=true"/></a>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+----
+## JZLab include but not limited to：
 
-## Expanding the ESLint configuration
+1. Visualize and interact with JZFS repositories
+2. Visualize and interact JZFlow pipelines and Directed Acyclic Graphs (DAGs).
+2. One-click to start the fully functional JupyterLab environment.
+3. Examine the performance of versioned/registered models.
+4. Monitor the status of model services including health and resource usage stats, and view deployment history and related logs.
+5. Easily upload and manage datasets and shared resources.
+6. Browse and share files with other group members in a collaborative, group-centric, environment.
+7. Submit and schedule jobs to run automatically in the background. Easily monitor job progress from the job stats panel.
+8. The easiest way to do the infrastructure orchestration for setting up 10+ different tools to build your infrastructure.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-- Configure the top-level `parserOptions` property like this:
+## How different roles use JZLab
+- Data Scientist
+    - Data scientists can stay informed and focused on training and running their models.
+    - In the past, there was a lot of manual work of setting the environment, which is a fragmented and time consuming analysis process. And it is hard to collaborate with a team on the same project.
+    - Now, you can carry out data analytics and optimizations with ML easily, and contribute your time on what really matters.
+- IT Leader
+    - Gives IT leaders flexibility and administration authority to configure resources.
+    - In the past, it’s hard to keep track of each teams' needs and environment settings. Also, the hardware, resources, and GPU usage are unsure.
+    - Now, You can equip and enable data teams with the tools and resources they need as easy as pie. And easily deploy the model within an hour.
+----
+## Basic Build And Usage
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+#### Requirement
+
+1. todo
+2. todo
+
+#### Build And Running
+
+deploy the system to your server,you can get help from this repository:
+```bash
+https://github.com/GitDataAI/jzfs
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+clone JZLab repository to your server:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```bash
+git clone git@github.com:GitDataAI/jzlab.git
 ```
+
+Before you run the project for the first time, run the following script to install packages from `package.json`:
+```bash
+npm install
+```
+After waiting for the installation to complete,run the following script to start:
+```bash
+npm run dev
+```
+
+
+
+----
+### Cloud
+
+[Try without installing](https://gitdata.ai)
+
+----
+### Contributors
+
+<a href="https://github.com/TsumikiQAQ" target="_blank"><img src="https://avatars.githubusercontent.com/u/116857998?v=4" width="5%" height="5%"/> </a>
+<a href="https://github.com/hunjixin" target="_blank"><img src="https://avatars.githubusercontent.com/u/41407352?v=4" width="5%" height="5%"/> </a>
+<a href="https://github.com/Brownjy" target="_blank"><img src="https://avatars.githubusercontent.com/u/54040689?v=4" width="5%" height="5%"/> </a>
+<a href="https://github.com/taoshengshi" target="_blank"><img src="https://avatars.githubusercontent.com/u/33315004?v=4" width="5%" height="5%"/> </a>
+<a href="https://github.com/gitdata001" target="_blank"><img src="https://avatars.githubusercontent.com/u/157772574?v=4" width="5%" height="5%"/> </a>
+
+----
+### License
+
+Dual-licensed under [MIT](https://github.com/GitDataAI/jiaozifs/blob/main/LICENSE-MIT) + [Apache 2.0](https://github.com/GitDataAI/jiaozifs/blob/main/LICENSE-APACHE)
+
