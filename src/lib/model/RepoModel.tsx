@@ -49,3 +49,22 @@ export interface RepoModel {
     created: number;
     updated: number;
 }
+
+export interface BlobTreeMsg {
+    name: string;
+    path: string;
+    msg: string;
+    time: number;
+    is_dir: boolean;
+    size: number;
+    children: BlobTreeMsg[];
+}
+
+
+export interface BranchModel {
+    uid: string;
+    repo_id: string;
+    name: string;
+    head?: string;
+    protect: boolean;
+}

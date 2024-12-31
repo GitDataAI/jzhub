@@ -6,6 +6,8 @@ import RootLayout from "./app/Root.tsx";
 import ProfileLayout from "./app/profile/Layout.tsx";
 import NewLayout from "./app/new/NewLayout.tsx";
 import RepositoryNew from "./app/new/RepositoryNew.tsx";
+import RepoLayout from "./app/repo/Layout.tsx";
+import FileTree from "./app/repo/FileTree.tsx";
 
 function App() {
   return (
@@ -20,7 +22,9 @@ function App() {
             <Route path="repository" element={<RepositoryNew/>}/>
         </Route>
         <Route path="/:username" element={<ProfileLayout/>}/>
-
+        <Route path="/:owner/:repo" element={<RepoLayout/>}>
+            <Route path="" element={<FileTree/>}/>
+        </Route>
     </Routes>
   )
 }

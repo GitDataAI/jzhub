@@ -1,0 +1,96 @@
+.repo
+  position: absolute
+  width: 1024px
+  left: 50%
+  transform: translateX(-50%)
+  top: 64px
+  &-info
+    margin-left: 10px
+  &-header
+    margin-top: 32px
+    width: 1024px
+    height: 128px
+    .repo-header-btn
+      border: #e1e1e1 1px solid
+      background: #f6f8fa
+      padding: 3px 10px
+      span
+        display: flex
+        justify-content: space-between
+        align-items: center
+        font-size: 12px
+      a
+        margin-left: 5px
+        font-size: 12px
+  &-content
+    position: absolute
+    padding: 10px
+    top: 128px
+    height: auto
+    display: flex
+    .file-tree
+      width: 1024px
+      display: grid
+      grid-template-columns: 3fr 1fr
+      .tree
+        border: 1px #cfcfcf solid
+        border-radius: 10px
+      &-item
+        display: grid
+        grid-template-columns: auto 1fr auto
+        align-items: center
+        span
+          justify-self: center
+        b
+          justify-self: center
+          font-weight: 500
+
+
+.repository-header
+  border: 1px #e1e1e1 solid
+  display: flex
+  align-items: center
+  padding: 5px
+  background-color: #f5f5f5
+  width: 100%
+  border-top-left-radius: 5px
+  border-top-right-radius: 5px
+  button
+    border: 1px #d3d3d3 solid
+    font-weight: 500
+    span
+      font-weight: 500
+  .branch-selector
+    font-weight: bold
+    margin-right: 20px
+    display: flex
+
+  .branch-info
+    margin-right: 20px
+
+  .right
+    right: 27%
+    width: 100%
+    display: flex
+    align-items: center
+    justify-content: flex-end
+
+    .file-search
+      margin-right: 20px
+      padding: 5px
+      border: 1px solid #ccc
+      border-radius: 4px
+
+    .add-file
+      padding: 5px 10px
+      border-radius: 4px
+      background-color: #f3f3f3
+      color: #000000
+      cursor: pointer
+      margin-right: 10px
+      border: 1px #cdcdcd solid
+
+    .code-button
+      margin-right: 0
+      span
+        font-weight: 400
