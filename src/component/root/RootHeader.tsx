@@ -92,7 +92,7 @@ const RootHeader = () => {
                 </a>
             </div>
             <div className="root-header-left-logo">
-                <img src="/gitdata.ai-redpanda.png" alt="logo" />
+                <img onClick={()=>nav("/")} src="/gitdata.ai-redpanda.png" alt="logo" />
             </div>
             <div className="root-header-search" onClick={()=>{
                 setSearchModel(true)
