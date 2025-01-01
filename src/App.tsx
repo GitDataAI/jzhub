@@ -1,4 +1,4 @@
-import {Route, Routes} from "react-router-dom";
+import {RouteObject, RouterProvider, createBrowserRouter} from "react-router-dom";
 import AuthLayout from "./app/auth/Layout.tsx";
 import Login from "./app/auth/Login.tsx";
 import Apply from "./app/auth/Apply.tsx";
@@ -12,27 +12,47 @@ import ExportLayout from "./app/export/ExportLayout.tsx";
 import HistoryLayout from "./app/history/HistoryLayout.tsx";
 import HomeLayout from "./app/home/HomeLayout.tsx";
 
+const routes: RouteObject[] = [
+    {
+        path: '/',
+        element: <RootLayout />,
+        children: [
+            { path: '', element: <ExportLayout /> },
+            { path: '/explore', element: <ExportLayout /> },
+            { path: '/home', element: <HomeLayout /> },
+            { path: '/history', element: <HistoryLayout /> },
+        ],
+    },
+    {
+        path: '/auth',
+        element: <AuthLayout />,
+        children: [
+            { path: 'apply', element: <Apply /> },
+            { path: 'login', element: <Login /> },
+        ],
+    },
+    {
+        path: '/new',
+        element: <NewLayout />,
+        children: [
+            { path: 'repository', element: <RepositoryNew /> },
+        ],
+    },
+    {
+        path: '/:username',
+        element: <ProfileLayout />,
+    },
+    {
+        path: '/:owner/:repo',
+        element: <RepoLayout />,
+        children: [
+            { path: '', element: <FileTree /> },
+        ],
+    },
+];
 function App() {
   return (
-    <Routes>
-      <Route path="/auth" element={<AuthLayout />}>
-        <Route path="apply" element={<Apply />} />
-        <Route path="login" element={<Login />} />
-      </Route>
-        <Route path="/" element={<RootLayout/>}>
-            <Route path="" element={<ExportLayout/>}/>
-            <Route path="/explore" element={<ExportLayout/>}/>
-            <Route path="/home" element={<HomeLayout/>}/>
-            <Route path="/history" element={<HistoryLayout/>}/>
-        </Route>
-        <Route path="/new" element={<NewLayout/>}>
-            <Route path="repository" element={<RepositoryNew/>}/>
-        </Route>
-        <Route path="/:username" element={<ProfileLayout/>}/>
-        <Route path="/:owner/:repo" element={<RepoLayout/>}>
-            <Route path="" element={<FileTree/>}/>
-        </Route>
-    </Routes>
+   <RouterProvider router={createBrowserRouter(routes)}/>
   )
 }
 

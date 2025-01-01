@@ -1,4 +1,3 @@
-import RootLayout from "../Root.tsx";
 import {useParams, useSearchParams} from "react-router";
 import {useEffect, useState} from "react";
 import {SessionModel} from "../../lib/model/UserModel.tsx";
@@ -8,6 +7,7 @@ import {Box, LoadingOverlay, Tabs} from "@mantine/core";
 import UserIdcard from "../../component/profile/UserIdcard.tsx";
 import RepositoryList from "./RepositoryList.tsx";
 import {useInfo} from "../../store/useInfo.tsx";
+import RootHeader from "../../component/root/RootHeader.tsx";
 const ProfileLayout = () => {
     const user = useUser();
     const info = useInfo();
@@ -51,7 +51,7 @@ const ProfileLayout = () => {
     },[])
     return(
         <>
-            <RootLayout/>
+            <RootHeader/>
             <Box pos="relative" className="profile">
                 <LoadingOverlay visible={!Loading} zIndex={1000} overlayProps={{ radius: "sm", blur: 2 }} />
                 {
