@@ -8,13 +8,15 @@ const RepositoryCard = ({repo}: {repo: RepoModel}) => {
         <div className="repository-card" onClick={()=>{
             nav(`/${repo.owner}/${repo.name}`)
         }}>
-            <h2 className="repo-name">{repo.name}</h2>
-            <span className="visibility">{repo.private ? 'Public' : 'Private'}</span>
-            {
-                repo.fork ? (
-                    <p className="forked-from">Forked from <a href={repo.fork_from!}>{repo.fork_from}</a></p>
-                ) : null
-            }
+            <div className="repository-card-id">
+                <h2 className="repo-name">{repo.name}</h2>
+                <span className="visibility">{repo.private ? 'Private' : 'Public'}</span>
+                {
+                    repo.fork ? (
+                        <p className="forked-from">Forked from <a href={repo.fork_from!}>{repo.fork_from}</a></p>
+                    ) : null
+                }
+            </div>
             <p className="description">{repo.description}</p>
             <div className="stats">
                 {
