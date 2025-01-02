@@ -8,6 +8,7 @@ import RepoInfo from "../../component/repo/RepoInfo.tsx";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 import {ItemInput} from "@primer/react/lib/deprecated/ActionList";
+import {Blankslate} from '@primer/react/experimental'
 
 const FileTree = () => {
     const repo_api = new RepoApi();
@@ -15,6 +16,7 @@ const FileTree = () => {
     const [Loading, setLoading] = useState(true);
     const [RepoModel ,setRepoModel] = useState<RepoModel | null>(null)
     const [FileTrees,setFileTrees] = useState<BlobTreeMsg | null>(null);
+    const [TreeEmpty, setTreeEmpty] = useState(false)
     const [Branchs, setBrachs] = useState<BranchModel[]>([])
     const [SELECTBranch,setSELECTBranch] = useState<BranchModel | null>(null)
     const [open, setOpen] = useState(false)
@@ -29,20 +31,28 @@ const FileTree = () => {
                             repo_api.GetBranch(owner,repo).then(res=>{
                                 if (res.data.code === 200 && res.data.data){
                                     setBrachs(res.data.data)
+                                    if (res.data.data.length === 0){
+                                        setTreeEmpty(true)
+                                        return;
+                                    }
                                     setSELECTBranch(res.data.data[0])
                                     repo_api.GetTree(owner,repo,res.data.data[0].name).then(res=>{
                                         if (res.data.code === 200 && res.data.data){
                                             const tree = res.data.data
-                                            tree.children = tree.children.sort((a, b) => {
-                                                if (a.is_dir && !b.is_dir) {
-                                                    return -1;
-                                                }
-                                                if (!a.is_dir && b.is_dir) {
-                                                    return 1;
-                                                }
-                                                return 0;
-                                            })
-                                            setFileTrees(tree)
+                                            if (tree.children.length > 0){
+                                                tree.children = tree.children.sort((a, b) => {
+                                                    if (a.is_dir && !b.is_dir) {
+                                                        return -1;
+                                                    }
+                                                    if (!a.is_dir && b.is_dir) {
+                                                        return 1;
+                                                    }
+                                                    return 0;
+                                                })
+                                                setFileTrees(tree)
+                                            }else {
+                                                setTreeEmpty(true)
+                                            }
                                         }
                                     })
                                 }
@@ -82,46 +92,63 @@ const FileTree = () => {
                     <div>
 
                         <div className="file-tree">
-                            {FileTrees && (
+                            {FileTrees !== null || TreeEmpty && (
                                 <div className="tree">
                                     <div className="file-header">
-                                        <div className="repository-header">
-                                            <FormControl className="branch-selector">
-                                                <SelectPanel
-                                                    items={Branchs.map((x)=>{
-                                                        return {
-                                                            text: x.name,
-                                                            id: x.uid
-                                                        }
-                                                    })}
-                                                    onOpenChange={setOpen}
-                                                    onSelectedChange={(x: ItemInput) => {
-                                                        RefreshTree(x.text)
-                                                        setSELECTBranch(x)
-                                                    }}
-                                                    selected={{
-                                                        text: SELECTBranch?.name,
-                                                        id: SELECTBranch?.uid
-                                                    }}
-                                                    onFilterChange={() => {
-                                                    }}
-                                                    open={open}
-                                                >
-                                                </SelectPanel>
-                                            </FormControl>
-                                            <div className="branch-info">branch:{Branchs.length}</div>
-                                            <div className="right">
-                                                <Button className="add-file">Add file</Button>
-                                                <Button className="code-button"
-                                                        variant="primary">Clone</Button>
-                                            </div>
-                                        </div>
+                                        {
+                                            !TreeEmpty ? (
+                                                <div className="repository-header">
+                                                    <FormControl className="branch-selector">
+
+                                                        <SelectPanel
+                                                            items={Branchs.map((x) => {
+                                                                return {
+                                                                    text: x.name,
+                                                                    id: x.uid
+                                                                }
+                                                            })}
+                                                            onOpenChange={setOpen}
+                                                            onSelectedChange={(x: ItemInput) => {
+                                                                RefreshTree(x.text)
+                                                                setSELECTBranch(x)
+                                                            }}
+                                                            selected={{
+                                                                text: SELECTBranch?.name,
+                                                                id: SELECTBranch?.uid
+                                                            }}
+                                                            onFilterChange={() => {
+                                                            }}
+                                                            open={open}
+                                                        >
+                                                        </SelectPanel>
+                                                        <div
+                                                            className="branch-info">branch:{Branchs.length}</div>
+                                                        <div className="right">
+                                                            <Button className="add-file">Add file</Button>
+                                                            <Button className="code-button"
+                                                                    variant="primary">Clone</Button>
+                                                        </div>
+                                                    </FormControl>
+                                                    </div>
+                                            ) : null
+                                        }
                                     </div>
-                                    <TreeView style={{
-                                        padding: "10px"
-                                    }} aria-label="Files changed" flat>
-                                        <TreeBuild model={FileTrees} deep={0}/>
-                                    </TreeView>
+                                    {
+                                        FileTrees ? (
+                                            <TreeView style={{
+                                                padding: "10px"
+                                            }} aria-label="Files changed" flat>
+                                                <TreeBuild model={FileTrees} deep={0}/>
+                                            </TreeView>
+                                        ):(
+                                            <Blankslate spacious>
+                                                <Blankslate.Visual>
+                                                </Blankslate.Visual>
+                                                <Blankslate.Heading>Not Any Files</Blankslate.Heading>
+                                                <Blankslate.Description>Please use the git command line or other tools to upload files.</Blankslate.Description>
+                                            </Blankslate>
+                                        )
+                                    }
                                 </div>
                             )}
                             <div>
