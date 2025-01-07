@@ -1,4 +1,3 @@
-import { Image } from "primereact/image";
 import React from "react";
 import { FiGithub } from "react-icons/fi";
 import { Link } from "react-router-dom";
@@ -16,7 +15,7 @@ const FooterTop: React.FC = () => {
         height="80px"
       />
       <h1 className="mb-5 text-2xl text-primary/90 font-bold leading-tight text-black  sm:leading-tight md:leading-tight">
-        JZHub
+        JZHub.AI
       </h1>
       <p className="mb-8 text-center text-md !leading-relaxed text-body-color px-10">
         {t("des")}

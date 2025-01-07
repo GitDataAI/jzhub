@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 const Search: React.FC = () => {
   React.useEffect(() => {
-    document.title = "JZHub | Premium Support";
+    document.title = "JZHub.AI | Premium Support";
   }, []);
   const { t } = useTranslation("Header");
 

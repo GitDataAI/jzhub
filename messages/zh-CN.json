@@ -91,10 +91,10 @@
   },
   "HomeHero": {
     "actionBarText": "第五范式：人工智能驱动的科学发现",
-    "title1": "坚信数据产品的力量！",
+    "title1": "基于 Git 的数据产品中心",
     "title2": "使用 JZHub 构建、管理和共享数据产品。",
     "title3": "",
-    "des1": "构建下一代数据开发平台，点燃您对数据、AI和科学的热情和创造力。",
+    "des1": "在这里，业务用户可以发现和激活可信的数据产品，并在没有技术障碍的情况下大大加快获得见解的时间。",
     "des2": "在单一协作平台上构建和交付数据产品。",
     "start": "从这里开始！",
     "explore": "探索 GitHub",
@@ -106,14 +106,14 @@
     "shareDes": "在数据产品市场和第三方系统上分享您的数据产品，以协助其他人做出战略决策。"
   },
   "HomeBrands": {
-    "title": "世界一流的公司正在与 JZHub 合作",
+    "title": "世界一流的公司正在与 JZHub.AI 合作",
     "des": "深受数据从业者和企业的信赖。",
-    "JZHub": "TaoshengShi",
+    "JZHub": "JZHub.AI",
     "JZHubIdentity": "Founder @ JZHub",
     "JZHubCommentTitle": "JZHub, 和 JZFS",
     "JZHubComment1": "JZFS 是一个分布式版本控制文件系统，它允许多个人员或组织在相同的数据集上无缝协作。",
-    "JZHubComment2": "JZHub 是一个基于Web的DataHub托管服务，为JZFS存储库提供了一个迷人的数据产品平台，用于协作、共享和货币化。",
-    "JZHubComment3": "请记住，JZFS 和 JZHub 不仅仅是工具或市场，它们是构建者表达创造力、分享激情和编织独特魔力的画布。",
+    "JZHubComment2": "JZHub 是一个基于Web的DataHub托管服务，为JZFS存储库提供了一个迷人的数据产品平台，用于数据产品的协作构建、共享和货币化。",
+    "JZHubComment3": "请记住，JZFS 和 JZHub 不仅仅是工具或市场，它们是创作者表达创造力、分享激情和编织独特魔力的画布。",
     "AndrewNg": "吴恩达",
     "AndrewNgIdentity": "首席执行官兼创始人 @LandingAI",
     "AndrewNgComment": "公司不应只关注代码，而应专注于开发系统工程实践，以可靠、高效和系统的方式改进数据。换句话说，公司需要从以模型为中心的方法转变为以数据为中心的方法。",
@@ -128,8 +128,8 @@
     "VinayIyengarComment": "数据中心辐射型架构响应了三种高级趋势，这些趋势的融合正在重塑数据基础设施空间。"
   },
   "HomePowerfulBox": {
-    "title": "重新定义人工智能创新时代的数据管理",
-    "des1": "JZFS 作为 JZHub 的基石而构建，旨在利用版本控制和协作的强大功能。",
+    "title": "相信数据产品的力量！",
+    "des1": "构建下一代数据开发平台，点燃您对数据、AI和科学的热情和创造力。",
     "des3": "使用 JZHub 构建、管理和共享数据产品。",
     "JZFSDes": "JZFS 由全球数千名开发人员组成的社区构建。",
     "openSource": "开源",
@@ -176,11 +176,11 @@
     "SecurityScannerAuthor": "CyberProtect 公司"
   },
   "HomeBuilts": {
-    "title": "数据驱动的 MLOps 企业平台",
-    "des": "使用 DataHub 构建以数据为中心的 MLOps 企业平台的创新方式，以自动化和扩展机器学习生命周期，同时保证可重复性。",
-    "JZFSDes": "类似 Git 的版本控制文件系统，用于数据集管理。",
+    "title": "基于Git的数据操作系统",
+    "des": "我们遵循数据即软件范式，其中数据在像基于Git的软件产品一样管理时，其固有行为就像产品一样，并且系统能够作为数据产品工厂为数据产品提供服务，将复杂的数据操作转变为简化的生产线。",
+    "JZFSDes": "基于Git 的版本控制文件系统，用于数据产品的开发和管理。",
     "JZFlowDes": "并行处理多阶段、与语言无关的管道。",
-    "JZLabDes": "具有基础设施编排、可视化和交互功能的 MLOps。",
+    "JZLabDes": "基于Git 的数据产品开发平台。",
     "more": "还有更多行业解决方案...",
     "Medical": "医疗",
     "MedicalDes": "通过跨部门合作将问题转化为模型。",
@@ -220,7 +220,7 @@
   },
   "HomePartOne": {
     "TT": "JZHub 的目标",
-    "TS": "JZHub 专注于构建 AI 操作系统，使组织能够有效地使用 AI/ML 模型作为价值创造和持续改进生态系统的一部分。通过这种方式，JZHub的方法和目标有助于鼓励更负责任的AI/ML部署，或者通常被称为“负责任的AI”。",
+    "TS": "JZHub 专注于构建 AI 操作系统，使组织能够有效地使用 AI/ML 模型作为价值创造和持续改进生态系统的一部分。通过这种方式，JZHub 的方法和目标有助于鼓励更负责任的AI/ML部署，或者通常被称为“负责任的AI”。",
     "T1": "JZ 控制台",
     "T2": "JZ 文件系统",
     "T3": "JZ 流处理系统",
@@ -361,7 +361,7 @@
     "DiscordCommunityDes1": "查看 #support 频道。",
     "Support and Feedback": "支持与反馈",
     "SupportDes1": "GitHub 问题追踪器",
-    "SupportDes2": "通过邮件 hi@jzhub.cn 获取支持",
+    "SupportDes2": "通过邮件 hi@jzhub.ai 获取支持",
     "Social Media": "社交媒体",
     "x": "Twitter",
     "bilibili": "哔哩哔哩",
@@ -371,11 +371,11 @@
   },
   "EnterPrise": {
     "DCMEP": "数据驱动的 MLOps 企业平台",
-    "des1": "通过 DataHub 自动化和扩展机器学习生命周期，确保可复现性，创新地构建数据驱动的 MLOps 企业平台。",
+    "des1": "我们遵循数据即软件范式，其中数据在像基于Git的软件产品一样管理时，其固有行为就像产品一样，并且系统能够作为数据产品工厂为数据产品提供服务，将复杂的数据操作转变为简化的生产线。",
     "des2": "让我们来看看 JZHub 组件的内容！",
-    "JZFSDes": "类似 Git 的版本控制文件系统，用于数据产品的开发和管理。",
-    "JZFlow": "多阶段、语言无关的管道并行处理。",
-    "JZLabDes": "带有基础设施编排、可视化和交互功能的 MLOps。",
+    "JZFSDes": "基于 Git 的版本控制文件系统，用于数据产品的开发和管理。",
+    "JZFlowDes": "多阶段、语言无关的管道并行处理。",
+    "JZLabDes": "基于 Git 的数据产品开发平台。",
     "last": "想和我们合作吗？查看我们的 GitHub：https://github.com/GitDataAI。"
   }
 }

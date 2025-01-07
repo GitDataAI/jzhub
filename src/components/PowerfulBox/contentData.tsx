@@ -19,21 +19,21 @@ function contentsData(): Content[] {
       icon: <MdDeveloperBoard />,
       title: t("build"),
       content: (
-        <img src="images/home/platform.png" className="w-full h-auto rounded" />
+        <img src="images/home/jzhub-en-build.png" className="w-full h-auto rounded" />
       ),
     },
     {
       icon: <MdManageHistory />,
       title: t("manage"),
       content: (
-        <img src="images/home/platform.png" className="w-full h-auto rounded" />
+        <img src="images/home/jzhub-en-manage.png" className="w-full h-auto rounded" />
       ),
     },
     {
       icon: <TbDatabaseShare />,
       title: t("share"),
       content: (
-        <img src="images/home/platform.png" className="w-full h-auto rounded" />
+        <img src="images/home/jzhub-en-share.png" className="w-full h-auto rounded" />
       ),
     },
     /*{

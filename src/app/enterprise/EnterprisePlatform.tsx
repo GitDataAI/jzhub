@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 
 const Search: React.FC = () => {
   React.useEffect(() => {
-    document.title = "JZHub | Data Centric MLOps Enterprise Platform";
+    document.title = "JZHub.AI | Git Based Data Products Hub";
   }, []);
   const { t } = useTranslation("EnterPrise");
 
@@ -14,7 +14,7 @@ const Search: React.FC = () => {
           <h1 className="text-3xl text-primary font-bold mb-7">{t("DCMEP")}</h1>
           <p className="mb-2 text-body-color">{t("des1")} </p>
           <img
-            src="/images/home/jzhub-enterprise.png"
+            src="/images/home/platform.png"
             className="my-5"
             alt="Enterprise Platform"
           />

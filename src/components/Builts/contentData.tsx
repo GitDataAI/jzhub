@@ -20,7 +20,7 @@ function contentData(): Content[] {
       description: t("JZFSDes"),
       content: (
         <img
-          src="images/home/jzhub-enterprise.png"
+          src="images/home/platform.png"
           className="w-full h-auto my-auto"
         />
       ),
@@ -39,7 +39,7 @@ function contentData(): Content[] {
         //   Your browser does not support the video tag.
         // </video>
         <img
-          src="images/home/jzhub-enterprise.png"
+          src="images/home/platform.png"
           className="w-full h-auto my-auto"
         />
       ),
@@ -58,7 +58,7 @@ function contentData(): Content[] {
         //   Your browser does not support the video tag.
         // </video>
         <img
-          src="images/home/jzhub-enterprise.png"
+          src="images/home/platform.png"
           className="w-full h-auto my-auto"
         />
       ),

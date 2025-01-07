@@ -11,7 +11,7 @@ import Ecosystem from "@/components/Ecosystem";
 
 function Products() {
   React.useEffect(() => {
-    document.title = "JZHub";
+    document.title = "JZHub.AI";
   }, []);
 
   return (

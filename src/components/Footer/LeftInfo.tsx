@@ -5,7 +5,6 @@ import { FiGithub } from "react-icons/fi";
 import { LiaDiscord } from "react-icons/lia";
 import { PiVideoFill } from "react-icons/pi";
 import { useTranslation } from "react-i18next";
-import { AiOutlineGlobal } from "react-icons/ai";
 import { RiBilibiliLine } from "react-icons/ri";
 
 const LeftLogo: React.FC = () => {
@@ -30,7 +29,7 @@ const LeftLogo: React.FC = () => {
         />
       </Link>
       <p className="mt-1 text-[12px] text-white leading-relaxed text-body-color ">
-        © 2024 JZHub
+        © 2025 JZHub.AI
       </p>
       <p className="text-[12px] text-white">
         <Link to="#">{t("Terms")}</Link> ·
@@ -39,7 +38,7 @@ const LeftLogo: React.FC = () => {
       </p>
       <div className="flex items-center pt-2">
         <Link
-          to="https://github.com/GitDataAi"
+          to="https://github.com/GitDataAI"
           className="mr-2 text-body-color duration-300 hover:text-primary  "
         >
           <FiGithub className="text-white" />

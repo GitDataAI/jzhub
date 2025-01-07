@@ -92,10 +92,10 @@
   },
   "HomeHero": {
     "actionBarText": "The 5th Paradigm: AI-Driven Scientific Discovery",
-    "title1": "Build, Manage and Share",
-    "title2": "We believe in the power of data products!",
+    "title1": "Git Based Data Products Hub",
+    "title2": "How people build, manage and share Data Products.",
     "title3": "",
-    "des1": "Building the next-generation data development platform to fire up your passion and creativity in Data, AI and Science.",
+    "des1": "Where business users can discover and activate trusted data products and dramatically accelerate time to insights without technical barriers.",
     "des2": "Build, Manage and Share Data Products with JZHub",
     "start": "Get Started Here!",
     "explore": "Explore GitHub",
@@ -107,9 +107,9 @@
     "shareDes": "Share your data product on the Data Product Marketplace and with third-party systems to assist others in making strategic decisions."
   },
   "HomeBrands": {
-    "title": "World-class companies are partnering with JZHub",
+    "title": "World-class companies are partnering with JZHub.AI",
     "des": "Trusted by data practitioners and enterprises.",
-    "JZHub": "JZHub",
+    "JZHub": "JZHub.AI",
     "JZHubIdentity": "Mascot @JZHub",
     "JZHubCommentTitle": "JZHub and JZFS",
     "JZHubComment1": "JZFS is a distributed version control filesystem that allows multiple people or organizations to collaborate on the same dataset seamlessly.",
@@ -129,8 +129,8 @@
     "VinayIyengarComment": "The data hub-and-spoke architecture comes in response to three high-level trends whose convergence is reshaping the data infrastructure space."
   },
   "HomePowerfulBox": {
-    "title": "Redefining data management for the age of AI innovation",
-    "des1": "The JZFS is built as the bedrock of JZHub to harness the power of version control and collaboration.",
+    "title": "We believe in the power of data products!",
+    "des1": "Building the next-generation data development platform to fire up your passion and creativity in Data, AI and Science.",
     "des3": "Build, Manage, and Share Data Products with JZHub.",
     "JZFSDes": "JZFS is built by a global community of thousand of developers.",
     "openSource": "Open Source",
@@ -177,11 +177,11 @@
     "SecurityScannerAuthor": "CyberProtect Corp."
   },
   "HomeBuilts": {
-    "title": "Data Centric MLOps Enterprise Platform",
-    "des": "Innovative way to build Data Centric MLOps enterprise platform with DataHub to automate and scale machine learning lifecycle while guaranteeing reproducibility.",
-    "JZFSDes": "Git-like version control filesystem for dataset management.",
+    "title": "Git Based Data Operating System",
+    "des": "We follow the data-as-a-software paradigm wherein data inherently behaves like a product when managed like a git based software product, and the system is able to serve data products as your data product factory, turning complex data operations into a streamlined production line.",
+    "JZFSDes": "Git based version control filesystem for data products development and management.",
     "JZFlowDes": "Parallelized processing of multi-stage, language-agnostic pipelines.",
-    "JZLabDes": "MLOps with infrastructure orchestration, visualization and interaction.",
+    "JZLabDes": "Git based data developer platform for data products.",
     "more": "And a lot industry solutions...",
     "Medical": "Medial",
     "MedicalDes": "Turn problems into models with cross-department collaborations.",
@@ -362,7 +362,7 @@
     "DiscordCommunityDes1": "Check out the #support channel.",
     "Support and Feedback": "Support and Feedback",
     "SupportDes1": "GitHub Issue Tracker",
-    "SupportDes2": "Email info@jzhub.cn for support",
+    "SupportDes2": "Email info@jzhub.ai for support",
     "Social Media": "Social Media",
     "x": "Twitter",
     "bilibili": "BiliBili",
@@ -371,12 +371,12 @@
     "last": "We appreciate your input and look forward to improving JZHub with your help!"
   },
   "EnterPrise": {
-    "DCMEP": "Data Centric MLOps Enterprise Platform",
-    "des1": "Innovative way to build Data Centric MLOps enterprise platform with DataHub to automate and scale machine learning lifecycle while guaranteeing reproducibility.",
+    "DCMEP": "Git Based Data Operating System",
+    "des1": "We follow the data-as-a-software paradigm wherein data inherently behaves like a product when managed like a git based software product, and the system is able to serve data products as your data product factory, turning complex data operations into a streamlined production line.",
     "des2": "Let’s take a look at the content of JZHub components!",
-    "JZFSDes": "Git-like version control filesystem for data products development and management.",
-    "JZFlow": "Parallelized processing of multi-stage, language-agnostic pipelines.",
-    "JZLabDes": "MLOps with infrastructure orchestration, visualization and interaction.",
+    "JZFSDes": "Git based version control filesystem for data products development and management.",
+    "JZFlowDes": "Parallelized processing of multi-stage, language-agnostic pipelines.",
+    "JZLabDes": "Git based data developer platform for data products.",
     "last": "Want to work with us? Check out our GitHub: https://github.com/GitDataAI."
   }
 }
