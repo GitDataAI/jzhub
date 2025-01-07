@@ -29,7 +29,7 @@ const Features = () => {
             </div>
             <div className="mt-2 rounded-[4px]">
               <img
-                src="images/home/jzhub-en.png"
+                src="images/home/RoboticArm.png"
                 className="w-full h-auto rounded-[4px]"
               />
             </div>
