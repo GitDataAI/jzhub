@@ -1,0 +1,101 @@
+/* Login.css */
+.login-title {
+    font-size: 1.5rem;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.login-field {
+    width: 60%;
+    margin-left: 20%;
+}
+
+.login-input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+.login-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+.login-input-half {
+    width: 60%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+.login-input-half:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+.login-captcha-half {
+    width: 40%;
+    height: 35px;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.login-label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 0.5rem;
+    color: black;
+}
+
+.login-login-button {
+    display: flex;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: #12b886;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-login-button:hover {
+    background-color: #11a57b;
+}
+
+.login-apply-button {
+    display: flex;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    justify-content: center;
+    align-items: center;
+    background-color: #fefefe;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    cursor: pointer;
+}
+
+.login-origin-readme {
+    display: flex;
+    color: #6c757d;
+    font-size: 14px;
+    width: 80%;
+    margin-left: 10%;
+}
+
+.login-this-link:hover {
+    color: #007bff;
+    cursor: pointer;
+}

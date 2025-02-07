@@ -1,0 +1,34 @@
+name: test
+
+on:
+    workflow_call:
+        secrets:
+            KUBECONTENT:
+                required: true
+            NACOS:
+                required: true
+jobs:
+    deployment:
+        if: ${{ startsWith(github.ref, 'refs/heads/deployment/') || github.ref == 'refs/heads/main'  }}
+        runs-on: [self-hosted]
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v3
+
+            - name: Get version
+              id: version
+              run: |
+                if [[ -n "$GITHUB_REF" && "$GITHUB_REF" == "refs/tags/"* ]]; then
+                  echo "tag version"
+                  echo "::set-output name=version::${GITHUB_REF/refs\/tags\//}"
+                else
+                  echo "commit version"
+                  echo "::set-output name=version::${{ github.sha }}"
+                fi
+
+            - name: Deploy
+              uses: WyriHaximus/github-action-helm3@v3
+              with:
+                  exec: /usr/sbin/helm upgrade gateway --install ./deploy/gitdata --namespace gitdataai --set-string nacos=${{ secrets.NACOS }}  --set-string tag=${{ steps.version.outputs.version }}
+                  kubeconfig: ${{ secrets.KUBECONTENT }}
+                  overrule_existing_kubeconfig: 'true'

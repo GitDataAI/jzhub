@@ -1,0 +1,4 @@
+nacos-sdk-python~=2.0.1
+psutil~=6.1.1
+
+loguru~=0.7.3

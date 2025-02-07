@@ -1,0 +1,13 @@
+{
+  "name": "lib-apis",
+  "main": "index.js",
+  "module": "index.ts",
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "axios": "^1.7.9"
+  },
+  "license": "MIT",
+  "type": "module"
+}
