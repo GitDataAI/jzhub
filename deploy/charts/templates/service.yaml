@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-auth-service
+  namespace: {{ .Values.namespace }}
+  labels:
+    apptype: web-auth
+spec:
+  type: ClusterIP
+  selector:
+    app: web-auth
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{ .Values.namespace }}
+  name: web-auth
+spec:
+  replicas: {{ .Values.replica.auth }}
+  selector:
+    matchLabels:
+      app: web-auth
+  template:
+    metadata:
+      labels:
+        app: web-auth
+        apptype: web-auth
+    spec:
+      containers:
+        - name: web-auth
+          image: "gitdatateam/web-auth:{{ .Values.tag }}"
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          env:
+            - name: NACOS
+              value: "path@auth://{{ .Values.nacos }}"
