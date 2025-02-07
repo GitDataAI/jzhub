@@ -52,13 +52,13 @@ jobs:
         run: |
           cd lib-apis \
           && pnpm install \
-          && cd ../lib-commands  \
+          && cd ../lib-components  \
           && pnpm i \
           && cd ../lib-state \
           && pnpm install \
-          && cd ../web-auth
-          && pnpm install
-          && pnpm run build
+          && cd ../web-auth \
+          && pnpm install \
+          && pnpm run build \
 
       - name: Build nad Push WebAuth
         run: |
