@@ -114,15 +114,19 @@ def main():
         )
         logger.info("Service registered successfully.")
         while not stop_heartbeat:
-            client.send_heartbeat(
-                service_name=builder.server_name,
-                ip=ipv4_str,
-                port=80,
-                weight=1,
-                ephemeral=True,
-                group_name=group
-            )
-            time.sleep(5)
+            try:
+                client.send_heartbeat(
+                    service_name=builder.server_name,
+                    ip=ipv4_str,
+                    port=80,
+                    weight=1,
+                    ephemeral=True,
+                    group_name=group
+                )
+                logger.info("Heartbeat sent.")
+                time.sleep(5)
+            except Exception as e:
+                logger.error(f"Error during heartbeat: {e}")
 
     except (KeyError, InvalidInputError) as e:
         logger.error(f"Error: {e}")
