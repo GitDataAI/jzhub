@@ -21,5 +21,5 @@ RUN pip install \
 COPY nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
-
-CMD ["sh", "-c", "nginx -g 'daemon off;' && python3 server.py"]
+RUN /etc/init.d/nginx start
+CMD ["python3","./server.py"]
