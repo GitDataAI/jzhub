@@ -123,7 +123,6 @@ def main():
                     ephemeral=True,
                     group_name=group
                 )
-                logger.info("Heartbeat sent.")
                 time.sleep(5)
             except Exception as e:
                 logger.error(f"Error during heartbeat: {e}")

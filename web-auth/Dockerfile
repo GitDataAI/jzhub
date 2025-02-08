@@ -11,7 +11,6 @@ RUN apt-get update && apt-get install -y nginx && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 COPY --from=frontend-builder /app/dist /usr/share/nginx/html
-RUN sed -i 's|/assets/|/auth/assets/|g' /usr/share/nginx/html/index.html
 COPY server.py .
 
 RUN pip install \
@@ -20,7 +19,7 @@ RUN pip install \
         loguru
 
 COPY nginx.conf /etc/nginx/nginx.conf
-
+COPY server.sh .
+RUN chmod +x server.sh
 EXPOSE 80
-RUN /etc/init.d/nginx start
-CMD ["python3","./server.py"]
+CMD ["./server.sh"]
