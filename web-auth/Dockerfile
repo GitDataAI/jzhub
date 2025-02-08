@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y nginx && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 COPY --from=frontend-builder /app/dist /usr/share/nginx/html
+RUN sed -i 's|/assets/|/auth/assets/|g' /usr/share/nginx/html/index.html
 COPY server.py .
 
 RUN pip install \

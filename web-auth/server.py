@@ -143,7 +143,6 @@ def deregister_service():
             ephemeral=True,
             group_name=group
         )
-        logger.info("Service deregistered successfully.")
         stop_heartbeat = True
         if thread:
             thread.join(timeout=15)
