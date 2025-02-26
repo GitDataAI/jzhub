@@ -32,9 +32,9 @@ jobs:
             - name: RemoveWeb
               uses: WyriHaximus/github-action-helm3@v3
               with:
-                  exec: /usr/local/bin/helm uninstall gitdataweb --namespace gitdata
-                  kubeconfig: ${{ secrets.KUBECONTENT }}
-                  overrule_existing_kubeconfig: 'true'
+                exec: /usr/local/bin/helm uninstall gitdataweb --namespace gitdata --ignore-not-found
+                kubeconfig: ${{ secrets.KUBECONTENT }}
+                overrule_existing_kubeconfig: 'true'
             - name: DeployWeb
               uses: WyriHaximus/github-action-helm3@v3
               with:
