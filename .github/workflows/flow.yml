@@ -1,0 +1,19 @@
+name: Build and Deploy
+
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - '**'
+
+jobs:
+    frontend:
+        uses: ./.github/workflows/frontend.yml
+        secrets: inherit
+    deployment:
+        needs:
+            - frontend
+        uses: ./.github/workflows/deployment.yml
+        secrets: inherit
