@@ -1,30 +1,20 @@
 
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
 # JZLab
-JZLab is the self-hosted version of GitData.AI that allows you to deploy and manage your own DataHub and Workflow on-prem.
-<p align="left">
-  <a href="https://www.npmjs.com/package/npm">
-    </a>
-    <a href="http://www.typescriptlang.org/"><img src="https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg?style=flat-square" height="20"></a>
-  <br/>
-</p>
 
-<a href="https://github.com/GitDataAI/jzlab"><img src="https://github.com/GitDataAI/jzlab/blob/main/public/gitdata.ai-black-redpanda.pngraw=true"/></a>
+JZLab is the self-hosted version of GitData.AI that allows you to deploy and manage your own DataHub and Workflow on-prem.
 
 ----
 ## JZLab include but not limited to：
 
 1. Visualize and interact with JZFS repositories
 2. Visualize and interact JZFlow pipelines and Directed Acyclic Graphs (DAGs).
-2. One-click to start the fully functional JupyterLab environment.
-3. Examine the performance of versioned/registered models.
-4. Monitor the status of model services including health and resource usage stats, and view deployment history and related logs.
-5. Easily upload and manage datasets and shared resources.
-6. Browse and share files with other group members in a collaborative, group-centric, environment.
-7. Submit and schedule jobs to run automatically in the background. Easily monitor job progress from the job stats panel.
-8. The easiest way to do the infrastructure orchestration for setting up 10+ different tools to build your infrastructure.
+3. One-click to start the fully functional JupyterLab environment.
+4. Examine the performance of versioned/registered models.
+5. Monitor the status of model services including health and resource usage stats, and view deployment history and related logs.
+6. Easily upload and manage datasets and shared resources.
+7. Browse and share files with other group members in a collaborative, group-centric, environment.
+8. Submit and schedule jobs to run automatically in the background. Easily monitor job progress from the job stats panel.
+9. The easiest way to do the infrastructure orchestration for setting up 10+ different tools to build your infrastructure.
 
 
 ## How different roles use JZLab
