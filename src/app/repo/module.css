@@ -120,6 +120,27 @@
         .repo-file-body-file-right {
             max-height: 80vh;
         }
+        .repo-description {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            h1 {
+                font-size: 1.5rem;
+            }
+            span {
+                font-size: 1rem;
+                color: #777777;
+            }
+            ul {
+                display: flex;
+                gap: 10px;
+                li {
+                    padding: 1px;
+                    background: #99fb9b;
+                    border-radius: 5px;
+                }
+            }
+        }
         @media screen and (min-width: 1024px) {
             grid-template-columns: 3fr 1fr;
             gap: 20px;

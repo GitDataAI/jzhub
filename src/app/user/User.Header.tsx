@@ -4,7 +4,6 @@ import {useEffect, useState} from "react";
 import {VscLayersActive} from "react-icons/vsc";
 import {IconWrapper} from "@/app/repo/Repo.Icons.tsx";
 import {RiGitRepositoryLine, RiUserFollowLine} from "react-icons/ri";
-import {GoPackage} from "react-icons/go";
 import {MdProductionQuantityLimits} from "react-icons/md";
 import {CiSettings, CiStar} from "react-icons/ci";
 import useUser from "@/state/useUser.tsx";
@@ -41,7 +40,7 @@ export const UserHeader = (props: { setTab: (arg0: string) => void, user?: UserD
                     <div className="flex items-center">
                         <IconWrapper className="  text-black">
                             <VscLayersActive />
-                            <span className="ml-2">Active</span>
+                            <span className="ml-2">Activity</span>
                         </IconWrapper>
                     </div>
                 }/>
@@ -50,14 +49,6 @@ export const UserHeader = (props: { setTab: (arg0: string) => void, user?: UserD
                         <IconWrapper className="  text-black">
                             <RiGitRepositoryLine />
                             <span className="ml-2">Reposiotry</span>
-                        </IconWrapper>
-                    </div>
-                }/>
-                <Tab key="package" title={
-                    <div className="flex items-center">
-                        <IconWrapper className="  text-black">
-                            <GoPackage />
-                            <span className="ml-2">Package</span>
                         </IconWrapper>
                     </div>
                 }/>

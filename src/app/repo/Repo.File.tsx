@@ -9,12 +9,12 @@ import {
     Card,
     CardBody,
     CardHeader,
-    Code,
+    Code, Divider,
     Select,
     SelectItem,
 } from "@heroui/react";
 import {RepoApi} from "@/api/RepoApi.tsx";
-import {Modal, ModalContent, ModalHeader, useDisclosure} from "@heroui/modal";
+import {Modal, ModalBody, ModalContent, ModalHeader, useDisclosure} from "@heroui/modal";
 import {RepoClone} from "@/app/repo/Repo.Clone.tsx";
 import {RepoEmpty} from "@/app/repo/Repo.Empty.tsx";
 import {RepoREADME} from "@/app/repo/Repo.README.tsx";
@@ -25,6 +25,7 @@ import relativeTime from "dayjs/plugin/relativeTime"
 import useUser from "@/state/useUser.tsx";
 import {toast} from "@pheralb/toast";
 import {RepoFork} from "@/app/repo/Repo.Fork.tsx";
+import {SettingIcon} from "@/app/repo/Repo.Icons.tsx";
 
 
 dayjs.extend(relativeTime);
@@ -61,6 +62,7 @@ const RepoFile = (props: RepoFileProps) => {
     const [HttpURL, setHttpURL] = useState("");
     const [SSHURL, setSSHURL] = useState("");
     const Clone = useDisclosure();
+    const EditConfig = useDisclosure();
     const Exec = useRef(false);
     const [README, setREADME] = useState<Uint8Array | null>(null);
     const nav = useNavigate();
@@ -182,6 +184,22 @@ const RepoFile = (props: RepoFileProps) => {
                             Fork Repository for &nbsp;<Code size="lg">{props.owner}/{props.repo}</Code>
                         </ModalHeader>
                         <RepoFork owner={props.owner} repo={props.repo} close={fork.onClose}/>
+                    </ModalContent>
+                </Modal>
+                <Modal
+                    backdrop="blur"
+                    isOpen={EditConfig.isOpen}
+                    size={"2xl"}
+                    onOpenChange={EditConfig.onOpenChange}
+                    onClose={EditConfig.onClose}
+                >
+                    <ModalContent>
+                        <ModalHeader>
+                            Edit Repository Config for &nbsp;<Code size="lg">{props.owner}/{props.repo}</Code>
+                        </ModalHeader>
+                        <ModalBody>
+                            TODO
+                        </ModalBody>
                     </ModalContent>
                 </Modal>
             </div>
@@ -376,7 +394,38 @@ const RepoFile = (props: RepoFileProps) => {
 
                                                 </Card>
                                                 <Card className="repo-file-body-file-right">
-                                                    <CardBody>
+                                                    <CardBody className="repo-description">
+                                                        <div style={{
+                                                            display: "flex",
+                                                            gap: "10px",
+                                                            justifyContent: "space-between",
+                                                            alignItems: "center"
+
+                                                        }}>
+                                                            <h1>{props.info.name}</h1>
+                                                            <SettingIcon onClick={()=>{
+                                                                console.log("Edit Repo Config")
+                                                                EditConfig.onOpen();
+                                                            }}/>
+                                                        </div>
+                                                        <span>
+                                                            {props.info.description}
+                                                        </span>
+                                                        <Divider/>
+                                                        <h2>Topic</h2>
+                                                        {
+                                                            props.info.topic.length !== 0 && (
+                                                                <ul>
+                                                                    {
+                                                                        props.info.topic.map((value, index)=> {
+                                                                            return(
+                                                                                <li key={index}>{value}</li>
+                                                                            )
+                                                                        })
+                                                                    }
+                                                                </ul>
+                                                            )
+                                                        }
 
                                                     </CardBody>
                                                 </Card>
