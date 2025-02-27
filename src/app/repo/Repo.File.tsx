@@ -369,11 +369,22 @@ const RepoFile = (props: RepoFileProps) => {
                                                             color: "white"
                                                         }}
                                                         onPress={() => {
+                                                        }}
+                                                    >
+                                                        Publish
+                                                    </Button>
+                                                    <Button
+                                                        color="success"
+                                                        style={{
+                                                            color: "white"
+                                                        }}
+                                                        onPress={() => {
                                                             Clone.onOpen()
                                                         }}
                                                     >
                                                         Clone
                                                     </Button>
+
                                                 </div>
                                             </CardHeader>
                                             <CardBody className="repo-file-body-file">
