@@ -23,21 +23,36 @@
 
 .repo-header-info-title {
     display: flex;
-    height: 5rem;
-    align-items: center;
-    justify-content: flex-start;
-    h1 {
-        font-size: 2.5rem;
-        margin-top: 1rem;
-        margin-left: 1rem;
+    flex-direction: column;
+    .repo-header-info-title-top {
+        display: flex;
+        height: 5rem;
+        align-items: center;
+        justify-content: flex-start;
+        h1 {
+            font-size: 2.5rem;
+            margin-top: 1rem;
+            margin-left: 1rem;
+        }
+        b {
+            font-size: 1rem;
+            border: 1px saddlebrown solid;
+            padding: 0 10px;
+            margin-left: 10px;
+            border-radius: 5px;
+        }
     }
-    b {
-        font-size: 1rem;
-        border: 1px saddlebrown solid;
-        padding: 0 10px;
-        margin-left: 10px;
-        border-radius: 5px;
+    .repo-header-info-title-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 0.5rem;
+        a {
+            color: #0087ed;
+            cursor: pointer;
+        }
     }
+
 }
 .repo-header-info-action {
     display: flex;

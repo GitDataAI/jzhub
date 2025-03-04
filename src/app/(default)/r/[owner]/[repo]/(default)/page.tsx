@@ -8,6 +8,7 @@ import {notifications} from "@mantine/notifications";
 import {AppWrite} from "@/server/Client";
 import {FileTree} from "@/component/repo/filetree";
 import {FileAction} from "@/component/repo/fileaction";
+import {Loader} from "@mantine/core";
 
 export default function RepositoryPage() {
     const [Repo, setRepo] = useState<Repository | undefined>()
@@ -103,12 +104,6 @@ export default function RepositoryPage() {
         }
         const json:AppWrite<Tree> = JSON.parse(basic.data);
         if (json.code !== 200 || !json.data) {
-            notifications
-                .show({
-                    title: '数据请求失败',
-                    message: 'Repo Not Found',
-                    color: 'red',
-                });
             return;
         }
         setTree(json.data)
@@ -139,12 +134,21 @@ export default function RepositoryPage() {
     return (
         <div>
             {
+                Repo?.status === "Syncing" && (
+                    <div className="repo-sync">
+                        <Loader color={"orange"} size={"xs"}/>
+                        <p>正在同步仓库索引中...</p>
+                    </div>
+                )
+            }
+            {
                 (Repo && !Empty && Tree && Bhct && DefaultBranch ) && (
                     <>
                         {
                             Tab === 'file' && (
                                 <div className="file-page">
                                     <FileAction branch={Branch} default_branch={DefaultBranch} echange={ExchangeBranch} repo={Repo} owner={Owner.owner}/>
+
                                     <div className="file-body">
                                         <FileTree tree={Tree.child}/>
                                     </div>

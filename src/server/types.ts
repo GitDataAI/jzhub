@@ -45,6 +45,23 @@ export interface Repository {
     created_by: string;
     avatar?: string;
     topic: string[];
+    status: string;
+}
+
+export interface RepoInfo {
+    fork?: {
+        model: Repository,
+        owner: {
+            uid: string,
+            username: string,
+            avatar?: string,
+            created_at: DateTime,
+            updated_at: DateTime,
+        }
+    },
+    model: Repository,
+    owner: string,
+    repo: string,
 }
 
 export interface Watch {

@@ -4,7 +4,7 @@ import React, {useEffect, useState} from "react";
 import {RepoApi} from "@/server/RepoApi";
 import {notifications} from "@mantine/notifications";
 import {AppWrite} from "@/server/Client";
-import {Repository} from "@/server/types";
+import {RepoInfo} from "@/server/types";
 import {Repoheader} from "@/component/repo/repoheader";
 import usePageContext from "@/store/usePageContext";
 
@@ -13,13 +13,32 @@ export default function RepoLayout(props: { children: React.ReactNode, params: P
     const api = new RepoApi();
     const [Loading, setLoading] = useState(false);
     const [NotFound, setNotFound] = useState(false);
-    const [Repo,setRepo] = useState<Repository | undefined>();
+    const [Repo,setRepo] = useState<RepoInfo | undefined>();
     const [Parma,setParma] = useState<{ owner: string, repo: string } | undefined>();
     const context = usePageContext();
+   const Sync = async () => {
+        const {owner, repo} = await props.params;
+        const basic = await api.GetInfo(owner, repo);
+        if (basic) {
+            const json: AppWrite<RepoInfo> = JSON.parse(basic.data);
+            if (json.data?.model.status !== "Syncing") {
+                notifications
+                    .show({
+                        title: '完成',
+                        message: '仓库索引同步成功',
+                        color: 'green',
+                    });
+                Init().then().catch();
+                return;
+            }
+        }
+        setTimeout(Sync, 5000);
+    };
+
     const Init = async () => {
         const {owner, repo} = await props.params;
         setParma({owner,repo});
-        const basic = await  api.GetInfo(owner,repo);
+        const basic = await api.GetInfo(owner,repo);
         if (basic.status !== 200){
             notifications
                 .show({
@@ -28,18 +47,22 @@ export default function RepoLayout(props: { children: React.ReactNode, params: P
                     color: 'red',
                 });
         }
-        const json: AppWrite<Repository> = JSON.parse(basic.data);
+        const json: AppWrite<RepoInfo> = JSON.parse(basic.data);
         if (json.code !== 200 || !json.data) {
             setNotFound(true);
             return;
         }
         setRepo(json.data);
         context.setRepoCtx({
-            repo: json.data,
+            repo: json.data.model,
             owner: owner,
-            repoName: repo
+            repoName: repo,
+            repoInfo: json.data
         })
         setLoading(true);
+        if (json.data.model.status === "Syncing") {
+            setTimeout(Sync, 5000);
+        }
     }
     useEffect(() => {
         Init().then().catch();
@@ -58,7 +81,7 @@ export default function RepoLayout(props: { children: React.ReactNode, params: P
             {
                 (Repo && Loading && Parma) && (
                     <>
-                        <Repoheader repo={Repo} owner={Parma.owner}/>
+                        <Repoheader repo={Repo.model} owner={Parma.owner} info={Repo}/>
                     </>
                 )
             }

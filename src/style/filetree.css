@@ -33,6 +33,16 @@
     }
 }
 
+.repo-sync {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5rem;
+    border: 1px #c2c2c2 solid;
+    margin: 0.5rem 0;
+    gap: 1rem;
+}
+
 .file-tree {
 }
 .folder-header {
