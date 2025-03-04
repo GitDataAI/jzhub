@@ -67,13 +67,16 @@
     display: flex;
     justify-content: space-between;
     button {
-        width: 10rem;
+        width: 5rem;
     }
     .mantine-Tabs-list {
         width: 100%;
+        white-space: nowrap;
     }
+
     .list {
         position: relative;
+        white-space: nowrap;
     }
 
     .indicator {

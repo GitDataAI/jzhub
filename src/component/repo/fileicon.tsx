@@ -1,7 +1,6 @@
 import {PiFileCppLight, PiFileJsxDuotone, PiFileTsx, PiMarkdownLogo} from "react-icons/pi";
 import {FaFile, FaJava, FaNodeJs, FaRust} from "react-icons/fa";
 import {IoDocumentText} from "react-icons/io5";
-import {CssIcon} from "@mantinex/dev-icons";
 import {IconJson} from "@tabler/icons-react";
 import {SiTypescript} from "react-icons/si";
 import {AiOutlinePython} from "react-icons/ai";
@@ -17,8 +16,6 @@ export const Fileicon = (props: FileiconProps) => {
     switch (extend) {
         case "md":
             return <PiMarkdownLogo />;
-        case "css":
-            return <CssIcon />;
         case "js":
             return <FaNodeJs />;
         case "json":
