@@ -69,12 +69,6 @@ const useUserContext = create<UserState>()(
                                                 set({user: undefined, isLogin: false, dash: undefined})
                                             }
                                         })
-                                } else {
-                                    notifications.show({
-                                        title: '同步失败，登陆失效',
-                                        message: json.msg,
-                                        color: 'red',
-                                    })
                                 }
                             }
                         })
