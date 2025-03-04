@@ -4,10 +4,8 @@ import '@mantine/core/styles.css';
 import "@/style/main.css"
 
 import {ColorSchemeScript, mantineHtmlProps, MantineProvider} from '@mantine/core';
-import React, {useEffect} from "react";
+import React from "react";
 import {Notifications} from "@mantine/notifications";
-import useUserContext from "@/store/useUserContext";
-import {useRouter} from "next/navigation";
 
 
 export default function RootLayout(props: { children: React.ReactNode }) {
