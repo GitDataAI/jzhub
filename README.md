@@ -1,95 +1,36 @@
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-# JZLab
+## Getting Started
 
-JZLab is the self-hosted version of GitData.AI that allows you to deploy and manage your own DataHub and Workflow on-prem.
+First, run the development server:
 
-----
-## JZLab include but not limited to：
-
-1. Visualize and interact with JZFS repositories
-2. Visualize and interact JZFlow pipelines and Directed Acyclic Graphs (DAGs).
-3. One-click to start the fully functional JupyterLab environment.
-4. Examine the performance of versioned/registered models.
-5. Monitor the status of model services including health and resource usage stats, and view deployment history and related logs.
-6. Easily upload and manage datasets and shared resources.
-7. Browse and share files with other group members in a collaborative, group-centric, environment.
-8. Submit and schedule jobs to run automatically in the background. Easily monitor job progress from the job stats panel.
-9. The easiest way to do the infrastructure orchestration for setting up 10+ different tools to build your infrastructure.
-
-
-## How different roles use JZLab
-- Data Scientist
-    - Data scientists can stay informed and focused on training and running their models.
-    - In the past, there was a lot of manual work of setting the environment, which is a fragmented and time consuming analysis process. And it is hard to collaborate with a team on the same project.
-    - Now, you can carry out data analytics and optimizations with ML easily, and contribute your time on what really matters.
-- IT Leader
-    - Gives IT leaders flexibility and administration authority to configure resources.
-    - In the past, it’s hard to keep track of each teams' needs and environment settings. Also, the hardware, resources, and GPU usage are unsure.
-    - Now, You can equip and enable data teams with the tools and resources they need as easy as pie. And easily deploy the model within an hour.
-----
-## Basic Build And Usage
-
-#### Requirement
-
-1. todo
-2. todo
-
-#### Build And Running
-
-deploy the system to your server,you can get help from this repository:
-```bash
-https://github.com/GitDataAI/jzfs
-```
-
-clone JZLab repository to your server:
-
-```bash
-git clone git@github.com:GitDataAI/jzlab.git
-```
-
-Before you run the project for the first time, run the following script to install packages from `package.json`:
-```bash
-npm install
-```
-After waiting for the installation to complete,run the following script to start:
 ```bash
 npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-----
-### Cloud
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-[Try without installing](https://gitdata.ai)
+## Learn More
 
-----
-### Contributors
+To learn more about Next.js, take a look at the following resources:
 
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-[![All Contributors](https://img.shields.io/github/all-contributors/GitdataAI/jzlab?color=ee8449&style=flat-square)](#contributors)
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-<!-- ALL-CONTRIBUTORS-LIST:END -->
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-----
-### License
+## Deploy on Vercel
 
-Dual-licensed under [MIT](https://github.com/GitDataAI/jiaozifs/blob/main/LICENSE-MIT) + [Apache 2.0](https://github.com/GitDataAI/jiaozifs/blob/main/LICENSE-APACHE)
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-
-## Contributors ✨
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

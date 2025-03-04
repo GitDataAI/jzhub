@@ -1,0 +1,129 @@
+.user {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: 1fr;
+    min-height: calc(100vh - 60px);
+    @media screen and (min-width: 1024px) {
+        width: 80vw;
+        margin: 0 auto;
+    }
+}
+.user-body {
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    /*border: 1px #bdbdbd solid;*/
+    .avatar {
+        width: 250px;
+        height: 250px;
+        margin-top: 100px;
+    }
+    .config {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        h1 {
+            font-size: 2rem;
+            padding: 0;
+            margin: 0;
+        }
+        h3 {
+            margin: 0;
+            font-weight: 400;
+        }
+    }
+}
+
+.user-body-list {
+    position: relative;
+    margin-bottom: var(--mantine-spacing-md);
+    padding: 0.5rem;
+    width: 100%;
+    .user-body-indi {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-items: left;
+        align-items: self-start;
+        gap: .5rem;
+    }
+}
+.user-body-tabs {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    width: 100%;
+    a {
+        width: 5rem;
+        font-weight: 600;
+    }
+}
+.user-body-indicator {
+    background-color: var(--mantine-color-white);
+    border-radius: var(--mantine-radius-md);
+    border: 1px solid var(--mantine-color-gray-2);
+    box-shadow: var(--mantine-shadow-sm);
+
+}
+
+.user-body-tab {
+    z-index: 1;
+    font-weight: 500;
+    transition: color 100ms ease;
+    color: var(--mantine-color-gray-7);
+
+    &[data-active] {
+        color: var(--mantine-color-black);
+    }
+
+}
+
+.user-repo-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    width: 90%;
+    .user-repo-item {
+        margin: 1rem;
+        padding: .5rem;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        border: 1px #d9d9d9 solid;
+        justify-content: space-between;
+        border-radius: 5px;
+        .title {
+            justify-content: space-between;
+            align-items: center;
+            margin-left: 1rem;
+            padding: 5px;
+            h1 {
+                font-size: 1.5rem;
+            }
+            span {
+                margin-left: 0.5rem;
+                border: 1px #979797 solid;
+                padding: 0 5px;
+                border-radius: 5px;
+                font-size: 1rem;
+            }
+            .desc {
+                color: #818181;
+            }
+            .time {
+                color: #818181;
+            }
+        }
+        .action {
+            display: flex;
+            flex-direction: row;
+            gap: 16px;
+            justify-content: flex-end;
+            align-items: flex-end;
+        }
+    }
+}
