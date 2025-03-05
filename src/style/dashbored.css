@@ -28,13 +28,36 @@
             display: flex;
             .edit {
                 background: #f1f1f1;
-                color: black;
+                color: #222222;
+                padding: 0.2rem 0.5rem;
+                border-radius: 5px;
             }
             white-space: nowrap;
         }
         .dashbored-left-item {
             width: 100%;
             padding: 0 2rem;
+            .item {
+                padding: 0.2rem 1rem;
+                button {
+                    background-color: white;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+
+                }
+                .mantine-Menu-itemLabel {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                }
+            }
+            i {
+                color: #c2c2c2;
+                font-size: 0.75rem;
+                margin-right: 0.5rem;
+                transition: all 0.3s ease-in-out;
+            }
         }
     }
     .dashbored-center {

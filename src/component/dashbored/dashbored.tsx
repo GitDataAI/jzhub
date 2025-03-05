@@ -1,7 +1,8 @@
 import {UserDashBored, } from "@/server/types";
 import {UserButton} from "@/component/layout/userbtn";
-import {Button, Divider, Menu, MenuItem} from "@mantine/core";
+import { Divider, Menu, MenuItem} from "@mantine/core";
 import {useRouter} from "next/navigation";
+import Image from "next/image";
 
 interface DashboredProps {
     user: UserDashBored
@@ -10,16 +11,17 @@ interface DashboredProps {
 export const Dashbored = ({user}: DashboredProps) => {
     const nav = useRouter().replace;
     const repo = user.repos;
+
     return (
         <div className="dashbored">
             <div className="dashbored-left">
                 <div className="dashbored-left-header">
                     <UserButton image={user.user.avatar || ""} name={user.user.username.substring(0,20)} email={user.user.name.substring(0,20)} icon={
-                        <Button onClick={() => {
+                        <span onClick={() => {
                             nav("/u/" + user.user.username )
                         }} className="edit">
                             {"> go actively"}
-                        </Button>
+                        </span>
                     }/>
                 </div>
                 <div className="dashbored-left-item">
@@ -28,15 +30,35 @@ export const Dashbored = ({user}: DashboredProps) => {
                         {
                             repo.map((item, index) => {
                                 return (
-                                    <MenuItem key={index} onClick={() => {
-                                        nav("/r/" + item.owner_id + "/" + item.name)
+                                    <MenuItem style={{
+                                        color: 'black',
+                                        backgroundColor: "white",
+                                    }} className="item" key={index} onClick={() => {
+                                        nav("/r/" + user.user.name + "/" + item.name)
                                     }}>
-                                         {item.name}
+                                        <Image src={user.user.avatar || ""} alt={""} width={20} height={20} style={{
+                                            borderRadius: "50%"
+                                        }}/>
+                                       <div>
+                                           <span
+                                            onClick={() => nav("/u/" + user.user.name)}
+                                           >{user.user.name}</span>/<span
+                                            onClick={() => nav("/r/" + user.user.name + "/" + item.name)}
+                                       >{item.name}</span>
+                                       </div>
                                     </MenuItem>
                                 )
                             })
                         }
                     </Menu>
+                    <Divider label="group"/>
+                    <i>No Item</i>
+                    <Divider label="team"/>
+                    <i>No Item</i>
+                    <Divider label="project"/>
+                    <i>No Item</i>
+                    <Divider label="product"/>
+                    <i>No Item</i>
                 </div>
             </div>
             <div className="dashbored-center">
