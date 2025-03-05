@@ -1,18 +1,29 @@
-import {Button, Modal, Select} from "@mantine/core";
-import {Branches, Repository} from "@/server/types";
+import {Button, HoverCard, HoverCardDropdown, HoverCardTarget, Modal, Select} from "@mantine/core";
+import {BranchModel, CommitModel, Repository} from "@/server/types";
 import {useDisclosure} from "@mantine/hooks";
 import {CloneModel} from "@/component/repo/clone";
+import dayjs from "dayjs";
 
 interface FileActionProps {
-    branch: Branches[],
-    default_branch: Branches,
-    echange: (branch: Branches) => void,
+    branch: BranchModel[],
+    default_branch: BranchModel,
+    echange: (branch: BranchModel) => void,
     repo: Repository,
-    owner: string
+    owner: string,
+    head: CommitModel
 }
 
-export const FileAction = ({branch, default_branch, echange, repo, owner}: FileActionProps) => {
+export const FileAction = ({branch, default_branch, echange, repo, owner, head}: FileActionProps) => {
     const [opened, {open, close}] = useDisclosure(false);
+    const relative_time = () => {
+        if (head) {
+            const date = new Date(Number(head.time) * 1000);
+            const to_now = dayjs().to(dayjs(date));
+            return <>{to_now}</>
+        } else {
+            return <>N/A</>
+        }
+    }
     return (
         <div className="file-action">
             <div className="file-action-left">
@@ -39,10 +50,29 @@ export const FileAction = ({branch, default_branch, echange, repo, owner}: FileA
                     }}
                     disabled={branch.length <= 1}
                 />
+                <HoverCard>
+                    <HoverCardTarget>
+                        <a>{head.message}</a>
+                    </HoverCardTarget>
+                    <HoverCardDropdown>
+                        <div>
+                            <div>
+                                {head.author}
+                            </div>
+                            <div>
+                                {relative_time()}
+                            </div>
+                        </div>
+                    </HoverCardDropdown>
+                </HoverCard>
             </div>
             <div className="file-action-right">
                 <Button onClick={open}>Clone</Button>
                 <Button>Publish</Button>
+                <div className="cmt">
+                    <a>{head.id.substring(0, 7)} {relative_time()}</a>
+                    <a>{repo.nums_commit} commits</a>
+                </div>
             </div>
             <div style={{
                 position: "fixed",
