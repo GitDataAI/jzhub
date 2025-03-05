@@ -1,0 +1,10 @@
+.user-setting-profile {
+    margin: 2rem;
+    .profile-form {
+        margin: 5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        max-width: 600px;
+    }
+}

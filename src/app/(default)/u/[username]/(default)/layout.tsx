@@ -67,7 +67,7 @@ export default function UserLayout(props: { children: React.ReactNode, params: P
                             <p>Sorry, the page you visited does not exist.</p>
                         </div>
                         <div className="not-found-start">
-                            <Link href="/">Go Home</Link>
+                            <Link href="/public">Go Home</Link>
                         </div>
                     </div>
                 </div>
