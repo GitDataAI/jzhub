@@ -16,13 +16,6 @@ export default function RootLayout(props: { children: React.ReactNode }) {
             setUsers(state);
         })
     }, []);
-    useEffect(() => {
-        if (window.location.pathname === "/" && users) {
-            if (users.isLogin){
-                window.location.href = "/explore";
-            }
-        }
-    }, [users]);
     const hook = useUserContext();
 
     useEffect(() => {

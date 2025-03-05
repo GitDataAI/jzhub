@@ -3,22 +3,23 @@
 import LayoutWelCome from "@/component/layout/welcome";
 import useUserContext from "@/store/useUserContext";
 import {useEffect, useState} from "react";
-import {UserModel} from "@/server/types";
+import {UserDashBored} from "@/server/types";
+import {Dashbored} from "@/component/dashbored/dashbored";
 
 export default function Home() {
-    const [user, setUser] = useState<UserModel | undefined>(undefined)
+    const [user, setUser] = useState<UserDashBored | undefined>(undefined)
+    const context = useUserContext();
     useEffect(() => {
+        setUser(context.getDashBored())
         return useUserContext.subscribe((state) => {
-            setUser(state.getUser())
+            setUser(state.getDashBored())
         })
     }, []);
     return (
         <>
             {
                 user ? (
-                    <>
-
-                    </>
+                    <Dashbored user={user}/>
                 ) : (
                     <LayoutWelCome/>
                 )

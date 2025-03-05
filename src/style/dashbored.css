@@ -1,0 +1,52 @@
+.dashbored {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    @media screen and (min-width: 1800px) {
+        grid-template-columns: 1fr 5fr 1fr;
+    }
+    @media screen and (max-width: 1800px) {
+        grid-template-columns: 1fr 5fr;
+    }
+    @media screen and (max-width: 1024px) {
+        grid-template-columns: 1fr;
+    }
+
+    .dashbored-left {
+        min-width: 300px;
+        @media screen and (max-width: 1024px) {
+            display: none;
+        }
+        display: flex;
+        flex-direction: column;
+        border-right: 1px #c2c2c2 solid;
+        .dashbored-left-header {
+            width: 100%;
+            padding: 0 2rem 0;
+            border-bottom: 1px #c2c2c2 solid;
+            display: flex;
+            .edit {
+                background: #f1f1f1;
+                color: black;
+            }
+            white-space: nowrap;
+        }
+        .dashbored-left-item {
+            width: 100%;
+            padding: 0 2rem;
+        }
+    }
+    .dashbored-center {
+    }
+    .dashbored-right {
+        border: 1px green solid;
+        @media screen and (max-width: 1800px) {
+            display: none;
+        }
+        @media screen and (min-width: 1800px) {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+}

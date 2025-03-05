@@ -36,6 +36,10 @@ spec:
                 name: gitdataweb-service
                 port:
                   number: 80
+  tls:
+    - hosts:
+        - jzhub.io
+    - secretName: gitdataweb-tls
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress

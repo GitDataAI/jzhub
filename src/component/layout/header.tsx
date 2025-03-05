@@ -17,8 +17,12 @@ export default function LayoutHeader({users}: LayoutHeaderProps) {
     const nav = useRouter().replace;
     return (
         <div className="layout-header">
-            <div className="header-left">
-                <Image src={"/gitdata-ai.png"} alt={"title"} width={150} height={45}/>
+            <div style={{
+                position: "relative"
+            }} className="header-left">
+                <Image onClick={() => {
+                    nav("/")
+                }} src={"/gitdata-ai.png"} alt={"title"} width={150} height={45}/>
                 {
                     users ? (
                         <HeaderStatus/>
@@ -29,6 +33,7 @@ export default function LayoutHeader({users}: LayoutHeaderProps) {
             </div>
             <div className="header-right">
                 <TextInput
+                    className="header-right-search"
                     rightSectionWidth={60}
                     leftSection={
                         <CiSearch/>
