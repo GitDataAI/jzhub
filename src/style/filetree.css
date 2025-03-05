@@ -20,6 +20,22 @@
         gap: 2rem;
         flex-direction: row-reverse;
         margin-right: 2rem;
+        .cmt {
+            background: white;
+            color: black;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            a {
+                padding: 0.5rem;
+                font-weight: 400;
+            }
+        }
+        .cmt a:hover {
+            background: #f1f1f1;
+            border-radius: 10px;
+            cursor: pointer;
+        }
     }
 }
 .file-body {
