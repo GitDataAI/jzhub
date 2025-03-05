@@ -17,7 +17,8 @@ metadata:
     nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
     nginx.ingress.kubernetes.io/proxy-cookie-path: / /
     nginx.ingress.kubernetes.io/proxy-set-header: "Cookie $http_cookie"
-
+    acme.cert-manager.io/http01-edit-in-place: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-stagging
   labels:
     apptype: gitdataweb
     app.kubernetes.io/managed-by: Helm
