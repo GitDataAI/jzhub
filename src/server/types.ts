@@ -64,6 +64,29 @@ export interface RepoInfo {
     repo: string,
 }
 
+export interface CommitModel {
+    uid: string;
+    id: string;
+    branch_uid: string;
+    repo_uid: string;
+    branch_name: string;
+    author: string;
+    email: string;
+    message: string;
+    time: string;
+    status: string;
+    runner: string[];
+}
+
+export interface BranchModel {
+    uid: string;
+    repo_uid: string;
+    protect: boolean;
+    name: string;
+    head: string;
+    time: string;
+}
+
 export interface Watch {
     uid: string;
     user_id: string;
@@ -118,7 +141,7 @@ export interface Tags {
 }
 
 export interface Blob {
-    branches: Record<string, Commits[]>;
+    branches: Record<string, CommitModel[]>;
 }
 
 export interface Tree {
