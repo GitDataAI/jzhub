@@ -2,13 +2,18 @@
 
 import usePageContext from "@/store/usePageContext";
 import {useEffect, useState} from "react";
-import {Blob, Branches, Repository, Tree} from "@/server/types";
+import {Blob, BranchModel, CommitModel, Repository, Tree} from "@/server/types";
 import {RepoApi} from "@/server/RepoApi";
 import {notifications} from "@mantine/notifications";
 import {AppWrite} from "@/server/Client";
 import {FileTree} from "@/component/repo/filetree";
 import {FileAction} from "@/component/repo/fileaction";
 import {Loader} from "@mantine/core";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+
+dayjs.extend(relativeTime);
+
 
 export default function RepositoryPage() {
     const [Repo, setRepo] = useState<Repository | undefined>()
@@ -19,10 +24,10 @@ export default function RepositoryPage() {
         repo: ''
     })
 
-    const [Branch,setBranch] = useState<Branches[]>([])
-    const [DefaultBranch, setDefaultBranch] = useState<Branches | undefined>(undefined)
+    const [Branch,setBranch] = useState<BranchModel[]>([])
+    const [DefaultBranch, setDefaultBranch] = useState<BranchModel | undefined>(undefined)
 
-    const ExchangeBranch = (branch: Branches) => {
+    const ExchangeBranch = (branch: BranchModel) => {
         FatchTree({
             owner: Owner.owner,
             repo: Owner.repo,
@@ -35,6 +40,7 @@ export default function RepositoryPage() {
     const [Empty, setEmpty] = useState(false);
 
     const [Bhct,setBhct] = useState<Blob | undefined>();
+    const [HeadCommit,setHeadCommit] = useState<CommitModel | undefined>(undefined)
     const api = new RepoApi();
     const FatchBhct = async (props: {owner: string, repo: string, model: Repository}) => {
         const basic = await api.Bhtc(props.owner, props.repo);
@@ -59,7 +65,7 @@ export default function RepositoryPage() {
         setBhct(json.data)
         setLoading(false);
         const keys = Object.keys(json.data).map((key)=>{
-            const result:Branches = JSON.parse(key)
+            const result:BranchModel = JSON.parse(key)
             return result
         })
         setBranch(keys)
@@ -73,6 +79,20 @@ export default function RepositoryPage() {
                     head: head.head
                 }).then().catch();
                 setDefaultBranch(head)
+                api.OneCommit(
+                    props.owner,
+                    props.repo,
+                    props.model.default_branch,
+                    head.head
+                )
+                    .then((data) => {
+                        if (data.status === 200) {
+                            const json:AppWrite<CommitModel> = JSON.parse(data.data);
+                            if (json.code === 200 && json.data) {
+                                setHeadCommit(json.data)
+                            }
+                        }
+                    })
             }
         }else {
             if (keys.length > 0) {
@@ -83,6 +103,20 @@ export default function RepositoryPage() {
                     head: keys[0].head
                 }).then().catch();
                 setDefaultBranch(keys[0])
+                api.OneCommit(
+                    props.owner,
+                    props.repo,
+                    keys[0].name,
+                    keys[0].head
+                )
+                    .then((data) => {
+                        if (data.status === 200) {
+                            const json:AppWrite<CommitModel> = JSON.parse(data.data);
+                            if (json.code === 200 && json.data) {
+                                setHeadCommit(json.data)
+                            }
+                       }
+                    })
             }else {
                 setLoading(false);
                 setEmpty(true)
@@ -142,13 +176,12 @@ export default function RepositoryPage() {
                 )
             }
             {
-                (Repo && !Empty && Tree && Bhct && DefaultBranch ) && (
+                (Repo && !Empty && Tree && Bhct && DefaultBranch && HeadCommit ) && (
                     <>
                         {
                             Tab === 'file' && (
                                 <div className="file-page">
-                                    <FileAction branch={Branch} default_branch={DefaultBranch} echange={ExchangeBranch} repo={Repo} owner={Owner.owner}/>
-
+                                    <FileAction branch={Branch} default_branch={DefaultBranch} echange={ExchangeBranch} repo={Repo} owner={Owner.owner} head={HeadCommit}/>
                                     <div className="file-body">
                                         <FileTree tree={Tree.child}/>
                                     </div>
