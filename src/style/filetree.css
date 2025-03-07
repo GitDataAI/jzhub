@@ -20,6 +20,7 @@
         gap: 2rem;
         flex-direction: row-reverse;
         margin-right: 2rem;
+        white-space: nowrap;
         .cmt {
             background: white;
             color: black;

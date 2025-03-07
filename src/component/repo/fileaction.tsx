@@ -52,7 +52,9 @@ export const FileAction = ({branch, default_branch, echange, repo, owner, head}:
                 />
                 <HoverCard>
                     <HoverCardTarget>
-                        <a>{head.message}</a>
+                        <a style={{
+                            whiteSpace: "nowrap"
+                        }}>{head.message}</a>
                     </HoverCardTarget>
                     <HoverCardDropdown>
                         <div>
