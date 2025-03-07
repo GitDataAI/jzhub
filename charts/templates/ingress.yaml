@@ -23,9 +23,13 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     heritage: Helm
     release:  gitdataweb
-    kcert.dev/ingress: "managed"
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - jzhub.io
+      secretName: gitdataweb-tls
+
   rules:
     - host: jzhub.io
       http:
@@ -37,10 +41,6 @@ spec:
                 name: gitdataweb-service
                 port:
                   number: 80
-  tls:
-    - hosts:
-        - jzhub.io
-    - secretName: gitdataweb-tls
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
