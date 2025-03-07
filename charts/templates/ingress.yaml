@@ -16,6 +16,7 @@ metadata:
     nginx.ingress.kubernetes.io/cors-expose-headers: "Content-Length,Content-Range"
     nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
     nginx.ingress.kubernetes.io/proxy-cookie-path: / /
+    nginx.ingress.kubernetes.io/proxy-body-size: "700m"
     nginx.ingress.kubernetes.io/proxy-set-header: "Cookie $http_cookie"
   labels:
     apptype: gitdataweb
