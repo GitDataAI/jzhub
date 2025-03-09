@@ -6,5 +6,18 @@
         flex-direction: column;
         gap: 1rem;
         max-width: 600px;
+        span {
+            color: #c2c2c2;
+        }
+        label {
+            color: #000000;
+            font-weight: 600;
+        }
+        input {
+            font-weight: 400;
+        }
+        textarea {
+            font-weight: 400;
+        }
     }
 }
