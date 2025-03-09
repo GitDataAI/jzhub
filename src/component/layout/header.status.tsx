@@ -70,7 +70,7 @@ export const HeaderStatus = () => {
                         </div>
                     </UnstyledButton>
                 </MenuTarget>
-                <MenuDropdown>
+                <MenuDropdown className="header-status-menus">
                     {
                         Item.map((item, index) => {
                             return (

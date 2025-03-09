@@ -21,13 +21,28 @@ export const UserBody = ({body}: UserBodyProps) => {
                 </div>
                 <div style={{
                     display: "flex",
-                    gap: "2rem"
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexDirection: "row",
                 }}>
-                    <div className="user-body-tabs">
+                    <div className="user-body-tabs" style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        flexDirection: "row",
+                        gap: 5,
+                    }}>
                         <a>Following</a>
                         <span>{body.following.length}</span>
                     </div>
-                    <div className="user-body-tabs">
+                    <div className="user-body-tabs"
+                         style={{
+                             display: "flex",
+                             alignItems: "center",
+                             flexDirection: "row",
+                             gap: 5,
+                         }}
+                    >
                         <a>Followers</a>
                         <span>{body.followers.length}</span>
                     </div>

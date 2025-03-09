@@ -36,7 +36,7 @@ export const Repoheader = ({repo, owner, info}: RepoheaderProps) => {
                     <div className="repo-header-info-title-top">
                         <Avatar src={repo.avatar || ""} radius="xl"/>
                         <h1>{repo.name}</h1>
-                        <b>{repo.visibility ? "Public" : "Private"}</b>
+                        <b>{!repo.visibility ? "Public" : "Private"}</b>
                     </div>
                     {
                         (info.fork && info.fork?.owner && info.fork.model) && (

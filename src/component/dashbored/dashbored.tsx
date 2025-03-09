@@ -33,6 +33,9 @@ export const Dashbored = ({user}: DashboredProps) => {
                                     <MenuItem style={{
                                         color: 'black',
                                         backgroundColor: "white",
+                                        fontSize: "14px",
+                                        fontWeight: "400",
+                                        padding: "2px 0",
                                     }} className="item" key={index} onClick={() => {
                                         nav("/r/" + user.user.name + "/" + item.name)
                                     }}>

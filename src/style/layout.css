@@ -3,7 +3,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     .header-left {
         height: 60px;
         display: flex;
@@ -43,6 +42,12 @@
             justify-content: center;
             gap: 0.5rem;
             height: 60px;
+            span {
+                font-size: 14px;
+                font-weight: 400;
+                color: #495057;
+                cursor: pointer;
+            }
         }
         .header-status-arrow {
             transition: all 0.4s ease-in-out;
@@ -76,6 +81,26 @@
                 display: none;
             }
         }
+    }
+}
+
+.header-status-menus {
+    span {
+        font-size: 14px;
+        font-weight: 400;
+        color: #495057;
+        cursor: pointer;
+    }
+}
+.user-menu-drop {
+    span {
+        font-size: 14px;
+        font-weight: 400;
+    }
+    .mantine-Menu-item {
+        margin: 0;
+        padding: 0.2rem 1rem;
+        color: #495057;
     }
 }
 

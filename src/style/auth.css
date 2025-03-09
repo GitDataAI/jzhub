@@ -57,6 +57,7 @@
 .back {
     position: fixed;
     top: 5rem;
+    right: 0;
     width: 10rem;
     padding: 0.5rem 1rem;
     border-radius: 5px;

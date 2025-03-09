@@ -58,7 +58,12 @@
     width: 100%;
     a {
         width: 5rem;
+        font-size: 14px;
         font-weight: 600;
+    }
+    span {
+        font-size: 14px;
+        font-weight: 400;
     }
 }
 .user-body-indicator {

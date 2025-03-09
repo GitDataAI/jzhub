@@ -148,7 +148,7 @@ export default function SettingProfile() {
                                             color: "green",
                                         });
                                         setTimeout(()=>{
-                                            // window.location.reload()
+                                            window.location.reload()
                                         }, 1000)
                                     }
                                     xhr.onerror =  function () {

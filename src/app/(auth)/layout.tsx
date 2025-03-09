@@ -4,8 +4,8 @@ import '@mantine/core/styles.css';
 import "@/style/main.css"
 
 import React from "react";
-import {FaArrowLeft} from "react-icons/fa";
 import {useRouter} from "next/navigation";
+import {IoMdClose} from "react-icons/io";
 
 
 export default function RootLayout(props: { children: React.ReactNode }) {
@@ -13,7 +13,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
     return (
         <div className="auth">
             <div className="back" onClick={() => nav("/")}>
-                <FaArrowLeft/>
+                <IoMdClose/>
                 <span>返回主页</span>
             </div>
             <div className="auth-body">

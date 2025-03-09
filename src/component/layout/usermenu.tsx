@@ -31,32 +31,74 @@ export const Usermenu = (props: UsermenuProps) => {
                         email={props.user.email}
                     />
                 </MenuTarget>
-                <MenuDropdown>
+                <MenuDropdown className="user-menu-drop">
                     <MenuItem leftSection={<AiOutlineProfile size={14}/>} onClick={() => {
                         routes.replace("/u/" + props.user.username + "?tab=actively")
-                    }}> Profile</MenuItem>
-                    <MenuItem leftSection={<AiOutlineTeam size={14}/>}>Team</MenuItem>
-                    <MenuItem leftSection={<HiMiniUserGroup size={14}/>}>Group</MenuItem>
+                    }}>
+                        <span>Profile</span>
+                    </MenuItem>
+                    <MenuItem leftSection={<AiOutlineTeam size={14}/>}>
+                        <span>Team</span>
+                    </MenuItem>
+                    <MenuItem leftSection={<HiMiniUserGroup size={14}/>}>
+                        <span>Group</span>
+                    </MenuItem>
                     <MenuDivider/>
-                    <MenuItem leftSection={<RiGitRepositoryLine size={14}/>}>Repository</MenuItem>
-                    <MenuItem leftSection={<VscGithubProject size={14}/>}>Project</MenuItem>
-                    <MenuItem leftSection={<MdProductionQuantityLimits size={14}/>}>Product</MenuItem>
+                    <MenuItem leftSection={<RiGitRepositoryLine size={14}/>} onClick={() => {
+                        routes.replace("/u/" + props.user.username + "?tab=repository")
+                    }}>
+                        <span>Repository</span>
+                    </MenuItem>
+                    <MenuItem leftSection={<VscGithubProject size={14}/>} onClick={() => {
+                        routes.replace("/u/" + props.user.username + "?tab=project")
+                    }}>
+                        <span>Project</span>
+                    </MenuItem>
+                    <MenuItem leftSection={<MdProductionQuantityLimits size={14}/>} onClick={() => {
+                        routes.replace("/u/" + props.user.username + "?tab=product")
+                    }}>
+                        <span>Product</span>
+                    </MenuItem>
                     <MenuDivider/>
-                    <MenuItem leftSection={<MdStar size={14}/>}>Star</MenuItem>
-                    <MenuItem leftSection={<GiShadowFollower size={14}/>}>Follow</MenuItem>
-                    <MenuItem leftSection={<FaThemeco size={14}/>}>Pro</MenuItem>
-                    <MenuItem leftSection={<FaMoneyCheck size={14}/>}>Finance</MenuItem>
-                    <MenuItem leftSection={<RiBillLine size={14}/>}>Bill</MenuItem>
+                    <MenuItem leftSection={<MdStar size={14}/>}  onClick={() => {
+                        routes.replace("/u/" + props.user.username + "?tab=star")
+                    }}>
+                        <span>Star</span>
+                    </MenuItem>
+                    <MenuItem leftSection={<GiShadowFollower size={14}/>}  onClick={() => {
+                        routes.replace("/u/" + props.user.username + "?tab=follow")
+                    }}>
+                        <span>Follow</span>
+                    </MenuItem>
+                    <MenuItem leftSection={<FaThemeco size={14}/>}>
+                        <span>Pro</span>
+                    </MenuItem>
+                    <MenuItem leftSection={<FaMoneyCheck size={14}/>}>
+                        <span>Finance</span>
+                    </MenuItem>
+                    <MenuItem leftSection={<RiBillLine size={14}/>}>
+                        <span>Bill</span>
+                    </MenuItem>
                     <MenuDivider/>
-                    <MenuItem leftSection={<CiSettings size={14}/>}>Setting</MenuItem>
+                    <MenuItem leftSection={<CiSettings size={14}/>}  onClick={() => {
+                        routes.replace("/u/setting/profile")
+                    }}>
+                        <span>Setting</span>
+                    </MenuItem>
                     <MenuItem leftSection={<CiLogout size={14}/>} onClick={()=>{
                         user.logout();
                         window.location.reload();
                     }}>Logout</MenuItem>
                     <MenuDivider/>
-                    <MenuItem leftSection={<SlDocs size={14}/>}>GitDataAI Docs</MenuItem>
-                    <MenuItem leftSection={<TfiHelpAlt size={14}/>}>GitDataAI Help</MenuItem>
-                    <MenuItem leftSection={<MdOutlineContactSupport size={14}/>}>GitDataAI Contact</MenuItem>
+                    <MenuItem leftSection={<SlDocs size={14}/>}>
+                        <span>GitDataAI Docs</span>
+                    </MenuItem>
+                    <MenuItem leftSection={<TfiHelpAlt size={14}/>}>
+                        <span>GitDataAI Help</span>
+                    </MenuItem>
+                    <MenuItem leftSection={<MdOutlineContactSupport size={14}/>}>
+                        <span>GitDataAI Contact</span>
+                    </MenuItem>
                 </MenuDropdown>
             </Menu>
         </div>

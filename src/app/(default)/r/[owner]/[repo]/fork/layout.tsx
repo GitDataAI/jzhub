@@ -1,13 +1,14 @@
 'use client'
 
-import {FaArrowLeft} from "react-icons/fa";
+
 import React from "react";
+import {IoMdClose} from "react-icons/io";
 
 export default function ForkRepoLayout(props: { children: React.ReactNode }) {
     return (
         <div>
             <div className="back" onClick={() => window.history.back()}>
-                <FaArrowLeft/>
+                <IoMdClose/>
                 <span>返回</span>
             </div>
             {props.children}
