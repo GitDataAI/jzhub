@@ -2,7 +2,6 @@ import {UserDashBored, } from "@/server/types";
 import {UserButton} from "@/component/layout/userbtn";
 import { Divider, Menu, MenuItem} from "@mantine/core";
 import {useRouter} from "next/navigation";
-import Image from "next/image";
 
 interface DashboredProps {
     user: UserDashBored
@@ -39,7 +38,7 @@ export const Dashbored = ({user}: DashboredProps) => {
                                     }} className="item" key={index} onClick={() => {
                                         nav("/r/" + user.user.name + "/" + item.name)
                                     }}>
-                                        <Image src={user.user.avatar || ""} alt={""} width={20} height={20} style={{
+                                        <img src={user.user.avatar || ""} alt={""} width={20} height={20} style={{
                                             borderRadius: "50%"
                                         }}/>
                                        <div>
