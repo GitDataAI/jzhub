@@ -40,7 +40,7 @@ const UserRepoItem = (props: { repo: Repository, owner: string }) => {
                         <Anchor href={`/u/${props.owner}`}>
                             <b>{props.owner} / </b>
                         </Anchor>
-                        <Anchor href={`/r/${props.owner}/${repo.name}`}>
+                        <Anchor href={`/r/${props.owner}/${repo.name}?tab=file`}>
                             <b>{repo.name}</b>
                         </Anchor>
                     </div>

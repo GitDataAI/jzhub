@@ -129,6 +129,7 @@ export const Repoheader = ({repo, owner, info}: RepoheaderProps) => {
                 }
             }} variant="outline">
                 <TabsList ref={setRootRef} className="list">
+                    <TabsTab value="intro" ref={setControlRef('intro')}>Intro</TabsTab>
                     <TabsTab value="file" ref={setControlRef('file')}>File</TabsTab>
                     <TabsTab value="wiki" ref={setControlRef('wiki')}>Wiki</TabsTab>
                     <TabsTab value="issues" ref={setControlRef('issues')}>Issues</TabsTab>
