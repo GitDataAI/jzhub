@@ -14,7 +14,7 @@ interface RepoheaderProps {
 
 export const Repoheader = ({repo, owner, info}: RepoheaderProps) => {
     const [rootRef, setRootRef] = useState<HTMLDivElement | null>(null);
-    const [value, setValue] = useState<string | null>('file');
+    const [value, setValue] = useState<string | null>('intro');
     const [controlsRefs, setControlsRefs] = useState<Record<string, HTMLButtonElement | null>>({});
     const Route = useRouter();
     const nav = useRouter().replace;
@@ -127,7 +127,7 @@ export const Repoheader = ({repo, owner, info}: RepoheaderProps) => {
                     Route.push(`/r/${owner}/${repo.name}?tab=${val}`);
                     context.setUrlAndTab(`/r/${owner}/${repo.name}`, val);
                 }
-            }} variant="outline">
+            }} variant="outline" defaultValue={'intro'}>
                 <TabsList ref={setRootRef} className="list">
                     <TabsTab value="intro" ref={setControlRef('intro')}>Intro</TabsTab>
                     <TabsTab value="file" ref={setControlRef('file')}>File</TabsTab>
