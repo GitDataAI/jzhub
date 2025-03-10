@@ -11,6 +11,7 @@ import {FileAction} from "@/component/repo/fileaction";
 import {Loader} from "@mantine/core";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import {RepoIntro} from "@/component/repo/repointro";
 
 dayjs.extend(relativeTime);
 
@@ -18,7 +19,7 @@ dayjs.extend(relativeTime);
 export default function RepositoryPage() {
     const [Repo, setRepo] = useState<Repository | undefined>()
     const [Loading, setLoading] = useState(false);
-    const [Tab, setTab] = useState('');
+    const [Tab, setTab] = useState('intro');
     const [Owner, setOwner] = useState({
         owner: '',
         repo: ''
@@ -185,6 +186,13 @@ export default function RepositoryPage() {
                                     <div className="file-body">
                                         <FileTree tree={Tree.child}/>
                                     </div>
+                                </div>
+                            )
+                        }
+                        {
+                            Tab === 'intro' && (
+                                <div className="intro-page">
+                                    <RepoIntro repo={Repo} owner={Owner.owner} branch={DefaultBranch} head={HeadCommit} />
                                 </div>
                             )
                         }

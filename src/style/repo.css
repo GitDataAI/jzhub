@@ -125,3 +125,54 @@
         gap: 1rem;
     }
 }
+
+.repo-intro {
+    display: flex;
+    .repo-readme {
+        width: auto;
+    }
+    .repo-intro-card {
+        @media screen and (max-width: 1500px) {
+            display: none;
+        }
+        border: 1px #dddddd solid;
+        border-top: none;
+        min-width: 360px;
+        max-height: 60vh;
+        .clone-url {
+            padding: 0.25rem;
+        }
+        .repo-intro-card-title {
+            padding: 1rem;
+            h1 {
+                font-size: 1.5rem;
+            }
+            span {
+                font-size: 1rem;
+            }
+        }
+       .repo-intro-card-list {
+           display: flex;
+           flex-direction: column;
+           gap: 0.25rem;
+           justify-content: flex-start;
+           padding: 0.5rem 0.25rem;
+           max-width: 45%;
+        }
+
+        .repo-intro-card-list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .repo-intro-card-list-item a {
+            color: #0087ed;
+            cursor: pointer;
+        }
+
+        .repo-intro-card-list-item span {
+            font-size: 1rem;
+        }
+    }
+}
