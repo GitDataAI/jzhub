@@ -45,7 +45,7 @@ export const Dashbored = ({user}: DashboredProps) => {
                                            <span
                                             onClick={() => nav("/u/" + user.user.name)}
                                            >{user.user.name}</span>/<span
-                                            onClick={() => nav("/r/" + user.user.name + "/" + item.name + "?tab=file")}
+                                            onClick={() => nav("/r/" + user.user.name + "/" + item.name + "?tab=intro")}
                                        >{item.name}</span>
                                        </div>
                                     </MenuItem>
