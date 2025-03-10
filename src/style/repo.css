@@ -81,7 +81,6 @@
 
     .indicator {
         border-radius: var(--mantine-radius-md);
-        border: 1px solid var(--mantine-color-gray-2);
         box-shadow: var(--mantine-shadow-sm);
     }
 
