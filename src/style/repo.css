@@ -176,3 +176,19 @@
         }
     }
 }
+
+.post {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    #LayoutModelRepositoryPOST {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+    }
+}

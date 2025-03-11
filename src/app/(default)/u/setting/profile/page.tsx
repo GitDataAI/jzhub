@@ -16,6 +16,9 @@ import {
 import {Form, useForm} from "@mantine/form";
 import {useState} from "react";
 import {notifications} from "@mantine/notifications";
+import {UserConfigUploadParam} from "@/server/types";
+import {UserApi} from "@/server/UserApi";
+import {AppWrite} from "@/server/Client";
 
 export default function SettingProfile() {
     const user = useUserContext();
@@ -31,6 +34,7 @@ export default function SettingProfile() {
             timezone: dash?.user.timezone || "",
         },
     })
+    const api = new UserApi();
     const combobox = useCombobox({
         onDropdownClose: () => combobox.resetSelectedOption(),
         onDropdownOpen: () => combobox.updateSelectedOptionIndex('active'),
@@ -104,7 +108,7 @@ export default function SettingProfile() {
             return;
         }
 
-        const payload = {
+        const payload:UserConfigUploadParam = {
             name: value.name,
             email: value.email,
             description: value.description,
@@ -114,7 +118,22 @@ export default function SettingProfile() {
             timezone: value.timezone,
             topic: Topics,
         };
-        console.log(payload);
+        api.UploadConfig(payload).then((res)=>{
+            if (res.status === 200 && res.data){
+                const app:AppWrite<string> = JSON.parse(res.data);
+                if (app.code === 200 ){
+                    notifications.show({
+                        title: "Upload Success",
+                        message: "Upload Success",
+                        icon: <i className="iconfont icon-success"></i>,
+                        color: "green",
+                    });
+                    setTimeout(()=>{
+                        window.location.reload()
+                    }, 1000)
+                }
+            }
+        });
     }
     return(
         <div className="user-setting-profile">

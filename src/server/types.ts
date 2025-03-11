@@ -73,7 +73,7 @@ export interface CommitModel {
     author: string;
     email: string;
     message: string;
-    time: string;
+    time: number;
     status: string;
     runner: string[];
 }
@@ -242,3 +242,47 @@ export interface SSHKeyModel {
     created_at: DateTime;
     updated_at: DateTime;
 }
+
+
+export interface UserConfigUploadParam {
+    name?: string;
+    description?: string;
+    email?: string;
+    location?: string;
+    website?: string;
+    timezone?: string;
+    language?: string;
+    topic: string[];
+}
+
+export interface ProductListParam {
+    page: number;
+    limit: number;
+    order: string;
+    search?: string;
+}
+
+export interface DataProductModel {
+    uid: string;
+    name: string;
+    description?: string;
+    hash: string;
+    size: number;
+    owner: string;
+    repository_uid: string;
+    type: string;
+    license: string;
+    price?: number;
+    created_at: DateTime;
+    updated_at: DateTime;
+}
+
+export interface DataProductPostParam {
+    name: string;
+    description?: string;
+    license: string;
+    price?: number;
+    hash: string;
+    type: string;
+}
+
