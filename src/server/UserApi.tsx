@@ -1,6 +1,6 @@
 import {HttpClient} from "@/server/Client";
 
-import {SSHKeyCreateParma, TokenCreate, TokenDelete} from "@/server/types";
+import {SSHKeyCreateParma, TokenCreate, TokenDelete, UserConfigUploadParam} from "@/server/types";
 
 export class UserApi extends HttpClient {
     async GetNow() {
@@ -53,5 +53,8 @@ export class UserApi extends HttpClient {
 
     async SSHList() {
         return await this.patch<string>('/user/ssh', {});
+    }
+    async UploadConfig(param:UserConfigUploadParam) {
+        return await this.post<string>('/user/config', param);
     }
 }
