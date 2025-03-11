@@ -36,7 +36,25 @@ export const RepoIntro = ({repo, owner, head}: RepoIntroProps) => {
         <div className="repo-intro">
             <div className="repo-readme">
                 <ReactMarkdown
-                    rehypePlugins={[rehypeRaw]}>
+                    rehypePlugins={[rehypeRaw]}
+                    components={{
+                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                        // @ts-expect-error
+                        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                        code: ({node, inline, className, children, ...props}) => {
+                            const match = /language-(\w+)/.exec(className || '');
+                            return !inline && match ? (
+                                <div className="code-block">
+                                    <code className={className}>{children}</code>
+                                </div>
+                            ) : (
+                                <code className={className} {...props}>
+                                    {children}
+                                </code>
+                            );
+                        }
+                    }}
+                >
                     {README}
                 </ReactMarkdown>
             </div>

@@ -129,7 +129,7 @@
 .repo-intro {
     display: flex;
     .repo-readme {
-        width: auto;
+        width: 100%;
     }
     .repo-intro-card {
         @media screen and (max-width: 1500px) {

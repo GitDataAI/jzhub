@@ -229,6 +229,7 @@ export default function ProductPostPage(){
                                         setTopic(e.target.value)
                                     }}
                                     onKeyDown={(e) => {
+                                        e.stopPropagation();
                                         if (e.key === "Enter") {
                                             if (Topic.length > 0) {
                                                 setTopics([...Topics, Topic])

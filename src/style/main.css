@@ -8,3 +8,16 @@
 @import "./usersetting.css";
 @import "./market.css";
 @import "./product.css";
+
+
+.code-block  {
+    color: white;
+    background: black;
+    overflow-x: auto;
+    white-space: pre;
+    font-size: 14px;
+    font-family: monospace;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+}

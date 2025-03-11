@@ -7,6 +7,7 @@ import {AppWrite} from "@/server/Client";
 import {UserDashBored} from "@/server/types";
 import {UserApi} from "@/server/UserApi";
 import {ProductList} from "@/component/user/productlist";
+import {ActivelyReadme} from "@/component/user/activelyReadme";
 
 export default function UserPage(props: { params: Promise<{ username: string}> }) {
     const api = new UserApi();
@@ -33,7 +34,7 @@ export default function UserPage(props: { params: Promise<{ username: string}> }
                (Loading && userDash) ? (
                    <>
                        <TabsPanel value="actively">
-                           actively
+                           <ActivelyReadme readme={userDash.readme}/>
                        </TabsPanel>
                        <TabsPanel value="repository">
                            <UserRepoList userDash={userDash}/>
