@@ -1,6 +1,6 @@
 import {create} from "zustand/react";
 import {createJSONStorage, devtools, persist} from "zustand/middleware";
-import {RepoInfo, Repository, UserDashBored} from "@/server/types";
+import {BranchModel, RepoInfo, Repository, UserDashBored} from "@/server/types";
 
 
 export interface PageState {
@@ -11,6 +11,7 @@ export interface PageState {
         owner: string,
         repoName: string,
         repoInfo: RepoInfo,
+        branches: BranchModel[]
     };
     userCtx?: {
         user: UserDashBored,
@@ -19,7 +20,7 @@ export interface PageState {
     reset: () => void;
     setTab: (tab: string) => void;
     setUrl: (url: string) => void;
-    setRepoCtx: (repoCtx: { repo: Repository, owner: string, repoName: string, repoInfo: RepoInfo }) => void;
+    setRepoCtx: (repoCtx: { repo: Repository, owner: string, repoName: string, repoInfo: RepoInfo, branches: BranchModel[]}) => void;
     setUserCtx: (userCtx: { user: UserDashBored, username: string }) => void;
     setUrlAndTab: (url: string, tab: string) => void;
 }
@@ -37,7 +38,7 @@ const usePageContext = create<PageState>()(
                     reset: () => set({url: '', tab: ''}),
                     setTab: (tab: string) => set({tab: tab}),
                     setUrl: (url: string) => set({url: url}),
-                    setRepoCtx: (repoCtx: { repo: Repository, owner: string, repoName: string , repoInfo: RepoInfo}) => set({repoCtx: repoCtx}),
+                    setRepoCtx: (repoCtx: { repo: Repository, owner: string, repoName: string , repoInfo: RepoInfo, branches: BranchModel[]}) => set({repoCtx: repoCtx}),
                     setUserCtx: (userCtx: { user: UserDashBored, username: string }) => set({userCtx: userCtx}),
                     setUrlAndTab: (url: string, tab: string) => set({url: url, tab: tab}),
                 }
