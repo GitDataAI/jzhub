@@ -4,7 +4,7 @@ import React, {useEffect, useState} from "react";
 import {RepoApi} from "@/server/RepoApi";
 import {notifications} from "@mantine/notifications";
 import {AppWrite} from "@/server/Client";
-import {RepoInfo} from "@/server/types";
+import {BranchModel, RepoInfo} from "@/server/types";
 import {Repoheader} from "@/component/repo/repoheader";
 import usePageContext from "@/store/usePageContext";
 
@@ -53,12 +53,47 @@ export default function RepoLayout(props: { children: React.ReactNode, params: P
             return;
         }
         setRepo(json.data);
+        let branches: BranchModel[] = [];
         context.setRepoCtx({
             repo: json.data.model,
             owner: owner,
             repoName: repo,
-            repoInfo: json.data
+            repoInfo: json.data,
+            branches: branches,
         })
+        const branchesRes = await api.Bhtc(owner, repo);
+        if (branchesRes.status !== 200 || !branchesRes.data) {
+            notifications
+                .show({
+                    title: '数据请求失败',
+                    message: 'Branches Not Found',
+                    color: 'red',
+                });
+        }
+        if (branchesRes.data) {
+            const js: AppWrite<{ branches: Record<string, BranchModel> }> = JSON.parse(branchesRes.data);
+            if (js.code !== 200 || !js.data) {
+                notifications
+                    .show({
+                        title: '数据请求失败',
+                        message: 'Branches Not Found',
+                        color: 'red',
+                    });
+
+            }
+            branches = Object.keys(js.data!).map((key) => {
+                const result: BranchModel = JSON.parse(key);
+                return result;
+            })
+            context.setRepoCtx({
+                repo: json.data.model,
+                owner: owner,
+                repoName: repo,
+                repoInfo: json.data,
+                branches: branches,
+            })
+        }
+
         setLoading(true);
         if (json.data.model.status === "Syncing") {
             setTimeout(Sync, 5000);
