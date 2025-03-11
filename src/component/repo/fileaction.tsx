@@ -3,6 +3,7 @@ import {BranchModel, CommitModel, Repository} from "@/server/types";
 import {useDisclosure} from "@mantine/hooks";
 import {CloneModel} from "@/component/repo/clone";
 import dayjs from "dayjs";
+import {useRouter} from "next/navigation";
 
 interface FileActionProps {
     branch: BranchModel[],
@@ -15,6 +16,7 @@ interface FileActionProps {
 
 export const FileAction = ({branch, default_branch, echange, repo, owner, head}: FileActionProps) => {
     const [opened, {open, close}] = useDisclosure(false);
+    const nav = useRouter().replace;
     const relative_time = () => {
         if (head) {
             const date = new Date(Number(head.time) * 1000);
@@ -70,7 +72,7 @@ export const FileAction = ({branch, default_branch, echange, repo, owner, head}:
             </div>
             <div className="file-action-right">
                 <Button onClick={open}>Clone</Button>
-                <Button>Publish</Button>
+                <Button onClick={()=>nav(`/r/${owner}/${repo.name}/post`)}>Publish</Button>
                 <div className="cmt">
                     <a>{head.id.substring(0, 7)} {relative_time()}</a>
                     <a>{repo.nums_commit} commits</a>

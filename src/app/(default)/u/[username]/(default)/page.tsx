@@ -6,6 +6,7 @@ import React, {useEffect, useState} from "react";
 import {AppWrite} from "@/server/Client";
 import {UserDashBored} from "@/server/types";
 import {UserApi} from "@/server/UserApi";
+import {ProductList} from "@/component/user/productlist";
 
 export default function UserPage(props: { params: Promise<{ username: string}> }) {
     const api = new UserApi();
@@ -38,7 +39,7 @@ export default function UserPage(props: { params: Promise<{ username: string}> }
                            <UserRepoList userDash={userDash}/>
                        </TabsPanel>
                        <TabsPanel value="product">
-                           product
+                           <ProductList userDash={userDash}/>
                        </TabsPanel>
                        <TabsPanel value="team">
                            team

@@ -6,7 +6,18 @@ import {Form, useForm} from "@mantine/form";
 import {CommitModel, DataProductPostParam} from "@/server/types";
 import {RepoApi} from "@/server/RepoApi";
 import {AppWrite} from "@/server/Client";
-import {Box, Button, Divider, Input, InputLabel, LoadingOverlay, Select} from "@mantine/core";
+import {
+    Box,
+    Button,
+    Divider,
+    Input,
+    InputLabel,
+    LoadingOverlay,
+    Pill,
+    PillGroup, PillsInput,
+    PillsInputField,
+    Select
+} from "@mantine/core";
 import {notifications} from "@mantine/notifications";
 import {ProductApi} from "@/server/ProductApi";
 
@@ -76,15 +87,9 @@ export default function ProductPostPage(){
                 }
                 return null;
             },
-            type: (value) => {
-                if (!value) {
-                    return "Type is required";
-                }
-                return null;
-            },
             price: (value) => {
-                if (!value) {
-                    return "Price is required";
+                if (value % 1 !== 0 && value !== 0) {
+                    return "Price is invalid, it is integer";
                 }
                 if (value < 0){
                     return "Price is invalid, it is eqt 0";
@@ -92,6 +97,9 @@ export default function ProductPostPage(){
             },
         }
     });
+
+    const [Topics,setTopics] = useState<string[]>([]);
+    const [Topic,setTopic] = useState<string>("");
     const onSubmit = () => {
         if (Publishing) return;
         setPublishing(true);
@@ -109,18 +117,19 @@ export default function ProductPostPage(){
             name: form.getValues().name,
             description: form.getValues().description,
             license: form.getValues().license,
-            price: form.getValues().price,
+            price: Number(form.getValues().price),
             hash: form.getValues().hash,
-            type: form.getValues().type,
+            type: Topics.join(","),
         }
+        console.log(param);
         product_api.Post(Parma!.owner, Parma!.repo, param)
             .then((res) => {
                 if (res.status === 200) {
                     const json:AppWrite<string> = JSON.parse(res.data);
-                    if (json.code === 200 && json.data) {
+                    if (json.code === 200 ) {
                         notifications.show({
                             title: "Success",
-                            message: "Post success"
+                            message: "Post Jobs Submit success, Please You wait"
                         })
                         setTimeout(() => {
                             window.location.href = "/r/" + Parma!.owner + "/" + Parma!.repo;
@@ -139,7 +148,7 @@ export default function ProductPostPage(){
                 POST
             </h1>
             <Box pos="relative">
-                <LoadingOverlay visible={Publishing} loaderProps={{ children: 'Forking...' }} />
+                <LoadingOverlay visible={Publishing} loaderProps={{ children: 'Publish...' }} />
                 <Form
                     form={form}
                     id="LayoutModelRepositoryPOST"
@@ -158,7 +167,7 @@ export default function ProductPostPage(){
                                 }
                             })
                         }
-                        {...form.getInputProps("owner")}
+                        {...form.getInputProps("hash")}
                     />
                     <InputLabel className="w-full">
                         name<a style={{color: 'red'}}> *</a>
@@ -208,14 +217,39 @@ export default function ProductPostPage(){
                     </InputLabel>
                     <InputLabel className="w-full">
                         type<a style={{color: 'red'}}> *</a>
-                        <Input
-                            name="type"
-                            placeholder="Enter product type"
-                            type="tel"
-                            aria-autocomplete={"none"}
-                            key={form.key("type")}
-                            {...form.getInputProps("type")}
-                        />
+                        <PillsInput>
+                            <PillGroup>
+                                {Topics.map((item, index) => (
+                                    <Pill key={index}>{item}</Pill>
+                                ))}
+                                <PillsInputField
+                                    value={Topic}
+                                    placeholder="Add a Type"
+                                    onChange={(e) => {
+                                        setTopic(e.target.value)
+                                    }}
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter") {
+                                            if (Topic.length > 0) {
+                                                setTopics([...Topics, Topic])
+                                                setTopic("")
+                                            }
+                                        }
+                                        if (e.key === "Backspace") {
+                                            if (Topic.length === 0) {
+                                                setTopics(Topics.slice(0, -1))
+                                            }
+                                        }
+                                        if (e.key === "Tab") {
+                                            if (Topic.length > 0) {
+                                                setTopics([...Topics, Topic])
+                                                setTopic("")
+                                            }
+                                        }
+                                    }}
+                                />
+                            </PillGroup>
+                        </PillsInput>
                     </InputLabel>
                     <Divider/>
                     <div style={{

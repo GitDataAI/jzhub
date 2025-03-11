@@ -62,6 +62,7 @@ export interface RepoInfo {
     model: Repository,
     owner: string,
     repo: string,
+    products: ProductList[]
 }
 
 export interface CommitModel {
@@ -117,7 +118,8 @@ export interface UserDashBored {
     following: Follow[];
     followers: Follow[];
     readme?: Uint8Array;
-    watch: Watch[]
+    watch: Watch[],
+    products: ProductList[]
 }
 
 export interface Branches {
@@ -286,3 +288,8 @@ export interface DataProductPostParam {
     type: string;
 }
 
+export interface ProductList {
+    data: DataProductModel,
+    owner: UserModel,
+    repo: Repository
+}

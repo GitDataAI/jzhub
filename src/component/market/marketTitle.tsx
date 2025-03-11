@@ -1,6 +1,12 @@
 import {Button, Input, MultiSelect, Select} from "@mantine/core";
+import {ProductListParam} from "@/server/types";
 
-export const MarketTitle = () => {
+interface MarketTitleProps {
+    tags: string[],
+    query: (value: (((prevState: ProductListParam) => ProductListParam) | ProductListParam)) => void
+}
+
+export const MarketTitle = ({tags, query}: MarketTitleProps) => {
     return (
         <div className="market-title">
             <div className="market-image">
@@ -25,7 +31,7 @@ export const MarketTitle = () => {
                     <a>Sort</a>
                     <Select
                         defaultValue={'Most popular'}
-                        data={['Most popular', 'Recently Updated', 'Most relevant', 'Most expensive','Most Cheapest']}
+                        data={['Most popular', 'Recently Updated', 'Most relevant', 'Most expensive', 'Most Cheapest']}
                     />
                 </div>
                 <div style={{
@@ -36,7 +42,15 @@ export const MarketTitle = () => {
                     <a>Type</a>
                     <MultiSelect
                         defaultValue={['All']}
-                        data={['All', 'Data', 'Code', 'Book', 'Image', 'Video', 'Audio',]}
+                        data={['All',...tags]}
+                        onChange={(value) => {
+                            query((prev) => {
+                                return {
+                                    ...prev,
+                                    search: value.join(',')
+                                }
+                            })
+                        }}
                     />
                 </div>
             </div>

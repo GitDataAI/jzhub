@@ -52,6 +52,7 @@ export default function RepoLayout(props: { children: React.ReactNode, params: P
             setNotFound(true);
             return;
         }
+        const products = json.data.products;
         setRepo(json.data);
         let branches: BranchModel[] = [];
         context.setRepoCtx({
@@ -60,6 +61,7 @@ export default function RepoLayout(props: { children: React.ReactNode, params: P
             repoName: repo,
             repoInfo: json.data,
             branches: branches,
+            products: products
         })
         const branchesRes = await api.Bhtc(owner, repo);
         if (branchesRes.status !== 200 || !branchesRes.data) {
@@ -91,6 +93,7 @@ export default function RepoLayout(props: { children: React.ReactNode, params: P
                 repoName: repo,
                 repoInfo: json.data,
                 branches: branches,
+                products: products
             })
         }
 

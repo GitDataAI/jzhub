@@ -7,6 +7,7 @@ import {Button, Input} from "@mantine/core";
 import ClipboardJS from "clipboard";
 import {notifications} from "@mantine/notifications";
 import {FaRegClipboard} from "react-icons/fa";
+import usePageContext from "@/store/usePageContext";
 
 interface RepoIntroProps {
     repo: Repository,
@@ -20,6 +21,7 @@ export const RepoIntro = ({repo, owner, head}: RepoIntroProps) => {
     const api = new RepoApi();
     const http = "https://" + window.location.host + "/git/" + owner + "/" + repo.name + ".git"
     const ssh = "git@" + window.location.host.split(":")[0] + ":" + owner + "/" + repo.name + ".git";
+    const context = usePageContext();
     const Init = async () => {
         const readme = await api.File(owner, repo.name, "README.md",head.id);
         if (readme.status === 200 && readme.data) {
@@ -142,6 +144,16 @@ export const RepoIntro = ({repo, owner, head}: RepoIntroProps) => {
                         </span>
                         <a>{repo.nums_release}</a>
                     </div>
+                    {
+                        context.repoCtx && (
+                            <div className="repo-intro-card-list-item">
+                                <span>
+                                    Product
+                                </span>
+                                <a>{context.repoCtx.products.length}</a>
+                            </div>
+                        )
+                    }
                 </div>
 
             </div>
