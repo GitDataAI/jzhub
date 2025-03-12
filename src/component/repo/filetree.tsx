@@ -71,12 +71,16 @@ function FileItem({tree}: { tree: Tree }) {
                 <span>
                     <Fileicon name={tree.name}/>
                 </span>
-                <a>{tree.name}</a>
+                <span style={{
+                    fontSize: 14
+                }}>{tree.name}</span>
             </div>
             {
                 commit && (
                     <div className={"file-item-commit"}>
-                        <div>{commit.msg}</div>
+                        <div  style={{
+                            fontSize: 14
+                        }}>{commit.msg}</div>
                         <div>
                             {relative_time()}
                         </div>
@@ -152,21 +156,23 @@ function Folder({tree}: { tree: Tree }) {
                 tabIndex={0}
                 aria-expanded={isExpanded}
             >
-
-
                 <div className="folder-info">
                     <span className="folder-name">
                         <span className="folder-icon">
                               {isExpanded ? <IconFolderOpen size={18}/> : <IconFolder  size={18}/>}
                         </span>
-                        <span>
+                        <span style={{
+                            fontSize: 14
+                        }}>
                             {tree.name}
                         </span>
                     </span>
                     {
                         commit.length >= 1 && (
                             <div className={"file-item-commit"}>
-                                <div>{commit[0].msg}</div>
+                                <div style={{
+                                    fontSize: 14
+                                }}>{commit[0].msg}</div>
                                 <div>
                                     {relative_time()}
                                 </div>
