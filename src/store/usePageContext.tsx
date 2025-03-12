@@ -1,7 +1,6 @@
 import {create} from "zustand/react";
 import {createJSONStorage, devtools, persist} from "zustand/middleware";
-import {BranchModel, CommitModel, ProductList, RepoInfo, Repository, UserDashBored} from "@/server/types";
-import * as localforage from "localforage";
+import {ProductList, RepoInfo, Repository, UserDashBored} from "@/server/types";
 
 
 export interface PageState {
