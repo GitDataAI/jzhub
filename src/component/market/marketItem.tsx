@@ -1,4 +1,5 @@
 import {ProductList} from "@/server/types";
+import {useRouter} from "next/navigation";
 
 export interface MarketItemProps {
     data: ProductList;
@@ -8,8 +9,11 @@ export interface MarketItemProps {
 export const MarketItem = ({data}: MarketItemProps) => {
     const product = data.data;
     const owner = data.owner;
+    const nav = useRouter().replace;
     return (
-        <div className="market-item">
+        <div className="market-item" onClick={()=>{
+            nav(`/m/${product.uid}`)
+        }}>
 
             <div className="market-item-image">
                 <div style={{

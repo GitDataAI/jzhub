@@ -14,7 +14,7 @@ export class ProductApi extends HttpClient {
         })
     }
     async Info(uid: string) {
-        return await this.get<string>(`/product/info/${uid}`, {})
+        return await this.get<string>(`/product/info/${uid}`)
     }
     async Download(uid: string) {
         return await this.get<string>(`/product/down/${uid}`, {})

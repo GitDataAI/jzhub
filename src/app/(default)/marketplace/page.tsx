@@ -1,12 +1,11 @@
 'use client'
 
 import {MarketTitle} from "@/component/market/marketTitle";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {MarketItem} from "@/component/market/marketItem";
 import {ProductList, ProductListParam} from "@/server/types";
 import {ProductApi} from "@/server/ProductApi";
 import {AppWrite} from "@/server/Client";
-
 export default function MarketPlacePage() {
     const [ItemData, setItemData] = useState<ProductList[]>([]);
     const [Query, setQuery] = useState<ProductListParam>({
@@ -17,6 +16,7 @@ export default function MarketPlacePage() {
     });
     const [Tags, setTags] = useState<string[]>([]);
     const api = new ProductApi();
+
 
 
 
@@ -39,7 +39,9 @@ export default function MarketPlacePage() {
         setQuery(newQuery);
         InitData(newQuery);
     };
-    InitData(Query);
+    useEffect(() => {
+        InitData(Query);
+    }, []);
 
     return (
         <div className="market">

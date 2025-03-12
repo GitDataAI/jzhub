@@ -46,3 +46,47 @@
         }
     }
 }
+
+.market-page {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    .market-page-title {
+        display: flex;
+        justify-content: space-between;
+        align-content: center;
+        img {
+            margin-top: 2rem;
+            margin-left: 2rem;
+            height: 3rem;
+            width: 3rem;
+        }
+    }
+    .access {
+        margin-right: 2rem;
+    }
+    .market-page-body {
+        display: grid;
+        grid-template-columns: 4fr 300px;
+        .market-page-markdown {
+            margin-top: 2rem;
+            padding: 1rem;
+            border: 1px #d6d6d6 solid;
+        }
+        .market-page-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: 1rem;
+            padding: 2rem;
+            max-height: 50vh;
+            margin-top: 2rem;
+            div {
+                cursor: pointer;
+            }
+            .hover:hover {
+                color: #f15108;
+            }
+        }
+    }
+}
