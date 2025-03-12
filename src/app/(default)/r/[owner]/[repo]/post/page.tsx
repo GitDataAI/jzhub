@@ -3,7 +3,7 @@
 import {useEffect, useState} from "react";
 import usePageContext from "@/store/usePageContext";
 import {Form, useForm} from "@mantine/form";
-import {CommitModel, DataProductPostParam} from "@/server/types";
+import {BranchModel, CommitModel, DataProductPostParam} from "@/server/types";
 import {RepoApi} from "@/server/RepoApi";
 import {AppWrite} from "@/server/Client";
 import {
@@ -20,6 +20,7 @@ import {
 } from "@mantine/core";
 import {notifications} from "@mantine/notifications";
 import {ProductApi} from "@/server/ProductApi";
+import {debounce} from "lodash";
 
 export default function ProductPostPage(){
     const context = usePageContext();
@@ -28,29 +29,36 @@ export default function ProductPostPage(){
     const [Publishing, setPublishing] = useState(false);
     const repo_api = new RepoApi();
     const product_api = new ProductApi();
-    useEffect(() => {
+    const Init = debounce(async ()=>{
         if (context.repoCtx){
             const {owner, repoName} = context.repoCtx;
             setParma({owner,repo: repoName})
-            for(const idx in context.repoCtx.branches) {
-                const branch = context.repoCtx.branches[idx];
+            const btch = await repo_api.Bhtc(owner, repoName);
+            const branches = Object.keys(btch).map((value)=>{
+                return JSON.parse(value) as BranchModel
+            });
+            for(const idx in branches) {
+                const branch = branches[idx];
                 repo_api.OneCommit(owner,repoName, branch.name, branch.head)
-                .then((res) => {
-                    if (res.status === 200) {
-                        const json:AppWrite<CommitModel> = JSON.parse(res.data);
-                        if (json.code === 200 && json.data) {
-                            setHeads((prev) => {
-                                if (prev.find((item) => item.id === json.data!.id)) {
-                                    return prev;
-                                }else {
-                                    return [...prev, json.data!];
-                                }
-                            });
+                    .then((res) => {
+                        if (res.status === 200) {
+                            const json:AppWrite<CommitModel> = JSON.parse(res.data);
+                            if (json.code === 200 && json.data) {
+                                setHeads((prev) => {
+                                    if (prev.find((item) => item.id === json.data!.id)) {
+                                        return prev;
+                                    }else {
+                                        return [...prev, json.data!];
+                                    }
+                                });
+                            }
                         }
-                    }
-                })
+                    })
             }
         }
+    },300)
+    useEffect(() => {
+        Init()
     }, []);
     const form = useForm({
         mode: "uncontrolled",
