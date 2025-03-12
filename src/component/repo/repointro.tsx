@@ -8,29 +8,31 @@ import ClipboardJS from "clipboard";
 import {notifications} from "@mantine/notifications";
 import {FaRegClipboard} from "react-icons/fa";
 import usePageContext from "@/store/usePageContext";
+import {debounce} from "lodash";
 
 interface RepoIntroProps {
     repo: Repository,
     owner: string,
     branch: BranchModel,
-    head: CommitModel
+    head: CommitModel,
+    empty: boolean
 }
 
 export const RepoIntro = ({repo, owner, head}: RepoIntroProps) => {
-    const [README,setREADME] = useState<string>();
+    const [README, setREADME] = useState<string>();
     const api = new RepoApi();
     const http = "https://" + window.location.host + "/git/" + owner + "/" + repo.name + ".git"
     const ssh = "git@" + window.location.host.split(":")[0] + ":" + owner + "/" + repo.name + ".git";
     const context = usePageContext();
-    const Init = async () => {
-        const readme = await api.File(owner, repo.name, "README.md",head.id);
+    const Init = debounce(async () => {
+        const readme = await api.File(owner, repo.name, "README.md", head.id);
         if (readme.status === 200 && readme.data) {
             const buffer = readme.data;
             setREADME(buffer.toString())
         }
-    }
+    },300)
     useEffect(() => {
-        Init().then().catch();
+        Init();
     }, []);
     return (
         <div className="repo-intro">
@@ -74,14 +76,14 @@ export const RepoIntro = ({repo, owner, head}: RepoIntroProps) => {
                                     width: "85%"
                                 }}
                                 disabled value={http} id="httpclone"/>
-                            <Button color={"teal"} className="btn" data-clipboard-target="#httpclone" onClick={()=>{
+                            <Button color={"teal"} className="btn" data-clipboard-target="#httpclone" onClick={() => {
                                 ClipboardJS.copy(http);
                                 notifications.show({
                                     message: "Clipboard success",
                                     color: "green"
                                 })
                             }}>
-                                <FaRegClipboard />
+                                <FaRegClipboard/>
                             </Button>
                         </div>
                     </div>
@@ -95,14 +97,14 @@ export const RepoIntro = ({repo, owner, head}: RepoIntroProps) => {
                                     width: "85%"
                                 }}
                                 disabled value={ssh} id="httpclone"/>
-                            <Button color={"teal"} className="btn" data-clipboard-target="#httpclone" onClick={()=>{
+                            <Button color={"teal"} className="btn" data-clipboard-target="#httpclone" onClick={() => {
                                 ClipboardJS.copy(ssh);
                                 notifications.show({
                                     message: "Clipboard success",
                                     color: "green"
                                 })
                             }}>
-                                <FaRegClipboard />
+                                <FaRegClipboard/>
                             </Button>
                         </div>
                     </div>

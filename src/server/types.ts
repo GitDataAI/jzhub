@@ -62,7 +62,8 @@ export interface RepoInfo {
     model: Repository,
     owner: string,
     repo: string,
-    products: ProductList[]
+    products: ProductList[],
+    setting: boolean
 }
 
 export interface CommitModel {

@@ -21,3 +21,12 @@
     margin: 10px 0;
     border-radius: 5px;
 }
+
+.process {
+    height: 2px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    border: 1px solid #f15108;
+}

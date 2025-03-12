@@ -40,14 +40,8 @@
     }
 }
 .file-body {
-    @media screen and (min-width: 1800px) {
-        display: grid;
-        grid-template-columns: 3fr 1fr;
-    }
-    @media screen and (max-width: 1800px) {
-        display: flex;
-        flex-direction: column;
-    }
+    display: flex;
+    flex-direction: column;
 }
 
 .repo-sync {

@@ -1,6 +1,7 @@
 import {create} from "zustand/react";
 import {createJSONStorage, devtools, persist} from "zustand/middleware";
-import {BranchModel, ProductList, RepoInfo, Repository, UserDashBored} from "@/server/types";
+import {BranchModel, CommitModel, ProductList, RepoInfo, Repository, UserDashBored} from "@/server/types";
+import * as localforage from "localforage";
 
 
 export interface PageState {
@@ -11,21 +12,22 @@ export interface PageState {
         owner: string,
         repoName: string,
         repoInfo: RepoInfo,
-        branches: BranchModel[],
-        products: ProductList[]
+        products: ProductList[],
     };
     userCtx?: {
         user: UserDashBored,
         username: string
     };
+    process: number,
     productCTX?: ProductList,
     reset: () => void;
     setTab: (tab: string) => void;
     setUrl: (url: string) => void;
-    setRepoCtx: (repoCtx: { repo: Repository, owner: string, repoName: string, repoInfo: RepoInfo, branches: BranchModel[],products: ProductList[]}) => void;
+    setRepoCtx: (repoCtx: { repo: Repository, owner: string, repoName: string, repoInfo: RepoInfo, products: ProductList[] }) => void;
     setUserCtx: (userCtx: { user: UserDashBored, username: string }) => void;
     setUrlAndTab: (url: string, tab: string) => void;
     setProduct: (product: ProductList) => void,
+    setProcess:(process: number) => void,
 }
 
 
@@ -39,18 +41,24 @@ const usePageContext = create<PageState>()(
                     repoCtx: undefined,
                     userCtx: undefined,
                     productCTX: undefined,
+                    process: 0,
                     reset: () => set({url: '', tab: ''}),
                     setTab: (tab: string) => set({tab: tab}),
                     setUrl: (url: string) => set({url: url}),
-                    setRepoCtx: (repoCtx: { repo: Repository, owner: string, repoName: string , repoInfo: RepoInfo, branches: BranchModel[],products: ProductList[]}) => set({repoCtx: repoCtx}),
+                    setRepoCtx: (repoCtx: { repo: Repository, owner: string, repoName: string, repoInfo: RepoInfo, products: ProductList[] }) => set({repoCtx: repoCtx}),
                     setUserCtx: (userCtx: { user: UserDashBored, username: string }) => set({userCtx: userCtx}),
                     setUrlAndTab: (url: string, tab: string) => set({url: url, tab: tab}),
                     setProduct: (product: ProductList) => set({productCTX: product}),
+                    setProcess: (process: number) => set({process: process}),
                 }
             ),
             {
                 name: 'page',
-                storage: createJSONStorage(() => localStorage)
+                storage: createJSONStorage(() => ({
+                    setItem: (key, value) => sessionStorage.setItem(key, value),
+                    getItem: (key) => sessionStorage.getItem(key),
+                    removeItem: (key) => sessionStorage.removeItem(key),
+                }))
             }
         ),
         {

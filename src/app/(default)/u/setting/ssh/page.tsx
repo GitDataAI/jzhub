@@ -10,7 +10,7 @@ import {Button, Divider, Input, InputLabel, Textarea} from "@mantine/core";
 export default function SettingSSh() {
     const api = new UserApi();
     const [SshList, setSShList] = useState<SSHKeyModel[]>([]);
-    const [Edit, setEdit] = useState(true);
+    const [Edit, setEdit] = useState(false);
     const [Param, setParam] = useState<SSHKeyCreateParma>({
         name: "",
         description: "",

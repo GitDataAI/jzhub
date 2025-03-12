@@ -4,9 +4,10 @@ import '@mantine/core/styles.css';
 import "@/style/main.css"
 
 import {ColorSchemeScript, mantineHtmlProps, MantineProvider} from '@mantine/core';
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Notifications} from "@mantine/notifications";
 import {CookieConsent} from "react-cookie-consent";
+import usePageContext from "@/store/usePageContext";
 
 
 export default function RootLayout(props: { children: React.ReactNode }) {

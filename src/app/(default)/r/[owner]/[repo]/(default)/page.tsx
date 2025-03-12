@@ -1,218 +1,227 @@
 'use client'
 
 import usePageContext from "@/store/usePageContext";
-import {useEffect, useState} from "react";
-import {Blob, BranchModel, CommitModel, Repository, Tree} from "@/server/types";
-import {RepoApi} from "@/server/RepoApi";
-import {notifications} from "@mantine/notifications";
-import {AppWrite} from "@/server/Client";
-import {FileTree} from "@/component/repo/filetree";
-import {FileAction} from "@/component/repo/fileaction";
-import {Loader} from "@mantine/core";
+import {useEffect, useRef, useState} from "react";
+import { Blob, BranchModel, CommitModel, Repository, Tree } from "@/server/types";
+import { RepoApi } from "@/server/RepoApi";
+import { notifications } from "@mantine/notifications";
+import { AppWrite } from "@/server/Client";
+import { FileTree } from "@/component/repo/filetree";
+import { FileAction } from "@/component/repo/fileaction";
+import { Loader } from "@mantine/core";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import {RepoIntro} from "@/component/repo/repointro";
+import { RepoIntro } from "@/component/repo/repointro";
+import { debounce } from 'lodash';
 
 dayjs.extend(relativeTime);
 
 
 export default function RepositoryPage() {
-    const [Repo, setRepo] = useState<Repository | undefined>()
-    const [Loading, setLoading] = useState(false);
-    const [Tab, setTab] = useState('intro');
-    const [Owner, setOwner] = useState({
-        owner: '',
-        repo: ''
-    })
-
-    const [Branch,setBranch] = useState<BranchModel[]>([])
-    const [DefaultBranch, setDefaultBranch] = useState<BranchModel | undefined>(undefined)
-
-    const ExchangeBranch = (branch: BranchModel) => {
-        FatchTree({
-            owner: Owner.owner,
-            repo: Owner.repo,
-            branch: branch.name,
-            head: branch.head
-        }).then().catch();
-        setDefaultBranch(branch)
-    }
-
-    const [Empty, setEmpty] = useState(false);
-
-    const [Bhct,setBhct] = useState<Blob | undefined>();
-    const [HeadCommit,setHeadCommit] = useState<CommitModel | undefined>(undefined)
+    const [repo, setRepo] = useState<Repository | undefined>();
+    const [loading, setLoading] = useState(false);
+    const [tab, setTab] = useState('intro');
+    const [owner, setOwner] = useState({ owner: '', repo: '' });
+    const [branch, setBranch] = useState<BranchModel[]>([]);
+    const [defaultBranch, setDefaultBranch] = useState<BranchModel | undefined>(undefined);
+    const [empty, setEmpty] = useState(false);
+    const [bhct, setBhct] = useState<Blob | undefined>();
+    const [headCommit, setHeadCommit] = useState<CommitModel | undefined>(undefined);
+    const [tree, setTree] = useState<Tree | undefined>();
     const api = new RepoApi();
-    const FatchBhct = async (props: {owner: string, repo: string, model: Repository}) => {
-        const basic = await api.Bhtc(props.owner, props.repo);
-        if (basic.status !== 200) {
-            notifications
-                .show({
-                    title: '数据请求失败',
-                    message: 'Repo Not Found',
-                    color: 'red',
-                });
-        }
-        const json:AppWrite<Blob> = JSON.parse(basic.data);
-        if (json.code !== 200 || !json.data) {
-            notifications
-                .show({
-                    title: '数据请求失败',
-                    message: 'Repo Not Found',
-                    color: 'red',
-                });
-            return;
-        }
-        setBhct(json.data)
-        setLoading(false);
-        const keys = Object.keys(json.data).map((key)=>{
-            const result:BranchModel = JSON.parse(key)
-            return result
-        })
-        setBranch(keys)
-        if (keys.find((key) => key.name === props.model.default_branch)){
-            const head = keys.find((key) => key.name === props.model.default_branch);
-            if (head){
-                FatchTree({
-                    owner: props.owner,
-                    repo: props.repo,
-                    branch: props.model.default_branch,
-                    head: head.head
-                }).then().catch();
-                setDefaultBranch(head)
-                api.OneCommit(
-                    props.owner,
-                    props.repo,
-                    props.model.default_branch,
-                    head.head
-                )
-                    .then((data) => {
-                        if (data.status === 200) {
-                            const json:AppWrite<CommitModel> = JSON.parse(data.data);
-                            if (json.code === 200 && json.data) {
-                                setHeadCommit(json.data)
-                            }
-                        }
-                    })
-            }
-        }else {
-            if (keys.length > 0) {
-                FatchTree({
-                    owner: props.owner,
-                    repo: props.repo,
-                    branch: keys[0].name,
-                    head: keys[0].head
-                }).then().catch();
-                setDefaultBranch(keys[0])
-                api.OneCommit(
-                    props.owner,
-                    props.repo,
-                    keys[0].name,
-                    keys[0].head
-                )
-                    .then((data) => {
-                        if (data.status === 200) {
-                            const json:AppWrite<CommitModel> = JSON.parse(data.data);
-                            if (json.code === 200 && json.data) {
-                                setHeadCommit(json.data)
-                            }
-                       }
-                    })
-            }else {
-                setLoading(false);
-                setEmpty(true)
-            }
-        }
-    }
 
-    const [Tree,setTree] = useState<Tree | undefined>();
-
-    const FatchTree = async (props: {owner: string, repo: string, branch: string, head: string},) => {
-        const basic = await api.Tree(props.owner, props.repo, props.branch, props.head);
-        if (basic.status !== 200) {
-            notifications
-                .show({
-                    title: '数据请求失败',
-                    message: 'Repo Not Found',
-                    color: 'red',
-                });
-        }
-        const json:AppWrite<Tree> = JSON.parse(basic.data);
-        if (json.code !== 200 || !json.data) {
-            return;
-        }
-        setTree(json.data)
-        setLoading(false);
-    }
-
+    const isMounted = useRef(true);
     const context = usePageContext();
+   useEffect(() => {
+       isMounted.current = true;
+       const unsubscribe = usePageContext.subscribe((state,prev) => {
+           if (state.repoCtx) {
+               setRepo(state.repoCtx.repo);
+               setOwner({
+                   owner: state.repoCtx.owner,
+                   repo: state.repoCtx.repoName,
+               });
+               if ((state.url !== prev.url) || !loading){
+                   fetchBhctDebounced({
+                       owner: state.repoCtx.owner,
+                       repo: state.repoCtx.repoName,
+                       model: state.repoCtx.repo,
+                   });
+               }
+           }
+       });
 
+       return () => {
+           isMounted.current = false;
+           unsubscribe();
+           fetchBhctDebounced.cancel();
+       };
+   }, [window.location.href]);
     useEffect(() => {
-        return usePageContext.subscribe((state)=> {
-            if (state.repoCtx) {
-                setRepo(state.repoCtx.repo)
-                setOwner({
-                    owner: state.repoCtx.owner,
-                    repo: state.repoCtx.repoName
-                })
-                FatchBhct({
-                    owner: state.repoCtx.owner,
-                    repo: state.repoCtx.repoName,
-                    model: state.repoCtx.repo
-                }).then().catch();
-            }
-            if (state.tab) {
-                setTab(state.tab)
-            }
+        usePageContext.subscribe((state) => {
+           if (state.tab) {
+               setTab(state.tab);
+           }
         })
-    }, [context.url]);
+    }, [context.tab,]);
+
+    const exchangeBranch = (branch: BranchModel) => {
+        fetchTree({
+            owner: owner.owner,
+            repo: owner.repo,
+            branch: branch.name,
+            head: branch.head,
+        }).catch((error) => console.error("Error fetching tree:", error));
+        setDefaultBranch(branch);
+    };
+
+    const fetchBhctDebounced = debounce(async (props: { owner: string; repo: string; model: Repository }) => {
+       setLoading(true);
+       try {
+           const basic = await api.Bhtc(props.owner, props.repo);
+           if (basic.status !== 200) {
+               throw new Error("Repo Not Found");
+           }
+
+           const json: AppWrite<Blob> = JSON.parse(basic.data);
+           if (json.code !== 200 || !json.data) {
+               throw new Error("Invalid data");
+           }
+
+           if (isMounted.current) {
+               setBhct(json.data);
+
+               const keys = Object.keys(json.data).map((key) => JSON.parse(key) as BranchModel);
+               setBranch(keys);
+
+               const defaultBranch = keys.find((key) => key.name === props.model.default_branch);
+               if (defaultBranch) {
+                   await fetchTree({
+                       owner: props.owner,
+                       repo: props.repo,
+                       branch: props.model.default_branch,
+                       head: defaultBranch.head,
+                   });
+                   setDefaultBranch(defaultBranch);
+
+                   const commitData = await api.OneCommit(
+                       props.owner,
+                       props.repo,
+                       props.model.default_branch,
+                       defaultBranch.head
+                   );
+                   if (commitData.status === 200) {
+                       const commitJson: AppWrite<CommitModel> = JSON.parse(commitData.data);
+                       if (commitJson.code === 200 && commitJson.data) {
+                           setHeadCommit(commitJson.data);
+                       }
+                   }
+               } else if (keys.length > 0) {
+                   await fetchTree({
+                       owner: props.owner,
+                       repo: props.repo,
+                       branch: keys[0].name,
+                       head: keys[0].head,
+                   });
+                   setDefaultBranch(keys[0]);
+
+                   const commitData = await api.OneCommit(
+                       props.owner,
+                       props.repo,
+                       keys[0].name,
+                       keys[0].head
+                   );
+                   if (commitData.status === 200) {
+                       const commitJson: AppWrite<CommitModel> = JSON.parse(commitData.data);
+                       if (commitJson.code === 200 && commitJson.data) {
+                           setHeadCommit(commitJson.data);
+                       }
+                   }
+               } else {
+                   setEmpty(true);
+               }
+           }
+       } catch {
+           notifications.show({
+               title: '数据请求失败',
+               message:  '未知错误',
+               color: 'red',
+           });
+       } finally {
+           if (isMounted.current) {
+               setLoading(false);
+           }
+       }
+   }, 1000);
+
+    const fetchTree = async (props: { owner: string; repo: string; branch: string; head: string }) => {
+        try {
+            const basic = await api.Tree(props.owner, props.repo, props.branch, props.head);
+            if (basic.status !== 200) {
+                throw new Error("Repo Not Found");
+            }
+
+            const json: AppWrite<Tree> = JSON.parse(basic.data);
+            if (json.code !== 200 || !json.data) {
+                throw new Error("Invalid data");
+            }
+
+            if (isMounted.current) {
+                setTree(json.data);
+            }
+        } catch  {
+            notifications.show({
+                title: '数据请求失败',
+                message: '未知错误',
+                color: 'red',
+            });
+        } finally {
+            if (isMounted.current) {
+                setLoading(false);
+            }
+        }
+    };
+
     return (
         <div>
-            {
-                Repo?.status === "Syncing" && (
-                    <div className="repo-sync">
-                        <Loader color={"orange"} size={"xs"}/>
-                        <p>正在同步仓库索引中...</p>
-                    </div>
-                )
-            }
-            {
-                (Repo && !Empty && Tree && Bhct && DefaultBranch && HeadCommit ) && (
-                    <>
-                        {
-                            Tab === 'file' && (
-                                <div className="file-page">
-                                    <FileAction branch={Branch} default_branch={DefaultBranch} echange={ExchangeBranch} repo={Repo} owner={Owner.owner} head={HeadCommit}/>
-                                    <div className="file-body">
-                                        <FileTree tree={Tree.child}/>
-                                    </div>
-                                </div>
-                            )
-                        }
-                        {
-                            Tab === 'intro' && (
-                                <div className="intro-page">
-                                    <RepoIntro repo={Repo} owner={Owner.owner} branch={DefaultBranch} head={HeadCommit} />
-                                </div>
-                            )
-                        }
-                    </>
-                )
-            }
-            {
-                Empty && (
-                    <div>
-                        Empty
-                    </div>
-                )
-            }
-            {
-                Loading && (
-                    <div>
-                        Loading...
-                    </div>
-                )
-            }
+            {repo?.status === "Syncing" && (
+                <div className="repo-sync">
+                    <Loader color={"orange"} size={"xs"} />
+                    <p>正在同步仓库索引中...</p>
+                </div>
+            )}
+            {(repo && tree && bhct && defaultBranch && headCommit &&!loading) && (
+                <>
+                    {(tab === 'intro' || tab === '') && (
+                        <div className="intro-page">
+                            <RepoIntro
+                                repo={repo}
+                                owner={owner.owner}
+                                branch={defaultBranch}
+                                head={headCommit}
+                                empty={empty}
+                            />
+                        </div>
+                    )}
+                    {tab === 'file' && !empty && (
+                        <div className="file-page">
+                            <FileAction
+                                branch={branch}
+                                default_branch={defaultBranch}
+                                echange={exchangeBranch}
+                                repo={repo}
+                                owner={owner.owner}
+                                head={headCommit}
+                            />
+                            <div className="file-body">
+                                <FileTree tree={tree.child} />
+                            </div>
+                        </div>
+                    )}
+
+                </>
+            )}
+            {empty && <div>Empty</div>}
         </div>
-    )
+    );
 }

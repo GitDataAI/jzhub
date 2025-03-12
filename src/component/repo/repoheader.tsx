@@ -136,7 +136,11 @@ export const Repoheader = ({repo, owner, info}: RepoheaderProps) => {
                     <TabsTab value="pulls" ref={setControlRef('pulls')}>Pulls</TabsTab>
                     <TabsTab value="discussion" ref={setControlRef('discussion')}>Discussion</TabsTab>
                     <TabsTab value="actions" ref={setControlRef('actions')}>Actions</TabsTab>
-                    <TabsTab value="settings" ref={setControlRef('settings')}>Settings</TabsTab>
+                    {
+                        info.setting && (
+                            <TabsTab value="settings" ref={setControlRef('settings')}>Settings</TabsTab>
+                        )
+                    }
                     <FloatingIndicator
                         target={value ? controlsRefs[value] : null}
                         parent={rootRef}
