@@ -1,12 +1,17 @@
-import {Button, Input, MultiSelect, Select} from "@mantine/core";
+import {Button, Input, Select} from "@mantine/core";
 import {ProductListParam} from "@/server/types";
 
 interface MarketTitleProps {
     tags: string[],
-    query: (value: (((prevState: ProductListParam) => ProductListParam) | ProductListParam)) => void
+    query: (query: ProductListParam) => void,
+    value: ProductListParam
 }
 
-export const MarketTitle = ({tags, query}: MarketTitleProps) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const MarketTitle = (props: MarketTitleProps) => {
+    // const handleMultiSelectChange = debounce((selected: string[]) => {
+    //     query({      ...value,      search: selected.join(","),    });
+    //     }, 300);
     return (
         <div className="market-title">
             <div className="market-image">
@@ -34,25 +39,18 @@ export const MarketTitle = ({tags, query}: MarketTitleProps) => {
                         data={['Most popular', 'Recently Updated', 'Most relevant', 'Most expensive', 'Most Cheapest']}
                     />
                 </div>
-                <div style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: ".5rem"
-                }}>
-                    <a>Type</a>
-                    <MultiSelect
-                        defaultValue={['All']}
-                        data={['All',...tags]}
-                        onChange={(value) => {
-                            query((prev) => {
-                                return {
-                                    ...prev,
-                                    search: value.join(',')
-                                }
-                            })
-                        }}
-                    />
-                </div>
+                {/*<div style={{*/}
+                {/*    display: "flex",*/}
+                {/*    alignItems: "center",*/}
+                {/*    gap: ".5rem"*/}
+                {/*}}>*/}
+                {/*    <a>Type</a>*/}
+                {/*    <MultiSelect      */}
+                {/*        defaultValue={['All']} */}
+                {/*        data={['All', ...tags]} */}
+                {/*        onChange={(x) => handleMultiSelectChange(x)}*/}
+                {/*    />*/}
+                {/*</div>*/}
             </div>
         </div>
     )

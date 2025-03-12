@@ -8,7 +8,6 @@ export interface MarketItemProps {
 export const MarketItem = ({data}: MarketItemProps) => {
     const product = data.data;
     const owner = data.owner;
-    // const repo = data.repo;
     return (
         <div className="market-item">
 
