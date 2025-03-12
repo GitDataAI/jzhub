@@ -6,6 +6,7 @@ import "@/style/main.css"
 import {ColorSchemeScript, mantineHtmlProps, MantineProvider} from '@mantine/core';
 import React from "react";
 import {Notifications} from "@mantine/notifications";
+import {CookieConsent} from "react-cookie-consent";
 
 
 export default function RootLayout(props: { children: React.ReactNode }) {
@@ -30,6 +31,16 @@ export default function RootLayout(props: { children: React.ReactNode }) {
             }}/>
             {props.children}
         </MantineProvider>
+        <CookieConsent
+            location="bottom"
+            buttonText="I already know"
+            cookieName="AllowCookie"
+            style={{ background: "#f54d04" }}
+            buttonStyle={{ color: "#4e503b", fontSize: "13px" }}
+            expires={150}
+        >
+            This website uses cookies to enhance the user experience.{" "}
+        </CookieConsent>
         </body>
         </html>
     );
