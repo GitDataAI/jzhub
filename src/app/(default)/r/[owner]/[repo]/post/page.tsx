@@ -34,7 +34,24 @@ export default function ProductPostPage(){
             const {owner, repoName} = context.repoCtx;
             setParma({owner,repo: repoName})
             const btch = await repo_api.Bhtc(owner, repoName);
-            const branches = Object.keys(btch).map((value)=>{
+            if (btch.status !== 200) {
+                notifications.show({
+                    title: "Error",
+                    message: "Get Branches Error",
+                    color: "red",
+                })
+                return;
+            }
+            const json:AppWrite<Blob> = JSON.parse(btch.data);
+            if (json.code !== 200 || !json.data) {
+                notifications.show({
+                    title: "Error",
+                    message: "Get Branches Error",
+                    color: "red",
+                })
+                return;
+            }
+            const branches = Object.keys(json.data).map((value)=>{
                 return JSON.parse(value) as BranchModel
             });
             for(const idx in branches) {
