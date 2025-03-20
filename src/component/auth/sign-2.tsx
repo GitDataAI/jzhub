@@ -1,4 +1,4 @@
-import {PasswordInput, Radio, TextInput} from "@mantine/core";
+import {PasswordInput, Radio, Skeleton, TextInput} from "@mantine/core";
 import {useState} from "react";
 import {UseFormReturnType} from "@mantine/form";
 
@@ -28,7 +28,7 @@ interface Sign2Props {
         captcha: string;
         agree: boolean
     }>,
-    captcha: string,
+    captcha?: string,
     init: () => void
 }
 
@@ -43,7 +43,13 @@ export default function Sign2(props: Sign2Props) {
             <div className="email-captcha">
                 <TextInput placeholder="请输入图片验证码" name="captcha"
                            key={props.form.key('captcha')} {...props.form.getInputProps('captcha')}/>
-                <img src={props.captcha} alt={"captcha"} width={160} height={35} onClick={props.init}/>
+                {
+                    props.captcha ? (
+                        <img src={props.captcha} alt={"captcha"} width={160} height={35} onClick={props.init}/>
+                    ) : (
+                        <Skeleton width={160} height={35}/>
+                    )
+                }
             </div>
             <Radio
                 checked={Allow}

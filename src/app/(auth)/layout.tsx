@@ -1,23 +1,20 @@
-'use client'
-
-import '@mantine/core/styles.css';
-import "@/style/main.css"
-
+import {Metadata} from "next";
 import React from "react";
-import {useRouter} from "next/navigation";
-import {IoMdClose} from "react-icons/io";
+
+export const metadata: Metadata = {
+    title: "GitDataAI | Auth",
+};
 
 
-export default function RootLayout(props: { children: React.ReactNode }) {
-    const nav = useRouter().replace;
+export default function AuthLayout({
+                                       children,
+                                   }: Readonly<{
+    children: React.ReactNode;
+}>) {
     return (
         <div className="auth">
-            <div className="back" onClick={() => nav("/")}>
-                <IoMdClose/>
-                <span>返回主页</span>
-            </div>
             <div className="auth-body">
-                {props.children}
+                {children}
             </div>
         </div>
     );

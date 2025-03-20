@@ -1,0 +1,54 @@
+.profile {
+    max-width: 1248px;
+    margin: 0 auto;
+    padding: 2rem;
+    h1 {
+        font-weight: 600;
+        font-size: clamp(1.3125rem,0.867rem + 0.92vw,1.56rem);
+    }
+    section {
+
+    }
+    span {
+        font-size: 0.875rem;
+        color: #626168;
+    }
+    hr {
+        margin: 1rem 0;
+        color: #d4d4d4;
+    }
+    .title {
+
+    }
+    .main {
+        h3 {
+            font-weight: 600;
+            font-size: clamp(0.675rem, 0.5rem + 0.5vw, 0.875rem);
+        }
+    }
+    input {
+        max-width: 360px;
+    }
+    .save {
+        button {
+            background-color: #f15108;
+        }
+        span {
+            color: white;
+        }
+    }
+    .save:hover {
+        button {
+            background-color: #ff5308;
+        }
+    }
+    .avatar {
+        span {
+            color: white;
+            font-size: 0.875rem;
+        }
+        .mantine-Indicator-indicator{
+
+        }
+    }
+}

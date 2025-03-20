@@ -1,0 +1,15 @@
+.owner {
+    max-width: 1428px;
+    margin: 0 auto;
+}
+
+.owner-repo {
+    .repo-filter {
+        padding: 1rem 1rem;
+        background: #fbfafd;
+
+        button:hover {
+            border-color: #e94503;
+        }
+    }
+}

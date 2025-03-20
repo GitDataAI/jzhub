@@ -1,0 +1,18 @@
+@import "./auth.css";
+@import "./shell.css";
+@import "./project.css";
+@import "./repo.css";
+@import "./owner.css";
+@import "./markdown.css";
+@import "./profile.css";
+@import "./org.css";
+@import "tailwindcss";
+
+* {
+    margin: 0;
+    padding: 0;
+
+}
+
+:root {
+}

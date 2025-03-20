@@ -1,0 +1,75 @@
+.org-item {
+    max-width: 1248px;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 1rem auto 0;
+    align-content: center;
+    h1 {
+        font-size: 1.25rem;
+        font-weight: 500;
+    }
+    span {
+        font-size: 0.75rem;
+        color: #8e8e8e;
+        background-color: #d4d4d4;
+        padding: 0.125rem 0.25rem;
+        border-radius: 0.25rem;
+    }
+    a {
+        font-weight: 600;
+        font-size: 0.95rem;
+    }
+
+
+}
+
+.org-list {
+    hr {
+        max-width: calc(1248px - 2rem);
+        margin: 1rem auto;
+        color: #d4d4d4;
+    }
+}
+
+.member {
+    max-width: 1248px;
+    margin: 0 auto;
+    h1 {
+        font-size: 1.5rem;
+        margin-top: 2rem;
+    }
+    .member-header {
+        width: 100%;
+        padding: 2rem;
+        display: grid;
+        grid-template-columns: 5fr 1fr;
+        gap: 2rem;
+        .member-new {
+            max-width: 100px;
+            height: 34px;
+            background-color: #e94503;
+        }
+        border-bottom: 1px #d4d4d4 solid;
+    }
+    .member-item {
+        display: flex;
+        align-content: center;
+        justify-content: space-between;
+        padding: 1rem 0;
+        border-bottom: 1px #d4d4d4 solid;
+        h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        .access {
+            margin-left: 5px;
+            font-size: 0.875rem;
+            background-color: #d4d4d4;
+            padding: 0.125rem 0.25rem;
+            border-radius: 0.5rem;
+
+        }
+    }
+}

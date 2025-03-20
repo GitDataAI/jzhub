@@ -1,0 +1,115 @@
+.app-header-right-create {
+    .mantine-Menu-itemLabel {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+}
+
+.app-header {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 20px;
+    justify-content: space-between;
+
+    .app-header-left {
+        display: flex;
+    }
+
+    .app-header-right {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 1rem;
+
+        .app-header-right-create-target {
+            background: #ffffff;
+            color: #000000;
+            border: 1px #d4d4d4 solid;
+        }
+
+        .app-header-right-create-notify {
+            background: #ffffff;
+            color: #000000;
+            border: 1px #d4d4d4 solid;
+            padding: 8px 0.8rem;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+        }
+
+        .app-header-right-create-notify:hover {
+            background: #fafafa;
+            color: black;
+        }
+    }
+
+    .collapsed {
+        background: none;
+        color: black;
+        border: 1px #d4d4d4 solid;
+        font-size: 1.2rem;
+        font-weight: 600;
+        padding: 0 10px;
+    }
+
+    .collapsed:hover {
+        background: #fafafa;
+        color: black;
+    }
+
+    .logo {
+        height: 40px;
+        margin-left: 2rem;
+        padding: 5px 5px;
+        border-radius: 3px;
+    }
+
+    .logo:hover {
+        border: 1px #d4d4d4 solid;
+    }
+}
+
+.navbar {
+    .navbar-ul {
+        width: 90%;
+        margin-left: 5%;
+        display: flex;
+        flex-direction: column;
+
+        .navbar-logo {
+            font-weight: 700;
+            font-size: 14px;
+            padding: 5px 0;
+        }
+
+        .navbar-li {
+            border-radius: 3px;
+            display: flex;
+            justify-content: center;
+            padding: 3px 0;
+            border-left: 5px transparent solid;
+            cursor: pointer;
+
+            .navbar-span {
+                display: flex;
+                align-items: center;
+                width: 60%;
+                justify-content: flex-start;
+                gap: 1rem;
+            }
+        }
+
+        .navbar-active {
+            background: #e7e6e9;
+            border-left: 5px #e94503 solid;
+        }
+
+        .navbar-li:hover {
+            background: #f2f0f0;
+        }
+    }
+}

@@ -1,0 +1,74 @@
+.project {
+    .project-nav {
+        max-width: 1248px;
+        margin: 0 auto;
+        padding: 0 1rem;
+
+        .nav-header {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+
+            .title {
+
+                font-size: 1.8rem;
+                font-weight: 700;
+            }
+
+            .exnew {
+                button {
+                    background: #e94503;
+                }
+
+            }
+        }
+
+        .nav-tabs {
+            margin-top: 1rem;
+
+            span {
+                font-weight: 500;
+            }
+
+            button:where([data-active]) {
+                border-bottom: 2px #f04d02 solid;
+
+                span {
+                    font-weight: 700;
+                    color: black;
+                }
+            }
+        }
+
+        .nav-filter {
+            padding: 1rem 1rem;
+            background: #fbfafd;
+
+            button:hover {
+                border-color: #e94503;
+            }
+        }
+    }
+}
+
+.create-repo {
+    max-width: 962px;
+    margin: 0 auto;
+    padding: 0 1rem;
+
+    h1 {
+        font-size: 1.8rem;
+        font-weight: 700;
+    }
+    hr {
+        margin: 1rem 0;
+        color: #d4d4d4;
+    }
+    h3 {
+        font-size: 1.125rem;
+        font-weight: 500;
+    }
+    span {
+        color: #8e8e8e;
+    }
+}

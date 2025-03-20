@@ -4,14 +4,13 @@ const nextConfig: NextConfig = {
     async rewrites() {
         return [
             {
-                source: "/api/:path*",
-                destination: "http://127.0.0.1:3080/api/:path*",
+                source: "/api/v1/:path*",
+                destination: "http://127.0.0.1:9000/api/v1/:path*",
                 basePath: false,
             },
         ];
     },
     output: "standalone",
-    transpilePackages: ['@douyinfe/semi-ui', '@douyinfe/semi-icons', '@douyinfe/semi-illustrations'],
 };
 
 export default nextConfig;
