@@ -47,6 +47,30 @@ export const CreateRepo = () => {
             const data = await res.json();
             if (data.code === 0) {
                 setAccess(data.data);
+                const owner:{
+                    uid: string,
+                    username: string,
+                    avatar: string,
+                    owner: boolean,
+                    group: boolean,
+                    list: {
+                        id: string,
+                        name: string
+                    }[]
+                } = data.data.find((item:{
+                    uid: string,
+                    username: string,
+                    avatar: string,
+                    owner: boolean,
+                    group: boolean,
+                    list: {
+                        id: string,
+                        name: string
+                    }[]
+                }) => item.owner);
+                if (owner) {
+                    form.setFieldValue("owner", owner.uid);
+                }
             } else {
                 notifications.show({
                     title: "Failed",
@@ -60,7 +84,7 @@ export const CreateRepo = () => {
     const form = useForm({
         mode: "uncontrolled",
         initialValues: {
-            owner: "",
+            owner: Access.find((item) => item.owner)?.uid || "",
             name: "",
             description: "",
             is_private: false,
@@ -172,7 +196,7 @@ export const CreateRepo = () => {
                                             color: "green",
                                         });
                                         setTimeout(()=>{
-                                            nav("/" + owner + "/" + form.getValues().name)
+                                            nav("/" + new_access.username + "/" + form.getValues().name)
                                         },2000)
                                     } else {
                                         notifications.show({
