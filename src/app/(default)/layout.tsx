@@ -9,6 +9,7 @@ import {AppHeader} from "@/component/shell/header";
 import {AppNavbar} from "@/component/shell/navbar";
 import {AppNavbarProps, DashboardMenu} from "@/data/Navbar";
 import React, {useEffect, useState} from "react";
+import {notifications} from "@mantine/notifications";
 
 export default function RootLayout(props: { children: React.ReactNode }) {
     const [opened, {open, close}] = useDisclosure();
@@ -23,6 +24,30 @@ export default function RootLayout(props: { children: React.ReactNode }) {
             });
         }
         setMenu(menus);
+    }, []);
+    useEffect(() => {
+        fetch("/api/v1/context/current", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+            .then(response => {
+                if (response.status === 200) {
+                    response.json().then(data => {
+                        if (!data.data) {
+                            window.location.href = "/sigin";
+                        }
+                    })
+                }else {
+                    notifications
+                        .show({
+                            title: 'Failed',
+                            message: "Failed to get current user",
+                            color: 'red',
+                        });
+                }
+            })
     }, []);
     return (
         <>
