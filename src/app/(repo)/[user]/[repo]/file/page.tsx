@@ -1,15 +1,11 @@
 'use client'
 
-import {PropsWithChildren, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {DateTime} from "luxon";
 import {RepoHeader} from "@/component/repo/RepoHeader";
 import {RepoFile, RepoFileProps} from "@/component/repo/RepoFile";
 import {useParams} from "next/navigation";
 
-export interface PageProps{
-    user: string,
-    repo: string
-}
 
 export interface PageData{
     code: number,
@@ -55,7 +51,7 @@ export interface PageData{
 }
 
 
-export default async function FilePage(){
+export default function FilePage(){
     const {user, repo} = useParams();
 
 
