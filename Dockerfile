@@ -1,12 +1,11 @@
 # syntax=docker.io/docker/dockerfile:1
 
-FROM node:20-alpine AS base
-RUN apk add --no-cache libc6-compat
+FROM node:22 AS base
 WORKDIR /app
 COPY . .
-RUN npm ci
-
-RUN npm run build
+RUN npm install -g pnpm
+RUN pnpm install
+RUN pnpm run build
 
 
 # Next.js collects completely anonymous telemetry data about general usage.
