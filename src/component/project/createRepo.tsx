@@ -175,7 +175,7 @@ export const CreateRepo = () => {
                         node: "00000000-0000-0000-0000-000000000000"
                     }
                     console.log(payload)
-                    fetch("/api/v1/repo/", {
+                    fetch("/api/v1/repo", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
