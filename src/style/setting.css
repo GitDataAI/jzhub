@@ -1,0 +1,48 @@
+.ssh {
+    max-width: 1248px;
+    margin: 0 auto;
+    padding: 1rem;
+    h1 {
+        font-size: 1.5rem;
+    }
+    span {
+        font-size: 0.9rem;
+        color: #6e6e6e;
+        margin-bottom: 1rem;
+    }
+    .ssh-edit-button {
+        margin-top: 1rem;
+        button {
+            background-color: #e94503;
+            span {
+                color: white;
+                margin: 0;
+            }
+        }
+    }
+    .ssh-list-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        button {
+            margin-left: 2rem;
+            background-color: #e94503;
+            span {
+                color: white;
+                margin: 0;
+            }
+        }
+    }
+    .ssh-list-item {
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .ssh-list-delete {
+        span {
+            color: white;
+            margin: 0;
+        }
+    }
+}

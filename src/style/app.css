@@ -6,6 +6,7 @@
 @import "./markdown.css";
 @import "./profile.css";
 @import "./org.css";
+@import "./setting.css";
 @import "tailwindcss";
 
 * {
