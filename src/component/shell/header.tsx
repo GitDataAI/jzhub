@@ -112,6 +112,13 @@ export const AppHeader = (props: AppHeaderProps) => {
                                     }}>
                                         <a>Settings</a>
                                     </MenuItem>
+                                    <MenuItem onClick={() => {
+                                        context.logout();
+                                    }}>
+                                        <a style={{
+                                            color: "red"
+                                        }}>Logout</a>
+                                    </MenuItem>
                                 </MenuDropdown>
                             </Menu>
                         </div>

@@ -46,6 +46,9 @@ const useUserContext = create<UserState>()(
                         })
                     },
                     logout: () => {
+                        fetch('/api/v1/users/sigout', {
+                            method: 'POST',
+                        }).then().catch().finally();
                         set({
                             data: undefined,
                             isLogin: false,
