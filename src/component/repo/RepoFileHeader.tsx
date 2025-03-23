@@ -29,7 +29,7 @@ export const RepoFileHeader = (props: RepoFileHeaderProps) => {
     useEffect(() => {
         const local = window.location.hostname;
         setUrl({
-            http: `https://${local}/${props.owner_name}/${props.repo_name}.git`,
+            http: `https://${local}/git/${props.owner_name}/${props.repo_name}.git`,
             ssh: `git@${local}:${props.owner_name}/${props.repo_name}.git`,
         });
     }, []);
