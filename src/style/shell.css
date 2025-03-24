@@ -105,7 +105,7 @@
 
         .navbar-active {
             background: #e7e6e9;
-            border-left: 5px #e94503 solid;
+            border-left: 5px var(--theme-button) solid;
         }
 
         .navbar-li:hover {

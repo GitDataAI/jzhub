@@ -17,7 +17,7 @@
 
             .exnew {
                 button {
-                    background: #e94503;
+                    background: var(--theme-button);
                 }
 
             }
@@ -31,7 +31,7 @@
             }
 
             button:where([data-active]) {
-                border-bottom: 2px #f04d02 solid;
+                border-bottom: 2px var(--theme-button) solid;
 
                 span {
                     font-weight: 700;
@@ -45,7 +45,7 @@
             background: #fbfafd;
 
             button:hover {
-                border-color: #e94503;
+                border-color: var(--theme-button);
             }
         }
     }

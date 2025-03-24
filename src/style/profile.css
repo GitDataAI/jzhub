@@ -31,7 +31,7 @@
     }
     .save {
         button {
-            background-color: #f15108;
+            background-color: var(--theme-button);
         }
         span {
             color: white;
@@ -39,7 +39,7 @@
     }
     .save:hover {
         button {
-            background-color: #ff5308;
+            background-color: var(--theme-button);
         }
     }
     .avatar {

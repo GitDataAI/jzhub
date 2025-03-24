@@ -6,14 +6,13 @@
 @import "./markdown.css";
 @import "./profile.css";
 @import "./org.css";
+@import "./issues.css";
 @import "./setting.css";
+@import "./pr.css";
 @import "tailwindcss";
 
 * {
     margin: 0;
     padding: 0;
-
-}
-
-:root {
+    --theme-button: #f15108;
 }

@@ -49,7 +49,7 @@
         .member-new {
             max-width: 100px;
             height: 34px;
-            background-color: #e94503;
+            background-color: var(--theme-button);
         }
         border-bottom: 1px #d4d4d4 solid;
     }

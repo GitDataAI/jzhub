@@ -9,7 +9,7 @@
         background: #fbfafd;
 
         button:hover {
-            border-color: #e94503;
+            border-color: var(--theme-button);
         }
     }
 }
