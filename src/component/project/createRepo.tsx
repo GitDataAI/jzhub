@@ -133,130 +133,117 @@ export const CreateRepo = () => {
                     return "Please select owner"
                 }
                 return null;
-            },
-            description: (value) => {
-                if (!value) {
-                    return "Description is required";
-                }
-                return null;
-            },
+            }
         }
     });
     const nav = useRouter().replace;
     const Submit = async () => {
         form.validate();
-        if (form.isValid()) {
-            const owner = form.getValues().owner;
-            if (owner) {
-                const new_access = Access.find((item) => {
-                    return item.uid === owner;
-                });
-                if (new_access) {
-                    if (new_access.list.find((item) => {
-                        return item.name === form.getValues().name;
-                    })) {
-                        notifications.show({
-                            title: "Failed",
-                            message: "Name is already exist",
-                            color: "red",
-                        });
-                        return;
-                    }
-                    const payload = {
-                        owner_name: new_access.username,
-                        owner_uid: new_access.uid,
-                        repo_name: form.getValues().name,
-                        description: form.getValues().description,
-                        is_private: form.getValues().is_private,
-                        readme: form.getValues().auto_init,
-                        default_branch: form.getValues().default_branch,
-                        topic: form.getValues().topic,
-                        rtype: form.getValues().type,
-                        node: "00000000-0000-0000-0000-000000000000"
-                    }
-                    console.log(payload)
-                    fetch("/api/v1/repo", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({
-                            inner: payload,
-                            unix: parseInt(String(new Date().getTime() / 1000)),
-                            device: "N/A",
-                        }),
-                    })
-                        .then(res => {
-                            if (res.status === 200) {
-                                res.json().then(data => {
-                                    if (data.code === 200) {
-                                        notifications.show({
-                                            title: "Success",
-                                            message: "Repository created",
-                                            color: "green",
-                                        });
-                                        setTimeout(()=>{
-                                            nav("/" + new_access.username + "/" + form.getValues().name)
-                                        },2000)
-                                    } else {
-                                        notifications.show({
-                                            title: "Failed",
-                                            message: data.msg,
-                                            color: "red",
-                                        })
-                                    }
-                                })
-                            } else {
-                                notifications.show({
-                                    title: "Failed",
-                                    message: "Failed to create repository",
-                                    color: "red",
-                                });
-                            }
-                        });
+        console.log(1);
+
+        if (form.getValues().name === "") {
+            notifications.show({
+                title: "Failed",
+                message: "Name is required",
+                color: "red",
+            });
+            return;
+        }
+        console.log(1);
+        if (form.getValues().owner === "") {
+            notifications.show({
+                title: "Failed",
+                message: "Owner is required",
+                color: "red",
+            });
+            return;
+        }
+        const owner = form.getValues().owner;
+        console.log(1);
+        if (owner) {
+            const new_access = Access.find((item) => {
+                return item.uid === owner;
+            });
+            if (new_access) {
+                if (new_access.list.find((item) => {
+                    return item.name === form.getValues().name;
+                })) {
+                    notifications.show({
+                        title: "Failed",
+                        message: "Repository Name is already exist",
+                        color: "red",
+                    });
                 }
             }
-        } else {
-            if (form.getValues().name === "") {
-                notifications.show({
-                    title: "Failed",
-                    message: "Name is required",
-                    color: "red",
-                });
-                return;
-            }
-            if (form.getValues().description === "") {
-                notifications.show({
-                    title: "Failed",
-                    message: "Description is required",
-                    color: "red",
-                });
-                return;
-            }
-            if (form.getValues().owner === "") {
-                notifications.show({
-                    title: "Failed",
-                    message: "Owner is required",
-                    color: "red",
-                });
-                return;
-            }
-            const owner = form.getValues().owner;
-            if (owner) {
-                const new_access = Access.find((item) => {
-                    return item.uid === owner;
-                });
-                if (new_access) {
-                    if (new_access.list.find((item) => {
-                        return item.name === form.getValues().name;
-                    })) {
-                        notifications.show({
-                            title: "Failed",
-                            message: "Repository Name is already exist",
-                            color: "red",
-                        });
-                    }
+        }
+        console.log(1);
+        if (owner) {
+            const new_access = Access.find((item) => {
+                return item.uid === owner;
+            });
+            if (new_access) {
+                if (new_access.list.find((item) => {
+                    return item.name === form.getValues().name;
+                })) {
+                    notifications.show({
+                        title: "Failed",
+                        message: "Name is already exist",
+                        color: "red",
+                    });
+                    return;
                 }
+                const payload = {
+                    owner_name: new_access.username,
+                    owner_uid: new_access.uid,
+                    repo_name: form.getValues().name,
+                    description: form.getValues().description,
+                    is_private: form.getValues().is_private,
+                    readme: form.getValues().auto_init,
+                    default_branch: form.getValues().default_branch,
+                    topic: form.getValues().topic,
+                    rtype: form.getValues().type,
+                    node: "00000000-0000-0000-0000-000000000000"
+                }
+                console.log(payload)
+                fetch("/api/v1/repo", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        inner: payload,
+                        unix: parseInt(String(new Date().getTime() / 1000)),
+                        device: "N/A",
+                    }),
+                })
+                    .then(res => {
+                        if (res.status === 200) {
+                            res.json().then(data => {
+                                if (data.code === 200) {
+                                    notifications.show({
+                                        title: "Success",
+                                        message: "Repository created",
+                                        color: "green",
+                                    });
+                                    setTimeout(()=>{
+                                        nav("/" + new_access.username + "/" + form.getValues().name)
+                                    },2000)
+                                } else {
+                                    notifications.show({
+                                        title: "Failed",
+                                        message: data.msg,
+                                        color: "red",
+                                    })
+                                }
+                            })
+                        } else {
+                            notifications.show({
+                                title: "Failed",
+                                message: "Failed to create repository",
+                                color: "red",
+                            });
+                        }
+                    });
             }
         }
     }
@@ -411,7 +398,10 @@ export const CreateRepo = () => {
                 }}>
                     <Button style={{
                         backgroundColor: "#f04e02",
-                    }} type="button" onClick={Submit}>
+                    }} type="button" onClick={()=>{
+                        console.log(form.getValues())
+                        Submit();
+                    }}>
                         <span style={{
                             color: "white"
                         }}>
