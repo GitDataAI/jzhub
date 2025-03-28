@@ -116,48 +116,31 @@ export default function Page() {
             {
                 Edit ? (
                     <div className="ssh-edit">
-                         <h1>Add an SSH key</h1>
+                         <h1>Add new SSH Key</h1>
                         <InputLabel style={{
                             display: "grid",
                             marginTop: "1rem"
                         }}>
                             <h2>
-                                Ssh public key
-                            </h2>
-                            <Textarea
-                                withAsterisk
-                                style={{
-                                    minWidth: "320px",
-                                    maxWidth: "640px",
-                                }}
-                                placeholder="Paste your SSH key here"
-                                value={Create.context}
-                                onChange={(e) => setCreate({...Create, context: e.target.value})}
-                            />
-                        </InputLabel>
-                        <InputLabel style={{
-                            display: "grid",
-                            marginTop: "1rem"
-                        }}>
-                            <h2>
-                                Ssh name
+                                Title
                             </h2>
                             <Input
                                 style={{
-                                    minWidth: "320px",
-                                    maxWidth: "640px",
+                                    minWidth: "220px",
+                                    maxWidth: "340px",
                                 }}
                                 placeholder="Paste your SSH name here"
                                 value={Create.name}
                                 onChange={(e) => setCreate({...Create, name: e.target.value})}
                             />
                         </InputLabel>
+
                         <InputLabel style={{
                             display: "grid",
                             marginTop: "1rem"
                         }}>
                             <h2>
-                                Ssh description
+                                SSH description
                             </h2>
                             <Input
                                 style={{
@@ -169,6 +152,28 @@ export default function Page() {
                                 onChange={(e) => setCreate({...Create, description: e.target.value})}
                             />
                         </InputLabel>
+
+                        <InputLabel style={{
+                            display: "grid",
+                            marginTop: "1rem"
+                        }}>
+                            <h2>
+                                SSH public key
+                            </h2>
+                            <Textarea
+                                withAsterisk
+                                style={{
+                                    minWidth: "520px",
+                                    maxWidth: "780px",
+                                }}
+                                rows={8}
+                                placeholder="Paste your SSH key here"
+                                value={Create.context}
+                                onChange={(e) => setCreate({...Create, context: e.target.value})}
+                            />
+                        </InputLabel>
+
+
 
                         <div className="ssh-edit-button">
                             <Button
