@@ -29,9 +29,21 @@ spec:
     - hosts:
         - jzhub.io
       secretName: gitdataweb-tls
-
+    - hosts:
+        - alpha.gitdata.ai
+      secretName: alpha
   rules:
     - host: jzhub.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: gitdataweb-service
+                port:
+                  number: 80
+    - host: alpha.gitdata.ai
       http:
         paths:
           - path: /
@@ -79,6 +91,16 @@ spec:
                 name: gitdataos-svc
                 port:
                   number: 80
+    - host: alpha.gitdata.ai
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: gitdataos-svc
+                port:
+                  number: 80
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -104,6 +126,16 @@ spec:
   ingressClassName: nginx
   rules:
     - host: jzhub.io
+      http:
+        paths:
+          - path: /git
+            pathType: Prefix
+            backend:
+              service:
+                name: gitdataos-svc
+                port:
+                  number: 80
+    - host: alpha.gitdata.ai
       http:
         paths:
           - path: /git
