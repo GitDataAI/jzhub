@@ -26,9 +26,7 @@ export const RepoHeader = (props: RepoHeaderProps) => {
         <div className="repo-header">
             <div className="header-left">
                 <h1>
-                    <a href={`/${props.owner}?tab=Repository`} className="floating-owner-name">
-                        {props.owner}</a>/
-                    <span>{props.repo}</span>
+                    {props.owner}/{props.repo}
                 </h1>
                 <span className="rtype">
                     {props.rtype}
