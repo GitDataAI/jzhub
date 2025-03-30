@@ -7,56 +7,16 @@
             font-size: 2rem;
             font-weight: bold;
             margin: 1rem 2rem;
-
             button {
                 background-color: var(--theme-button);
             }
         }
-
-
-        .search-filter-container {
-            display: flex;
-            align-items: center;
-            gap: 1px;
+        .pr-header-search {
             padding: 1rem 2rem;
-
-            .pr-header-search {
-                flex: 2;
-            }
-
-            button[data-variant="outline"] {
-                min-width: 90px;
-                max-width: 90px;
-                justify-content: space-between;
-                padding: 0 1px 0 8px;
-                font-size: 14px;
-                background-color: transparent;
-                border-color: rgba(0, 0, 0, 0.3);
-                color: rgba(73, 80, 87, 0.99);
-
-                &:hover {
-                    background-color: #f8f9fa;
-                }
-
-                svg {
-                    position: absolute;
-                    right: 5px;
-                }
-
-                span {
-                    padding-right: 10px;
-                }
-            }
-
-
-            & > div {
-                flex: 1;
-                display: flex;
-            }
         }
-
         button:where([data-active]) {
             border-color: var(--theme-button);
+
         }
     }
 }
