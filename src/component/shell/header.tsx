@@ -16,6 +16,10 @@ export const AppHeader = (props: AppHeaderProps) => {
     const nav = useRouter().replace;
     return (
         <div className="app-header">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/gitdata-ai.png" className="logo" alt="gitdata-ai" onClick={() => {
+                nav("/");
+            }}/>
             <div className="app-header-left">
                 <Button className="collapsed" onClick={(e) => {
                     if (props.opened) {
@@ -27,10 +31,6 @@ export const AppHeader = (props: AppHeaderProps) => {
                 }}>
                     {props.opened ? <CiAlignLeft/> : <CiAlignRight/>}
                 </Button>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/gitdata-ai.png" className="logo" alt="gitdata-ai" onClick={() => {
-                    nav("/");
-                }}/>
             </div>
             <div className="app-header-right">
                 <div>
