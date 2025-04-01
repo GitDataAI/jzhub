@@ -17,7 +17,7 @@
         .search-filter-container {
             display: flex;
             align-items: center;
-            gap: 1px;
+            gap: 1rem;
             padding: 1rem 2rem;
 
             .pr-header-search {
@@ -33,11 +33,9 @@
                 background-color: transparent;
                 border-color: rgba(0, 0, 0, 0.3);
                 color: rgba(73, 80, 87, 0.99);
-
                 &:hover {
                     background-color: #f8f9fa;
                 }
-
                 svg {
                     position: absolute;
                     right: 5px;
@@ -47,14 +45,11 @@
                     padding-right: 10px;
                 }
             }
-
-
             & > div {
                 flex: 1;
                 display: flex;
             }
         }
-
         button:where([data-active]) {
             border-color: var(--theme-button);
         }
