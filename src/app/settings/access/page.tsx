@@ -1,8 +1,9 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { Button, Divider, Input, InputLabel, Textarea } from '@mantine/core';
+import {Button, Divider, Input, InputLabel, Modal, Textarea} from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { DateTime } from 'luxon';
+import {useDisclosure} from "@mantine/hooks";
 
 export interface TokenModel {
     uid: string;
@@ -16,6 +17,7 @@ export interface TokenModel {
 export default function NewAccess() {
     const [List, setList] = useState<TokenModel[]>([]);
     const [Edit, setEdit] = useState(false);
+    const [opened, { open, close }] = useDisclosure(false);
     const [Create, setCreate] = useState({
         name: "",
         description: "",
@@ -82,8 +84,9 @@ export default function NewAccess() {
                         message: 'Successfully created access token',
                         color: 'green',
                     });
-                    // 提取token，uid，expire来存储
-                    setGeneratedToken(data.token.token); // 修改为data.token.token来显示生成的token字符串
+
+                    setGeneratedToken(data.token.token);
+                    open();
                     setEdit(false);
                     await Fetch();
                 } else {
@@ -161,6 +164,14 @@ export default function NewAccess() {
 
     return (
         <div className="access">
+            <Modal opened={opened} onClose={close} withCloseButton={false} size={"lg"}>
+                {GeneratedToken && (
+                       <div className="generated-token">
+                               <h2>Generated Token:</h2>
+                               <p>{GeneratedToken}</p>
+                           </div>
+                )}
+            </Modal>
             <h1>Personal Access Tokens</h1>
             <span>
                 Personal access tokens allow you to authenticate with GitDataAI APIs and use Git over HTTPS.
@@ -218,12 +229,6 @@ export default function NewAccess() {
                                     <div>
                                         <h1>{item.name}</h1>
                                         <span>{item.description}</span>
-                                        {GeneratedToken && (
-                                            <div className="generated-token">
-                                                <h2>Generated Token:</h2>
-                                                <p>{GeneratedToken}</p>
-                                            </div>
-                                        )}
                                         <h2>Created at: {item.created_at.toLocaleString()}</h2>
                                     </div>
                                     <Button
