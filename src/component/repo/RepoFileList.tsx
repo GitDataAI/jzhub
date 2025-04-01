@@ -184,10 +184,10 @@ const List = ({props, setRoot, root}: {
                         <div className="tree-item" key={index}>
                             {value.type === "tree" ? <Tree setRoot={setRoot} props={value} root={root}/> :
                                 <Blob props={value}/>}
-                            <span className="msg" id={"msg" + value.name + value.type}>
+                            <span className="msg" id={"msg" + value.name + value.type} style={{fontSize : "0.875rem" }}>
                                 <Skeleton width={160} height={15}/>
                             </span>
-                            <span id={"time" + value.name + value.type}>
+                            <span id={"time" + value.name + value.type} style={{fontSize : "0.875rem" }}>
                                 <Skeleton width={160} height={15}/>
                             </span>
                         </div>
@@ -207,7 +207,7 @@ const Tree = ({props, setRoot, root}: {
         <div className="title" onClick={() => {
             setRoot(root + "/" + props.name)
         }}>
-            <GoFileDirectory/><span>{props.name}</span>
+            <GoFileDirectory/><span style={{fontSize : "0.875rem" }}>{props.name}</span>
         </div>
     )
 }
@@ -215,7 +215,7 @@ const Tree = ({props, setRoot, root}: {
 const Blob = ({props}: { props: RepoFileTreeItem }) => {
     return (
         <div className="title">
-            <FaRegFile/><span>{props.name}</span>
+            <FaRegFile/><span style={{fontSize : "0.875rem" }}>{props.name}</span>
         </div>
     )
 }

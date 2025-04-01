@@ -14,8 +14,27 @@
     padding: 0 20px;
     justify-content: space-between;
 
+    .logo {
+        height: 40px;
+        margin-left: 0;
+        padding: 4px 4px;
+        border-radius: 3px;
+        border: 1px solid transparent;
+    }
+
+    .logo:hover {
+        border: 1px solid #d4d4d4;
+    }
+
     .app-header-left {
         display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .collapsed {
+        margin-left: 30px;
     }
 
     .app-header-right {
@@ -48,6 +67,7 @@
     }
 
     .collapsed {
+        height: 40px;
         background: none;
         color: black;
         border: 1px #d4d4d4 solid;
@@ -61,16 +81,7 @@
         color: black;
     }
 
-    .logo {
-        height: 40px;
-        margin-left: 2rem;
-        padding: 5px 5px;
-        border-radius: 3px;
-    }
 
-    .logo:hover {
-        border: 1px #d4d4d4 solid;
-    }
 }
 
 .navbar {
