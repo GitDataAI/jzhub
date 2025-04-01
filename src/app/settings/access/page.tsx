@@ -4,7 +4,6 @@ import { Button, Divider, Input, InputLabel, Textarea } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { DateTime } from 'luxon';
 
-// 定义 Token 数据模型
 export interface TokenModel {
     uid: string;
     user_uid: string;
@@ -29,15 +28,16 @@ export default function NewAccess() {
                 headers: {
                     "Content-Type": "application/json",
                 },
+                credentials: "include",
             });
             if (res.status === 200) {
                 const data = await res.json();
-                if (data.code === 0) {
-                    setList(data.data);
+                if (data.tokens) {
+                    setList(data.tokens);
                 } else {
                     notifications.show({
                         title: 'Failed',
-                        message: data.msg,
+                        message: data.msg || 'Failed to get token list',
                         color: 'red',
                     });
                 }
@@ -66,17 +66,16 @@ export default function NewAccess() {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    inner: {
-                        name: Create.name,
-                        description: Create.description,
-                    },
-                    unix: parseInt(String(new Date().getTime() / 1000)),
-                    device: "N/A",
+                    name: Create.name,
+                    description: Create.description,
+                    expire: 30,
+                    access: 1,
                 }),
+                credentials: "include",
             });
             if (res.status === 200) {
                 const data = await res.json();
-                if (data.code === 0) {
+                if (data.token) {
                     notifications.show({
                         title: 'Success',
                         message: 'Successfully created access token',
@@ -87,12 +86,19 @@ export default function NewAccess() {
                 } else {
                     notifications.show({
                         title: 'Failed',
-                        message: data.msg,
+                        message: data.msg || 'Failed to create token',
                         color: 'red',
                     });
                 }
+            } else {
+                const errorData = await res.json(); // 解析错误详情
+                notifications.show({
+                    title: 'Failed',
+                    message: errorData.msg || 'Failed to create token',
+                    color: 'red',
+                });
             }
-        } catch (e: unknown) {
+        } catch (e) {
             const message = e instanceof Error ? e.message : 'An unknown error occurred';
             notifications.show({
                 title: 'Failed',
@@ -102,17 +108,20 @@ export default function NewAccess() {
         }
     };
 
-    const Delete = async (uid: string) => {
+
+    const Delete = async (uid: string, name: string) => {
         try {
-            const res = await fetch(`/api/v1/users/token?uid=${uid}`, {
+            const res = await fetch("/api/v1/users/token", {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
                 },
+                body: JSON.stringify({ uid, name }),
+                credentials: "include",
             });
             if (res.status === 200) {
                 const data = await res.json();
-                if (data.code === 0) {
+                if (Object.keys(data).length === 0) {
                     notifications.show({
                         title: 'Success',
                         message: 'Successfully deleted access token',
@@ -122,12 +131,19 @@ export default function NewAccess() {
                 } else {
                     notifications.show({
                         title: 'Failed',
-                        message: data.msg,
+                        message: data.msg || 'Failed to delete token',
                         color: 'red',
                     });
                 }
+            } else {
+                const errorData = await res.json();
+                notifications.show({
+                    title: 'Failed',
+                    message: errorData.msg || 'Failed to delete token',
+                    color: 'red',
+                });
             }
-        } catch (e: unknown) {
+        } catch (e) {
             const message = e instanceof Error ? e.message : 'An unknown error occurred';
             notifications.show({
                 title: 'Failed',
@@ -137,10 +153,12 @@ export default function NewAccess() {
         }
     };
 
+
     useEffect(() => {
         Fetch().then().finally();
     }, []);
 
+    // 渲染 UI
     return (
         <div className="access">
             <h1>Personal Access Tokens</h1>
@@ -205,7 +223,7 @@ export default function NewAccess() {
                                     <Button
                                         color="red"
                                         className="access-list-delete"
-                                        onClick={() => Delete(item.uid)}
+                                        onClick={() => Delete(item.uid, item.name)}
                                     >
                                         Delete
                                     </Button>
