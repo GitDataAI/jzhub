@@ -20,6 +20,7 @@ export default function NewAccess() {
         name: "",
         description: "",
     });
+    const [GeneratedToken, setGeneratedToken] = useState<string | null>(null); // 用于存储生成的令牌
 
     const Fetch = async () => {
         try {
@@ -81,6 +82,8 @@ export default function NewAccess() {
                         message: 'Successfully created access token',
                         color: 'green',
                     });
+                    // 提取token，uid，expire来存储
+                    setGeneratedToken(data.token.token); // 修改为data.token.token来显示生成的token字符串
                     setEdit(false);
                     await Fetch();
                 } else {
@@ -91,7 +94,7 @@ export default function NewAccess() {
                     });
                 }
             } else {
-                const errorData = await res.json(); // 解析错误详情
+                const errorData = await res.json();
                 notifications.show({
                     title: 'Failed',
                     message: errorData.msg || 'Failed to create token',
@@ -107,7 +110,6 @@ export default function NewAccess() {
             });
         }
     };
-
 
     const Delete = async (uid: string, name: string) => {
         try {
@@ -153,12 +155,10 @@ export default function NewAccess() {
         }
     };
 
-
     useEffect(() => {
         Fetch().then().finally();
     }, []);
 
-    // 渲染 UI
     return (
         <div className="access">
             <h1>Personal Access Tokens</h1>
@@ -218,6 +218,12 @@ export default function NewAccess() {
                                     <div>
                                         <h1>{item.name}</h1>
                                         <span>{item.description}</span>
+                                        {GeneratedToken && (
+                                            <div className="generated-token">
+                                                <h2>Generated Token:</h2>
+                                                <p>{GeneratedToken}</p>
+                                            </div>
+                                        )}
                                         <h2>Created at: {item.created_at.toLocaleString()}</h2>
                                     </div>
                                     <Button
