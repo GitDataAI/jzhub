@@ -143,7 +143,7 @@ export default function Sigin() {
                     }
                     Submit();
                 }}>Login</Button>
-                <Divider label="Not Account？"/>
+                <Divider label="Need an account?"/>
                 <Button type="button" color="dark" onClick={() => {
                     nav('/sigup')
                 }}>Sign up</Button>
