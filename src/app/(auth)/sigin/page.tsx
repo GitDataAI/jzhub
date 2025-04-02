@@ -21,20 +21,20 @@ export default function Sigin() {
         validate: {
             username: (value) => {
                 if (value.length < 4) {
-                    return '用户名至少四位';
+                    return 'UserName last has 4 len';
                 }
                 return null;
             },
             password: (value) => {
                 if (value.length < 6) {
 
-                    return '密码至少六位';
+                    return 'Password last has 6 len';
                 }
                 return null;
             },
             captcha: (value) => {
                 if (value.length !== 4) {
-                    return '验证码为4位';
+                    return 'Captcha is 4 len';
                 }
             },
         },
@@ -75,7 +75,7 @@ export default function Sigin() {
         if (res.status !== 200) {
             notifications.show({
                 title: 'Failed',
-                message: '登陆失败',
+                message: 'Login Err',
                 color: 'red',
             });
             return;
@@ -86,8 +86,8 @@ export default function Sigin() {
         } = await res.json();
         if (json.code === 0) {
             notifications.show({
-                title: '登陆成功',
-                message: '正在跳转',
+                title: 'Login Success',
+                message: 'wait',
                 color: 'green',
             });
             user.setUser((json as {
@@ -115,12 +115,12 @@ export default function Sigin() {
             <h1>登陆</h1>
             <Form form={form} className="form">
                 <div>
-                    <TextInput label="账号" placeholder="请输入你的用户名或邮箱"
+                    <TextInput label="Account" placeholder="Please input you username or email"
                                key={form.key('username')} {...form.getInputProps('username')}/>
-                    <PasswordInput label="密码" placeholder="请输入你的密码"
+                    <PasswordInput label="Password" placeholder="Please input you password"
                                    key={form.key('password')} {...form.getInputProps('password')}/>
                     <div className="email-captcha">
-                        <TextInput placeholder="请输入图片验证码" name="captcha"
+                        <TextInput placeholder="Please input Captcha for right image" name="captcha"
                                    key={form.key('captcha')} {...form.getInputProps('captcha')} />
                         {
                             Captcha ? (
@@ -135,18 +135,18 @@ export default function Sigin() {
                     const validate = form.validate();
                     if (validate.hasErrors) {
                         notifications.show({
-                            title: '登陆失败',
-                            message: "用户名或密码格式错误",
+                            title: 'Login Error',
+                            message: "Please check username or password error",
                             color: 'red',
                         });
                         return;
                     }
                     Submit();
-                }}>登陆</Button>
-                <Divider label="还没有账号？"/>
+                }}>Login</Button>
+                <Divider label="Not Account？"/>
                 <Button type="button" color="dark" onClick={() => {
                     nav('/sigup')
-                }}>注册</Button>
+                }}>Sign up</Button>
             </Form>
         </>
 

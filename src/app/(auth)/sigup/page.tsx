@@ -27,42 +27,42 @@ export default function SigUp() {
         validate: {
             username: (value) => {
                 if (step === 0) {
-                    return (value.length < 6 ? '用户名至少六位' : null);
+                    return (value.length < 6 ? 'username last 6 len' : null);
                 }
                 return null;
             },
             password0: (value) => {
                 if (step === 2) {
-                    return (value.length < 6 ? '密码至少六位' : null);
+                    return (value.length < 6 ? 'password last 6 len' : null);
                 }
                 return null;
             },
             password1: (value) => {
                 if (step === 2) {
-                    return (value.length < 6 ? '密码至少六位' : null);
+                    return (value.length < 6 ? 'password last 6 len' : null);
                 }
                 return null;
             },
             captcha: (value) => {
                 if (step === 2) {
-                    return (value.length < 4 ? '验证码至少四位' : null);
+                    return (value.length < 4 ? 'image captcha last 4 len' : null);
                 }
                 return null;
             },
             email: (value) => {
                 if (step === 0) {
                     if (!value.includes('@')) {
-                        return '邮箱格式错误';
+                        return 'Email format err';
                     }
                     if (!value.includes('.')) {
-                        return '邮箱格式错误';
+                        return 'Email format err';
                     }
                 }
                 return null;
             },
             code: (value) => {
                 if (step === 1) {
-                    return (value.length < 6 ? '验证码至少六位' : null);
+                    return (value.length < 6 ? 'Email Captcha code last eq 6 len' : null);
                 }
                 return null;
             },
@@ -129,7 +129,7 @@ export default function SigUp() {
                                             if (data.code === 0) {
                                                 notifications.show({
                                                     title: 'Success',
-                                                    message: '验证码发送成功',
+                                                    message: 'Email captcha send successful',
                                                     color: 'green',
                                                 });
                                                 setStep(1);
@@ -144,7 +144,7 @@ export default function SigUp() {
                                     } else {
                                         notifications.show({
                                             title: 'Failed',
-                                            message: '验证码发送失败',
+                                            message: 'email captcha send error',
                                             color: 'red',
                                         });
                                     }
@@ -160,7 +160,7 @@ export default function SigUp() {
                 } else {
                     notifications.show({
                         title: 'Failed',
-                        message: '验证码发送失败',
+                        message: 'email captcha send error',
                         color: 'red',
                     });
                 }
@@ -174,7 +174,7 @@ export default function SigUp() {
             if (code.length !== 6) {
                 notifications.show({
                     title: 'Failed',
-                    message: '验证码错误',
+                    message: 'Email captcha code err',
                     color: 'red',
                 });
                 return;
@@ -199,7 +199,7 @@ export default function SigUp() {
                             if (data.code === 0) {
                                 notifications.show({
                                     title: 'Success',
-                                    message: '验证码正确',
+                                    message: 'Captcha Successful',
                                     color: 'green',
                                 });
                                 setStep(2);
@@ -214,7 +214,7 @@ export default function SigUp() {
                     } else {
                         notifications.show({
                             title: 'Failed',
-                            message: '验证码错误',
+                            message: 'Captcha Err',
                             color: 'red',
                         });
                     }
@@ -228,7 +228,7 @@ export default function SigUp() {
             if (data.password0 !== data.password1) {
                 notifications.show({
                     title: 'Failed',
-                    message: '两次密码不一致',
+                    message: 'password not is same',
                     color: 'red',
                 });
                 return;
@@ -255,7 +255,7 @@ export default function SigUp() {
                             if (data.code === 0) {
                                 notifications.show({
                                     title: 'Success',
-                                    message: '注册成功',
+                                    message: 'Sign up successful',
                                     color: 'green',
                                 });
                             } else {
@@ -269,7 +269,7 @@ export default function SigUp() {
                     } else {
                         notifications.show({
                             title: 'Failed',
-                            message: '注册失败',
+                            message: 'Sign up error',
                             color: 'red',
                         });
                     }
@@ -281,7 +281,7 @@ export default function SigUp() {
     }, []);
     return (
         <>
-            <h1>注册</h1>
+            <h1>Sign up</h1>
             <Form form={form} className="form">
                 {
                     (step === 0) ? <Sign0 form={form}/> : null
@@ -296,14 +296,14 @@ export default function SigUp() {
                     Next();
                 }}>
                     {
-                        (step <= 1) ? '下一步' : '完成'
+                        (step <= 1) ? 'next' : 'submit'
                     }
                 </Button>
-                <Divider label="已经有账号了？去登陆"/>
+                <Divider label="aleary has account？go sign in"/>
                 <Button type="button" color="dark" onClick={() => {
                     nav('/sigin')
                 }}>
-                    登陆
+                    Sign in
                 </Button>
             </Form>
         </>
