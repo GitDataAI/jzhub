@@ -112,7 +112,7 @@ export default function Sigin() {
 
     return (
         <>
-            <h1>登陆</h1>
+            <h1>Sign in</h1>
             <Form form={form} className="form">
                 <div>
                     <TextInput label="Account" placeholder="Please input you username or email"
