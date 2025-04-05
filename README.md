@@ -54,10 +54,10 @@ deploy the system to your server,you can get help from this repository:
 https://github.com/GitDataAI/jzhub
 ```
 
-clone JZLab repository to your server:
+clone JZHub repository to your server:
 
 ```bash
-git clone git@github.com:GitDataAI/jzlab.git
+git clone git@github.com:GitDataAI/jzhub.git
 ```
 
 Before you run the project for the first time, run the following script to install packages from `package.json`:
