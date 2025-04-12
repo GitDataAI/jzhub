@@ -202,24 +202,24 @@ export const RepoMenu = (props: { owner: string, repo: string }): AppNavbarProps
                 active: true,
                 id: "repo-file",
             },
-            {
-                title: "Wiki",
-                icon: <FaWikipediaW/>,
-                active: false,
-                id: "repo-wiki",
-            },
-            {
-                title: "Issues",
-                icon: <VscIssues/>,
-                active: false,
-                id: "repo-issues",
-            },
-            {
-                title: "PR",
-                icon: <GoGitPullRequest/>,
-                active: false,
-                id: "repo-pr",
-            },
+            // {
+            //     title: "Wiki",
+            //     icon: <FaWikipediaW/>,
+            //     active: false,
+            //     id: "repo-wiki",
+            // },
+            // {
+            //     title: "Issues",
+            //     icon: <VscIssues/>,
+            //     active: false,
+            //     id: "repo-issues",
+            // },
+            // {
+            //     title: "PR",
+            //     icon: <GoGitPullRequest/>,
+            //     active: false,
+            //     id: "repo-pr",
+            // },
             {
                 title: "Actions",
                 icon: <GrActions/>,
