@@ -13,13 +13,14 @@ import {
     MdPrivacyTip,
     MdSecurity
 } from "react-icons/md";
-import {VscAccount, VscIssues} from "react-icons/vsc";
+import {VscAccount,} from "react-icons/vsc";
+// import { VscIssues} from "react-icons/vsc";
 import {TbHttpConnect} from "react-icons/tb";
 import {BsShieldLock} from "react-icons/bs";
 import {SiPrivateinternetaccess} from "react-icons/si";
 import {BiFile} from "react-icons/bi";
-import {FaWikipediaW} from "react-icons/fa";
-import {GoGitPullRequest} from "react-icons/go";
+// import {FaWikipediaW} from "react-icons/fa";
+// import {GoGitPullRequest} from "react-icons/go";
 import {CgInsights} from "react-icons/cg";
 
 export interface AppNavbarItem {
