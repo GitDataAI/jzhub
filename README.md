@@ -1,51 +1,63 @@
 
 
-# JZLab
+# JZHub
 
-JZLab is the self-hosted version of GitData.AI that allows you to deploy and manage your own DataHub and Workflow on-prem.
+JZHub is an open-source data hub designed to empower researchers, data scientists, and open science enthusiasts to manage, version, and publish scientific data with ease. Built on JZFS (a Git-like version control file system) and integrated with Resource Hub for models, workflows,storage and comptation, JZHub provides a flexible platform for collaborative data workflows. Whether you're creating citable data papers, sharing datasets, or tracking experimental changes, JZHub streamlines the process with modern tools and automation.
 
 ----
-## JZLab include but not limited to：
+## Features
 
-1. Visualize and interact with JZFS repositories
-2. Visualize and interact JZFlow pipelines and Directed Acyclic Graphs (DAGs).
-3. One-click to start the fully functional JupyterLab environment.
-4. Examine the performance of versioned/registered models.
-5. Monitor the status of model services including health and resource usage stats, and view deployment history and related logs.
-6. Easily upload and manage datasets and shared resources.
-7. Browse and share files with other group members in a collaborative, group-centric, environment.
-8. Submit and schedule jobs to run automatically in the background. Easily monitor job progress from the job stats panel.
-9. The easiest way to do the infrastructure orchestration for setting up 10+ different tools to build your infrastructure.
+JZHub offers a range of capabilities to meet the needs of researchers and data scientists, inspired by public data hubs like Dataset Hubs, LLM hubs, and AI hubs. Here’s what JZHub provides:
+- Data Versioning and Collaboration: Track changes to datasets, models, and documents using JZFS, enabling Git-like versioning for collaborative research workflows, supporting team-based data management. This mirrors data hubs’ focus on versioning and collaboration, as seen in platforms like GitHub. 
 
 
-## How different roles use JZLab
-- Data Scientist
-    - Data scientists can stay informed and focused on training and running their models.
-    - In the past, there was a lot of manual work of setting the environment, which is a fragmented and time consuming analysis process. And it is hard to collaborate with a team on the same project.
-    - Now, you can carry out data analytics and optimizations with ML easily, and contribute your time on what really matters.
-- IT Leader
-    - Gives IT leaders flexibility and administration authority to configure resources.
-    - In the past, it’s hard to keep track of each teams' needs and environment settings. Also, the hardware, resources, and GPU usage are unsure.
-    - Now, You can equip and enable data teams with the tools and resources they need as easy as pie. And easily deploy the model within an hour.
+- Hosting and Publishing: Store and share data and models in a hub, ensuring persistent, accessible, and citable outputs for open science, with cross-domain interoperability. 
+
+
+- Metadata Management and Discovery: Automatically generate and manage metadata for datasets and models, with search and discovery features to enhance data reuse and accessibility.
+
+
+- LLM Integration: Leverage large language models (e.g., Deepseek) for automated content generation (e.g., data papers, blogs, documentation) and retrieval-augmented generation (RAG) for querying data.
+
+
+- Model Hosting and Fine-Tuning: Host and fine-tune LLMs or AI models, with integration for on-device deployment via Cloud or decentralized storage, supporting scalable AI research。 
+
+
+- Security, Compliance, and Governance: Offer access controls, compliance monitoring, and data protection features for sensitive research data, ensuring trust in multi-institutional collaborations.
+
+
 ----
-## Basic Build And Usage
+## Use Cases
+JZHub’s use cases are designed to support researchers in open science and AI-driven research.Here’s how JZHub can be used:
+- Data Paper Creation and Publication: Generate citable data papers from datasets using LLMs, publish with datasets as IPLD products or other formats for open science and reproducibility. 
 
-#### Requirement
 
-1. todo
-2. todo
+- Collaborative Research Workflows: Track experiment data or model versions across distributed teams, share securely via decentralized storage, enhancing multi-institutional research. 
+
+
+- AI-Driven Insights and Reporting: Use RAG to query datasets/models for insights, with LLM-generated summaries for reports, supporting data-driven decision-making in research. 
+
+
+- Decentralized Model Deployment: Host fine-tuned LLMs or AI models for on-device use in research applications, enabling innovation in resource-constrained environments. 
+
+
+- Compliance and Governance for Sensitive Data: Manage sensitive data with access controls and compliance monitoring, ensuring ethical use in collaborative open science projects.
+
+
+## Getting Started
+
+#### Prerequisites
 
 #### Build And Running
-
 deploy the system to your server,you can get help from this repository:
 ```bash
-https://github.com/GitDataAI/jzfs
+https://github.com/GitDataAI/jzhub
 ```
 
-clone JZLab repository to your server:
+clone JZHub repository to your server:
 
 ```bash
-git clone git@github.com:GitDataAI/jzlab.git
+git clone git@github.com:GitDataAI/jzhub.git
 ```
 
 Before you run the project for the first time, run the following script to install packages from `package.json`:
@@ -57,32 +69,32 @@ After waiting for the installation to complete,run the following script to start
 npm run dev
 ```
 
+#### Cloud
+
+[Try without installing](https://jzhub.io)
 
 
-----
-### Cloud
-
-[Try without installing](https://gitdata.ai)
-
-----
-### Contributors
+## Contributing
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
-[![All Contributors](https://img.shields.io/github/all-contributors/GitdataAI/jzlab?color=ee8449&style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/github/all-contributors/GitdataAI/jzhub?color=ee8449&style=flat-square)](#contributors)
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-----
-### License
+We welcome contributions! Please read our  for guidelines. Here’s how to get started:
 
-Dual-licensed under [MIT](https://github.com/GitDataAI/jiaozifs/blob/main/LICENSE-MIT) + [Apache 2.0](https://github.com/GitDataAI/jiaozifs/blob/main/LICENSE-APACHE)
+1. Fork the repo.
+2. Create a feature branch (`git checkout -b feature/my-feature`).
+3. Submit a pull request.
 
-
-## Contributors ✨
+#### Current Needs
+1. Actions support.
+2. UI enhancements.
+3. Integration with LLM.
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
@@ -94,3 +106,10 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+
+
+----
+### License
+
+Dual-licensed under [MIT](https://github.com/GitDataAI/jiaozifs/blob/main/LICENSE-MIT) + [Apache 2.0](https://github.com/GitDataAI/jiaozifs/blob/main/LICENSE-APACHE)
+

@@ -112,7 +112,7 @@ export default function Sigin() {
 
     return (
         <>
-            <h1>登陆</h1>
+            <h1>Sign in</h1>
             <Form form={form} className="form">
                 <div>
                     <TextInput label="Account" placeholder="Please input you username or email"
@@ -143,7 +143,7 @@ export default function Sigin() {
                     }
                     Submit();
                 }}>Login</Button>
-                <Divider label="Not Account？"/>
+                <Divider label="Need an account?"/>
                 <Button type="button" color="dark" onClick={() => {
                     nav('/sigup')
                 }}>Sign up</Button>
