@@ -1,9 +1,9 @@
 'use client';
 import { useState, useEffect } from 'react';
-import {Button, Divider, Input, InputLabel, Modal, Textarea} from '@mantine/core';
+import { Button, Divider, Input, InputLabel, Modal, Textarea } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { DateTime } from 'luxon';
-import {useDisclosure} from "@mantine/hooks";
+import { useDisclosure } from "@mantine/hooks";
 
 export interface TokenModel {
     uid: string;
@@ -22,7 +22,7 @@ export default function NewAccess() {
         name: "",
         description: "",
     });
-    const [GeneratedToken, setGeneratedToken] = useState<string | null>(null); // 用于存储生成的令牌
+    const [GeneratedToken, setGeneratedToken] = useState<string | null>(null);
 
     const Fetch = async () => {
         try {
@@ -36,7 +36,12 @@ export default function NewAccess() {
             if (res.status === 200) {
                 const data = await res.json();
                 if (data.tokens) {
-                    setList(data.tokens);
+                    const tokens: TokenModel[] = data.tokens.map((token: { created_at: string; updated_at: string; uid: string; user_uid: string; name: string; description: string }) => ({
+                        ...token,
+                        created_at: DateTime.fromISO(token.created_at),
+                        updated_at: DateTime.fromISO(token.updated_at),
+                    }));
+                    setList(tokens);
                 } else {
                     notifications.show({
                         title: 'Failed',
@@ -166,10 +171,10 @@ export default function NewAccess() {
         <div className="access">
             <Modal opened={opened} onClose={close} withCloseButton={false} size={"lg"}>
                 {GeneratedToken && (
-                       <div className="generated-token">
-                               <h2>Generated Token:</h2>
-                               <p>{GeneratedToken}</p>
-                           </div>
+                    <div className="generated-token">
+                        <h2>Generated Token:</h2>
+                        <p>{GeneratedToken}</p>
+                    </div>
                 )}
             </Modal>
             <h1>Personal Access Tokens</h1>
