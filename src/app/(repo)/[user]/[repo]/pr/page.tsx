@@ -3,8 +3,8 @@ import { Button, Input, Tabs, Menu } from '@mantine/core';
 import { BsSearch } from 'react-icons/bs';
 import { IconChevronDown } from '@tabler/icons-react';
 
-export default function Page(){
-    return(
+export default function Page() {
+    return (
         <div className="pr">
             <div className="pr-header">
                 <div className="title">
@@ -23,13 +23,13 @@ export default function Page(){
                             rightSection={
                                 <BsSearch style={{
                                     color: "black",
-                                }}/>
+                                }} />
                             }
                         />
                         <Menu>
                             <Menu.Target>
                                 <Button variant="outline" color="orange">
-                                    Author<IconChevronDown size={14} />
+                                    Author <IconChevronDown size={14} />
                                 </Button>
                             </Menu.Target>
                             <Menu.Dropdown>
@@ -53,7 +53,7 @@ export default function Page(){
                         <Menu>
                             <Menu.Target>
                                 <Button variant="outline" color="orange">
-                                    PReviews <IconChevronDown size={14} />
+                                    Reviews <IconChevronDown size={14} />
                                 </Button>
                             </Menu.Target>
                             <Menu.Dropdown>
@@ -61,23 +61,22 @@ export default function Page(){
                                 <Menu.Item>PReviews2</Menu.Item>
                                 <Menu.Item>PReviews3</Menu.Item>
                             </Menu.Dropdown>
-                            <Menu>
-                                <Menu.Target>
-                                    <Button variant="outline" color="orange">
-                                        Sort <IconChevronDown size={14} />
-                                    </Button>
-                                </Menu.Target>
-                                <Menu.Dropdown>
-                                    <Menu.Item>Oldest</Menu.Item>
-                                    <Menu.Item>Newest</Menu.Item>
-                                    <Menu.Item>Best match</Menu.Item>
-                                </Menu.Dropdown>
-
-                            </Menu>
+                        </Menu>
+                        <Menu>
+                            <Menu.Target>
+                                <Button variant="outline" color="orange">
+                                    Sort <IconChevronDown size={14} />
+                                </Button>
+                            </Menu.Target>
+                            <Menu.Dropdown>
+                                <Menu.Item>Oldest</Menu.Item>
+                                <Menu.Item>Newest</Menu.Item>
+                                <Menu.Item>Best match</Menu.Item>
+                            </Menu.Dropdown>
                         </Menu>
                     </div>
                 </Tabs>
             </div>
         </div>
-    )
+    );
 }
