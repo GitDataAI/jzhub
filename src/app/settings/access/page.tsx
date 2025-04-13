@@ -23,7 +23,7 @@ export default function NewAccess() {
         description: "",
     });
     const [GeneratedToken, setGeneratedToken] = useState<string | null>(null);
-
+    const [isCopied, setIsCopied] = useState(false);
     const Fetch = async () => {
         try {
             const res = await fetch("/api/v1/users/token", {
@@ -91,6 +91,7 @@ export default function NewAccess() {
                     });
 
                     setGeneratedToken(data.token.token);
+                    setIsCopied(false); // 重置复制状态
                     open();
                     setEdit(false);
                     await Fetch();
@@ -169,36 +170,61 @@ export default function NewAccess() {
 
     return (
         <div className="access">
-            <Modal opened={opened} onClose={close} withCloseButton={false} size={"lg"}>
+            <Modal opened={opened} onClose={() => { close(); setIsCopied(false); }} withCloseButton={false} size={"lg"}>
                 {GeneratedToken && (
                     <div className="generated-token">
                         <h2>Generated Token:</h2>
                         <p className="warning">This token will only be displayed once. Please copy it now.</p>
-                        <p>{GeneratedToken}</p>
-                        <Button
-                            styles={{
-                                root: {
-                                    backgroundColor: 'var(--theme-button)',
-                                    color: 'white',
-                                    padding: '4px 8px',
-                                    fontSize: '0.875rem',
-                                    height: '2rem',
-                                },
-                            }}
-                            onClick={() => {
-                                navigator.clipboard.writeText(GeneratedToken);
-                                notifications.show({
-                                    title: 'Success',
-                                    message: 'Token copied to clipboard',
-                                    color: 'green',
-                                });
-                            }}
-                        >
-                            Copy to Clipboard
-                        </Button>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <div
+                                style={{
+                                    backgroundColor: '#f0f0f0',
+                                    padding: '0.25rem',
+                                    border: '1px solid #ccc',
+                                    borderRadius: '4px',
+                                    fontFamily: 'monospace',
+                                    flexGrow: 1,
+                                    marginRight: '0.5rem',
+                                    whiteSpace: 'nowrap',
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis',
+                                }}
+                            >
+                                {GeneratedToken}
+                            </div>
+                            <Button
+                                styles={{
+                                    root: {
+                                        backgroundColor: isCopied ? '#a5a5a5' : 'var(--theme-button)',
+                                        color: 'white',
+                                        padding: '4px 8px',
+                                        fontSize: '0.875rem',
+                                        height: '2rem',
+                                        width: '80px',
+                                        cursor: isCopied ? 'not-allowed' : 'pointer',
+                                    },
+                                }}
+                                onClick={() => {
+                                    if (!isCopied) {
+                                        navigator.clipboard.writeText(GeneratedToken);
+                                        setIsCopied(true);
+                                        notifications.show({
+                                            title: 'Success',
+                                            message: 'Token copied to clipboard',
+                                            color: 'green',
+                                        });
+                                    }
+                                }}
+                                disabled={isCopied}
+                            >
+                                {isCopied ? 'Copied!' : 'Copy'}
+                            </Button>
+                        </div>
                     </div>
                 )}
             </Modal>
+
+
             <h1>Personal Access Tokens</h1>
             <span>
                 Personal access tokens allow you to authenticate with GitDataAI APIs and use Git over HTTPS.
