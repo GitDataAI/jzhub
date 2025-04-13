@@ -90,9 +90,19 @@
         align-items: center;
     }
     .access-list-delete {
+        background-color: red;
+        color: white;
+        align-items: center;
         span {
             color: white;
             margin: 0;
         }
     }
 }
+
+.warning {
+    color: red;
+    font-weight: bold;
+    margin: 10px 0;
+}
+

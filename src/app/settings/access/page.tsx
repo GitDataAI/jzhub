@@ -1,9 +1,9 @@
 'use client';
 import { useState, useEffect } from 'react';
-import {Button, Divider, Input, InputLabel, Modal, Textarea} from '@mantine/core';
+import { Button, Divider, Input, InputLabel, Modal, Textarea } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { DateTime } from 'luxon';
-import {useDisclosure} from "@mantine/hooks";
+import { useDisclosure } from "@mantine/hooks";
 
 export interface TokenModel {
     uid: string;
@@ -22,8 +22,8 @@ export default function NewAccess() {
         name: "",
         description: "",
     });
-    const [GeneratedToken, setGeneratedToken] = useState<string | null>(null); // 用于存储生成的令牌
-
+    const [GeneratedToken, setGeneratedToken] = useState<string | null>(null);
+    const [isCopied, setIsCopied] = useState(false);
     const Fetch = async () => {
         try {
             const res = await fetch("/api/v1/users/token", {
@@ -36,7 +36,12 @@ export default function NewAccess() {
             if (res.status === 200) {
                 const data = await res.json();
                 if (data.tokens) {
-                    setList(data.tokens);
+                    const tokens: TokenModel[] = data.tokens.map((token: { created_at: string; updated_at: string; uid: string; user_uid: string; name: string; description: string }) => ({
+                        ...token,
+                        created_at: DateTime.fromISO(token.created_at),
+                        updated_at: DateTime.fromISO(token.updated_at),
+                    }));
+                    setList(tokens);
                 } else {
                     notifications.show({
                         title: 'Failed',
@@ -86,6 +91,7 @@ export default function NewAccess() {
                     });
 
                     setGeneratedToken(data.token.token);
+                    setIsCopied(false); // 重置复制状态
                     open();
                     setEdit(false);
                     await Fetch();
@@ -164,14 +170,61 @@ export default function NewAccess() {
 
     return (
         <div className="access">
-            <Modal opened={opened} onClose={close} withCloseButton={false} size={"lg"}>
+            <Modal opened={opened} onClose={() => { close(); setIsCopied(false); }} withCloseButton={false} size={"lg"}>
                 {GeneratedToken && (
-                       <div className="generated-token">
-                               <h2>Generated Token:</h2>
-                               <p>{GeneratedToken}</p>
-                           </div>
+                    <div className="generated-token">
+                        <h2>Generated Token:</h2>
+                        <p className="warning">This token will only be displayed once. Please copy it now.</p>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <div
+                                style={{
+                                    backgroundColor: '#f0f0f0',
+                                    padding: '0.25rem',
+                                    border: '1px solid #ccc',
+                                    borderRadius: '4px',
+                                    fontFamily: 'monospace',
+                                    flexGrow: 1,
+                                    marginRight: '0.5rem',
+                                    whiteSpace: 'nowrap',
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis',
+                                }}
+                            >
+                                {GeneratedToken}
+                            </div>
+                            <Button
+                                styles={{
+                                    root: {
+                                        backgroundColor: isCopied ? '#a5a5a5' : 'var(--theme-button)',
+                                        color: 'white',
+                                        padding: '4px 8px',
+                                        fontSize: '0.875rem',
+                                        height: '2rem',
+                                        width: '80px',
+                                        cursor: isCopied ? 'not-allowed' : 'pointer',
+                                    },
+                                }}
+                                onClick={() => {
+                                    if (!isCopied) {
+                                        navigator.clipboard.writeText(GeneratedToken);
+                                        setIsCopied(true);
+                                        notifications.show({
+                                            title: 'Success',
+                                            message: 'Token copied to clipboard',
+                                            color: 'green',
+                                        });
+                                    }
+                                }}
+                                disabled={isCopied}
+                            >
+                                {isCopied ? 'Copied!' : 'Copy'}
+                            </Button>
+                        </div>
+                    </div>
                 )}
             </Modal>
+
+
             <h1>Personal Access Tokens</h1>
             <span>
                 Personal access tokens allow you to authenticate with GitDataAI APIs and use Git over HTTPS.
