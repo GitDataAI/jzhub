@@ -173,7 +173,29 @@ export default function NewAccess() {
                 {GeneratedToken && (
                     <div className="generated-token">
                         <h2>Generated Token:</h2>
+                        <p className="warning">This token will only be displayed once. Please copy it now.</p>
                         <p>{GeneratedToken}</p>
+                        <Button
+                            styles={{
+                                root: {
+                                    backgroundColor: 'var(--theme-button)',
+                                    color: 'white',
+                                    padding: '4px 8px',
+                                    fontSize: 'o.875rem',
+                                    height: '2rem',
+                                },
+                            }}
+                            onClick={() => {
+                                navigator.clipboard.writeText(GeneratedToken);
+                                notifications.show({
+                                    title: 'Success',
+                                    message: 'Token copied to clipboard',
+                                    color: 'green',
+                                });
+                            }}
+                        >
+                            Copy to Clipboard
+                        </Button>
                     </div>
                 )}
             </Modal>
