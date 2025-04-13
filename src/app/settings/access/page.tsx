@@ -181,7 +181,7 @@ export default function NewAccess() {
                                     backgroundColor: 'var(--theme-button)',
                                     color: 'white',
                                     padding: '4px 8px',
-                                    fontSize: 'o.875rem',
+                                    fontSize: '0.875rem',
                                     height: '2rem',
                                 },
                             }}
