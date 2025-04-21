@@ -1,10 +1,17 @@
 import React from "react";
 import {GrActions, GrIntegration, GrProjects} from "react-icons/gr";
 import {FaUserGroup} from "react-icons/fa6";
-import {AiFillProduct, AiOutlineProfile} from "react-icons/ai";
-import {IoSettingsOutline} from "react-icons/io5";
+import {
+    AiFillAlert,
+    AiFillAlipaySquare,
+    AiFillAudio,
+    AiFillBehanceCircle, AiFillHeart,
+    AiFillProduct,
+    AiOutlineProfile
+} from "react-icons/ai";
 import {RiGalleryView, RiGitRepositoryCommitsLine} from "react-icons/ri";
 import {CiStar} from "react-icons/ci";
+import { VscBrowser } from "react-icons/vsc";
 import {
     MdAppRegistration,
     MdDeveloperBoard,
@@ -19,9 +26,12 @@ import {TbHttpConnect} from "react-icons/tb";
 import {BsShieldLock} from "react-icons/bs";
 import {SiPrivateinternetaccess} from "react-icons/si";
 import {BiFile} from "react-icons/bi";
+import { VscRemoteExplorer } from "react-icons/vsc";
 // import {FaWikipediaW} from "react-icons/fa";
 // import {GoGitPullRequest} from "react-icons/go";
 import {CgInsights} from "react-icons/cg";
+import {ActionIconGroupSection} from "@mantine/core";
+import {AppHeader} from "@/component/shell/header";
 
 export interface AppNavbarItem {
     title: string,
@@ -47,6 +57,13 @@ export const DashboardMenu: AppNavbarProps = {
     tab: false,
     menu: [
         {
+            title: "Explore",
+            href: "/Explore",
+            icon: <VscRemoteExplorer/>,
+            active: true,
+            id: "dashboard-explore",
+        },
+        {
             title: "Product",
             href: "/Product",
             icon: <GrProjects/>,
@@ -70,7 +87,7 @@ export const DashboardMenu: AppNavbarProps = {
         {
             title: "Workspace",
             href: "/workspaces",
-            icon: <IoSettingsOutline/>,
+            icon: <VscBrowser/>,
             active: false,
             id: "dashboard-workspace",
         },
@@ -238,6 +255,64 @@ export const RepoMenu = (props: { owner: string, repo: string }): AppNavbarProps
                 icon: <CgInsights/>,
                 active: false,
                 id: "repo-insights",
+            },
+        ]
+    }
+}
+
+export const RepoSettingMenu = (props: {owner:string,repo: string,setting: string}): AppNavbarProps => {
+    return {
+        title: props.owner + "/" + props.repo,
+        url: `/${props.owner}/${props.repo}/${props.setting}`,
+        tab: false,
+        menu: [
+            {
+                title: "General",
+                icon: <BiFile/>,
+                active: true,
+                id: "setting-general",
+            },
+            {
+                title: "Branch",
+                icon: <GrActions/>,
+                active: false,
+                id: "setting-branch",
+            },
+            {
+                title: "Actions",
+                icon: <AiFillProduct/>,
+                active: false,
+                id: "setting-action",
+            },
+            {
+                title: "Webhook",
+                icon: <CgInsights/>,
+                active: false,
+                id: "setting-webhook",
+            },
+            {
+                title: "Secret",
+                icon: <AiFillAlert/>,
+                active: false,
+                id: "setting-secret",
+            },
+            {
+                title: "Env",
+                icon: <AiFillBehanceCircle/>,
+                active: false,
+                id: "setting-env",
+            },
+            {
+                title: "App",
+                icon: <AiFillHeart/>,
+                active: false,
+                id: "setting-app",
+            },
+            {
+                title: "Email",
+                icon: <AiFillAudio/>,
+                active: false,
+                id: "setting-email",
             },
         ]
     }

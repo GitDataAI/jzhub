@@ -2,8 +2,9 @@ import {Avatar, Button, Indicator, Menu, MenuDropdown, MenuItem, MenuTarget} fro
 import {CiAlignLeft, CiAlignRight} from "react-icons/ci";
 import {RiGitRepositoryLine, RiGroupLine} from "react-icons/ri";
 import useUserContext from "@/store/useUserContext";
-import {IoIosNotificationsOutline} from "react-icons/io";
+import {IoIosNotifications, IoIosNotificationsOff, IoIosNotificationsOutline} from "react-icons/io";
 import {useRouter} from "next/navigation";
+import { CiSettings,CiStar,CiLogout,CiCreditCard1,CiFileOn,CiDatabase,CiBoxes } from "react-icons/ci";
 
 interface AppHeaderProps {
     close: () => void,
@@ -54,9 +55,8 @@ export const AppHeader = (props: AppHeaderProps) => {
                 </div>
                 <div>
                     <div className="app-header-right-create-notify">
-                        <Indicator inline>
-                            <IoIosNotificationsOutline/>
-                        </Indicator>
+                        <IoIosNotificationsOutline
+                        />
                     </div>
                 </div>
                 {
@@ -76,48 +76,129 @@ export const AppHeader = (props: AppHeaderProps) => {
                                             window.location.href = "/" + context.data.username + "?tab=Overview";
                                         }
                                     }}>
-                                        <a>Overview</a>
+                                        <div style={{ lineHeight: "0.5rem" }}>
+                                            <CiBoxes
+                                                style={{
+                                                    display: "inline-block",
+                                                    verticalAlign: "middle",
+                                                    marginRight: 8
+                                                }}
+                                            />
+                                            <span style={{
+                                                display: "inline-block",
+                                                verticalAlign: "middle",
+                                            }}>Overview</span>
+                                        </div>
                                     </MenuItem>
                                     <MenuItem onClick={() => {
                                         if (context.data) {
                                             window.location.href = "/" + context.data.username + "?tab=Repository";
                                         }
                                     }}>
-                                        <a>Repository</a>
+                                        <div style={{ lineHeight: "0.5rem" }}>
+                                            <CiDatabase
+                                                style={{
+                                                    display: "inline-block",
+                                                    verticalAlign: "middle",
+                                                    marginRight: 8
+                                                }}
+                                            />
+                                            <span style={{
+                                                display: "inline-block",
+                                                verticalAlign: "middle",
+                                            }}>Repository</span>
+                                        </div>
                                     </MenuItem>
                                     <MenuItem onClick={() => {
                                         if (context.data) {
                                             window.location.href = "/" + context.data.username + "?tab=Product";
                                         }
                                     }}>
-                                        <a>Product</a>
+                                        <div style={{ lineHeight: "0.5rem" }}>
+                                            <CiFileOn
+                                                style={{
+                                                    display: "inline-block",
+                                                    verticalAlign: "middle",
+                                                    marginRight: 8
+                                                }}
+                                            />
+                                            <span style={{
+                                                display: "inline-block",
+                                                verticalAlign: "middle",
+                                            }}>Product</span>
+                                        </div>
                                     </MenuItem>
                                     <MenuItem onClick={() => {
                                         if (context.data) {
                                             window.location.href = "/" + context.data.username + "?tab=Project";
                                         }
                                     }}>
-                                        <a>Project</a>
+                                        <div style={{ lineHeight: "0.5rem" }}>
+                                            <CiCreditCard1
+                                                style={{
+                                                    display: "inline-block",
+                                                    verticalAlign: "middle",
+                                                    marginRight: 8
+                                                }}
+                                            />
+                                            <span style={{
+                                                display: "inline-block",
+                                                verticalAlign: "middle",
+                                            }}>Project</span>
+                                        </div>
                                     </MenuItem>
                                     <MenuItem onClick={() => {
                                         if (context.data) {
                                             window.location.href = "/" + context.data.username + "?tab=Star";
                                         }
                                     }}>
-                                        <a>Star</a>
+                                        <div style={{ lineHeight: "0.5rem" }}>
+                                            <CiStar
+                                                style={{
+                                                    display: "inline-block",
+                                                    verticalAlign: "middle",
+                                                    marginRight: 8
+                                                }}
+                                            />
+                                            <span style={{
+                                                display: "inline-block",
+                                                verticalAlign: "middle",
+                                            }}>Star</span>
+                                        </div>
                                     </MenuItem>
 
                                     <MenuItem onClick={() => {
                                         window.location.href = "/settings";
                                     }}>
-                                        <a>Settings</a>
+                                        <div style={{ lineHeight: "0.5rem" }}>
+                                            <CiSettings
+                                                style={{
+                                                    display: "inline-block",
+                                                    verticalAlign: "middle",
+                                                    marginRight: 8
+                                                }}
+                                            />
+                                            <span style={{
+                                                display: "inline-block",
+                                                verticalAlign: "middle",
+                                            }}>Settings</span>
+                                        </div>
                                     </MenuItem>
-                                    <MenuItem onClick={() => {
-                                        context.logout();
-                                    }}>
-                                        <a style={{
-                                            color: "red"
-                                        }}>Logout</a>
+                                    <MenuItem onClick={() => context.logout()}>
+                                        <div style={{ lineHeight: "0.5rem" }}>
+                                            <CiLogout
+                                                style={{
+                                                    display: "inline-block",
+                                                    verticalAlign: "middle",
+                                                    marginRight: 8
+                                                }}
+                                            />
+                                            <span style={{
+                                                display: "inline-block",
+                                                verticalAlign: "middle",
+                                                color: "red"
+                                            }}>Logout</span>
+                                        </div>
                                     </MenuItem>
                                 </MenuDropdown>
                             </Menu>

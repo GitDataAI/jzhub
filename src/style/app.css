@@ -9,10 +9,13 @@
 @import "./issues.css";
 @import "./setting.css";
 @import "./pr.css";
+@import "./explore.css";
 @import "tailwindcss";
+
 
 * {
     margin: 0;
     padding: 0;
     --theme-button: #f15108;
 }
+
