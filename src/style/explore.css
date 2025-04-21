@@ -1,0 +1,57 @@
+.explore {
+    .explore-nav {
+        max-width: 1248px;
+        margin: 0 auto;
+        padding: 0 1rem;
+
+        .nav-header {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+
+            .title {
+                font-size: 1.8rem;
+                font-weight: 700;
+            }
+        }
+
+        .nav-tabs {
+            margin-top: 1rem;
+
+            span {
+                font-weight: 500;
+            }
+
+            button:where([data-active]) {
+                border-bottom: 2px var(--theme-button) solid;
+
+                span {
+                    font-weight: 700;
+                    color: black;
+                }
+            }
+        }
+
+        .nav-filter {
+            display: flex;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: #fbfafd;
+        }
+
+        .search-input {
+            flex: 1;
+            margin-right: 1rem;
+        }
+
+        .search-filter-container {
+            display: flex;
+            gap: 1rem;
+            margin-left: auto;
+        }
+
+        .icon-right {
+            margin-left: 0.25rem;
+        }
+    }
+}
