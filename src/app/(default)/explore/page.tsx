@@ -137,7 +137,7 @@ export default function ExplorePage() {
             page: 1,
             size: 10,
         })
-    }, [Rtype]);
+    }, [Rtype,Filter,Search]);
     return (
         <div className="explore">
             <ExploreItemHeader setRtype={(x)=>{
