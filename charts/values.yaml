@@ -2,6 +2,6 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 3
+replicaCount: 1
 namespace: gitdata
 image: gitdatateam/gitdataweb:latest
