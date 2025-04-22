@@ -75,6 +75,7 @@
         max-height: 64px;
         border: 1px #efefef solid;
         border-radius: 5px;
+        cursor: pointer;
         .explore-product-avatar {
             height: 60px;
             margin: 0 0 0.125rem;
@@ -114,6 +115,7 @@
         display: flex;
         flex-wrap: wrap;
         max-height: 64px;
+        cursor: pointer;
         border: 1px #efefef solid;
         border-radius: 5px;
         .explore-users-avatar {
@@ -141,6 +143,7 @@
         flex-wrap: wrap;
         max-height: 64px;
         border: 1px #efefef solid;
+        cursor: pointer;
         border-radius: 5px;
         .explore-organization-avatar {
             height: 60px;
@@ -164,6 +167,7 @@
         .explore-organization-data {
             display: flex;
             flex-direction: row;
+            cursor: pointer;
             justify-content: flex-end;
             align-items: center;
             margin-left: auto;
