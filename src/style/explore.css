@@ -54,4 +54,127 @@
             margin-left: 0.25rem;
         }
     }
+    .explore-pagin {
+        display: flex;
+        justify-content: center;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        gap: 1rem;
+    }
+    .explore-list {
+        max-width: 1248px;
+        margin: 0 auto;
+        display: flex;
+        padding: 0 1rem;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    .explore-product {
+        display: flex;
+        flex-wrap: wrap;
+        max-height: 64px;
+        border: 1px #efefef solid;
+        border-radius: 5px;
+        .explore-product-avatar {
+            height: 60px;
+            margin: 0 0 0.125rem;
+        }
+        .explore-product-title {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-left: 1rem;
+            .explore-product-title-name {
+                font-size: 1.2rem;
+                font-weight: 600;
+                line-height: 1.5;
+                overflow: hidden;
+            }
+            .explore-product-title-desc {
+                font-size: 0.875rem;
+            }
+        }
+        .explore-product-data {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+            margin-left: auto;
+            margin-right: 1rem;
+            gap: 1rem;
+            .explore-product-data-item {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 0.125rem;
+            }
+        }
+    }
+    .explore-users {
+        display: flex;
+        flex-wrap: wrap;
+        max-height: 64px;
+        border: 1px #efefef solid;
+        border-radius: 5px;
+        .explore-users-avatar {
+            height: 60px;
+            margin: 0 0 0.125rem;
+        }
+        .explore-users-title {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-left: 1rem;
+            .explore-users-title-name {
+                font-size: 1.2rem;
+                font-weight: 600;
+                line-height: 1.5;
+                overflow: hidden;
+            }
+            .explore-users-title-desc {
+                font-size: 0.875rem;
+            }
+        }
+    }
+    .explore-organization{
+        display: flex;
+        flex-wrap: wrap;
+        max-height: 64px;
+        border: 1px #efefef solid;
+        border-radius: 5px;
+        .explore-organization-avatar {
+            height: 60px;
+            margin: 0 0 0.125rem;
+        }
+        .explore-organization-title {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-left: 1rem;
+            .explore-organization-title-name {
+                font-size: 1.2rem;
+                font-weight: 600;
+                line-height: 1.5;
+                overflow: hidden;
+            }
+            .explore-organization-title-desc {
+                font-size: 0.875rem;
+            }
+        }
+        .explore-organization-data {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+            margin-left: auto;
+            margin-right: 1rem;
+            gap: 1rem;
+            .explore-organization-data-item {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 0.125rem;
+            }
+        }
+    }
 }
