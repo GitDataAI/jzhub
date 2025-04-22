@@ -149,7 +149,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name:  gitdataweb-http-git
+  name:  gitdataweb-openapi
   namespace: gitdata
   annotations:
     meta.helm.sh/release-name: gitdataweb-api
