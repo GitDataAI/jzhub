@@ -51,7 +51,7 @@ jobs:
 
       - name: Build and Push GitDataWeb
         run: |
-          docker build -t gitdatateam/gitdataweb:${{ steps.version.outputs.version }} .
+          docker build -t gitdatateam/gitdataweb:${{ steps.version.outputs.version }} --no-cache .
           docker push gitdatateam/gitdataweb:${{ steps.version.outputs.version }}
           docker tag gitdatateam/gitdataweb:${{ steps.version.outputs.version }} gitdatateam/gitdataweb:latest
           docker push gitdatateam/gitdataweb:latest
