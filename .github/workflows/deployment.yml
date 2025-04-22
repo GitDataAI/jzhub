@@ -30,6 +30,6 @@ jobs:
             - name: DeployWeb
               uses: WyriHaximus/github-action-helm3@v3
               with:
-                  exec: /usr/local/bin/helm upgrade gitdataweb --install ./charts --namespace gitdata
+                  exec: /usr/local/bin/helm upgrade gitdataweb --install ./charts --namespace gitdata --set image=gitdatateam/gitdataweb:${{ steps.version.outputs.version }}
                   kubeconfig: ${{ secrets.KUBECONTENT }}
                   overrule_existing_kubeconfig: 'true'

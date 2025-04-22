@@ -19,6 +19,5 @@ spec:
       containers:
         - name: gitdataweb
           image: {{ .Values.image }}
-          imagePullPolicy: Always
           ports:
             - containerPort: 80
