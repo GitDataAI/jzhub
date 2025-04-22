@@ -2,6 +2,7 @@ import React from 'react';
 import {CiLink, CiStar} from "react-icons/ci";
 import {GoRepo, GoRepoForked} from 'react-icons/go';
 import {LuUsers} from "react-icons/lu";
+import {useRouter} from "next/navigation";
 
 
 export interface ExploreItemProductProps {
@@ -28,8 +29,11 @@ export interface ExploreItemProductProps {
 
 
 export const ExploreItemProduct = ({props}:ExploreItemProductProps) => {
+    const Router = useRouter();
     return(
-        <div className="explore-product">
+        <div className="explore-product" onClick={()=>{
+            Router.replace(`${props.owner.name}/${props.name}`)
+        }}>
             <img className='explore-product-avatar' src={props.owner.avatar ?? '/default.webp'} alt={props.owner.name}/>
             <div className="explore-product-title">
                 <div className="explore-product-title-name">
@@ -66,8 +70,11 @@ export interface ExploreItemUserProps {
 }
 
 export const ExploreItemUser = ({props}:ExploreItemUserProps) => {
+    const Router = useRouter();
     return(
-        <div className="explore-users">
+        <div className="explore-users" onClick={() => {
+            Router.replace(`/${props.name}`)
+        }}>
             <img className='explore-users-avatar' src={props.avatar ?? '/default.webp'} alt={props.name}/>
             <div className="explore-users-title">
                 <div className="explore-users-title-name">
@@ -94,8 +101,11 @@ export interface ExploreItemOrganizationProps {
 }
 
 export const ExploreItemOrganization = ({props}:ExploreItemOrganizationProps) => {
+    const Router = useRouter();
     return(
-        <div className="explore-organization">
+        <div className="explore-organization" onClick={() => {
+            Router.replace(`/${props.name}`)
+        }}>
             <img className='explore-organization-avatar' src={props.avatar ?? '/default.webp'} alt={props.name}/>
             <div className="explore-organization-title">
                 <div className="explore-organization-title-name">
