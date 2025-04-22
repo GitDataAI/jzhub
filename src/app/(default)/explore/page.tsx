@@ -119,7 +119,7 @@ export default function ExplorePage() {
         FetchData().then().catch().finally();
     },
         // !!!forbid insert FetchData in useEffect deps
-        [Rtype, Filter, Search]);
+        [Rtype, Filter, Search,Page.page, Page.size]);
     return (
         <div className="explore">
             <ExploreItemHeader setRtype={(x)=>{
