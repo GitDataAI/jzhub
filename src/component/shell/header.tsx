@@ -1,8 +1,8 @@
-import {Avatar, Button, Indicator, Menu, MenuDropdown, MenuItem, MenuTarget} from "@mantine/core";
+import {Avatar, Button, Menu, MenuDropdown, MenuItem, MenuTarget} from "@mantine/core";
 import {CiAlignLeft, CiAlignRight} from "react-icons/ci";
 import {RiGitRepositoryLine, RiGroupLine} from "react-icons/ri";
 import useUserContext from "@/store/useUserContext";
-import {IoIosNotifications, IoIosNotificationsOff, IoIosNotificationsOutline} from "react-icons/io";
+import {IoIosNotificationsOutline} from "react-icons/io";
 import {useRouter} from "next/navigation";
 import { CiSettings,CiStar,CiLogout,CiCreditCard1,CiFileOn,CiDatabase,CiBoxes } from "react-icons/ci";
 

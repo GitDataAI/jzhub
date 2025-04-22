@@ -3,7 +3,6 @@ import {GrActions, GrIntegration, GrProjects} from "react-icons/gr";
 import {FaUserGroup} from "react-icons/fa6";
 import {
     AiFillAlert,
-    AiFillAlipaySquare,
     AiFillAudio,
     AiFillBehanceCircle, AiFillHeart,
     AiFillProduct,
@@ -30,8 +29,6 @@ import { VscRemoteExplorer } from "react-icons/vsc";
 // import {FaWikipediaW} from "react-icons/fa";
 // import {GoGitPullRequest} from "react-icons/go";
 import {CgInsights} from "react-icons/cg";
-import {ActionIconGroupSection} from "@mantine/core";
-import {AppHeader} from "@/component/shell/header";
 
 export interface AppNavbarItem {
     title: string,
