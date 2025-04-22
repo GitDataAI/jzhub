@@ -184,6 +184,44 @@
     }
 }
 
+.repo-set-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    height: 50px;
+    background-color: white;
+    width: 100%;
+    padding: 0 20px;
+    .repo-set-header-title {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+    .repo-set-header-menu {
+        display: flex;
+        align-items: center;
+        gap: 3rem;
+        .repo-set-header-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            &.active {
+                color: black;
+                border-bottom: 2px solid black;
+            }
+            span {
+                font-size: 1rem;
+            }
+        }
+    }
+}
+
+
 
 .markdown-card {
     margin-top: 2rem;
