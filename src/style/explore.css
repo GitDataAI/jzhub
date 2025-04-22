@@ -137,6 +137,21 @@
                 font-size: 0.875rem;
             }
         }
+        .explore-users-data {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+            margin-left: auto;
+            margin-right: 1rem;
+            gap: 1rem;
+            .explore-users-data-item {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 0.125rem;
+            }
+        }
     }
     .explore-organization{
         display: flex;

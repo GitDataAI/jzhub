@@ -30,7 +30,7 @@ export const ExploreItemHeader = ({setRtype, rtype, Filter, setFilter, search,se
             >
                 <Tabs.List>
                     <Tabs.Tab value="product" className="tab-Product">
-                        <span>Product</span>
+                        <span>Repository</span>
                     </Tabs.Tab>
                     <Tabs.Tab value="user" className="tab-Users">
                         <span>Users</span>
@@ -66,9 +66,9 @@ export const ExploreItemHeader = ({setRtype, rtype, Filter, setFilter, search,se
                                 <Menu.Item onClick={() => {
                                     setFilter("public")
                                 }}>public</Menu.Item>
-                                <Menu.Item onClick={() => {
-                                    setFilter("private")
-                                }}>private</Menu.Item>
+                                {/*<Menu.Item onClick={() => {*/}
+                                {/*    setFilter("private")*/}
+                                {/*}}>private</Menu.Item>*/}
                             </Menu.Dropdown>
                         </Menu>
                         {/*<Menu>*/}

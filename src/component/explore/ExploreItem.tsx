@@ -3,6 +3,8 @@ import {CiLink, CiStar} from "react-icons/ci";
 import {GoRepo, GoRepoForked} from 'react-icons/go';
 import {LuUsers} from "react-icons/lu";
 import {useRouter} from "next/navigation";
+import {RiUserFollowLine} from "react-icons/ri";
+import {Tooltip} from "@mantine/core";
 
 
 export interface ExploreItemProductProps {
@@ -37,7 +39,9 @@ export const ExploreItemProduct = ({props}:ExploreItemProductProps) => {
             <img className='explore-product-avatar' src={props.owner.avatar ?? '/default.webp'} alt={props.owner.name}/>
             <div className="explore-product-title">
                 <div className="explore-product-title-name">
-                    {props.name}
+                    <a onClick={() => {
+                        Router.replace(`/${props.owner.name}`)
+                    }}>{props.owner.name}</a>/{props.name}
                 </div>
                 <div className="explore-product-title-desc">
                     {props.description}
@@ -65,6 +69,9 @@ export interface ExploreItemUserProps {
         name: string,
         uid: string,
         avatar?: string,
+        repo: number,
+        following: number,
+        followed: number,
         updated_at: string,
     }
 }
@@ -82,6 +89,25 @@ export const ExploreItemUser = ({props}:ExploreItemUserProps) => {
                 </div>
                 <div className="explore-users-title-desc">
                     {props.description}
+                </div>
+            </div>
+            <div className="explore-users-data">
+                <div className="explore-users-data-item">
+                    <Tooltip label={"this is user repository count"}>
+                        <GoRepo />
+                    </Tooltip>{props.repo}
+                </div>
+                <div className="explore-users-data-item">
+                    <Tooltip label={"this is user following count"}>
+                        <LuUsers />
+                    </Tooltip>
+                    {props.following}
+                </div>
+                <div className="explore-users-data-item">
+                    <Tooltip label={"this is user followed count"}>
+                        <RiUserFollowLine />
+                    </Tooltip>
+                    {props.followed}
                 </div>
             </div>
         </div>

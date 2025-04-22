@@ -1,14 +1,6 @@
 'use client'
 
 
-import {ProjectNav} from "@/component/project/projectNav";
+import ExplorePage from "@/app/(default)/explore/page";
 
-export default function Page() {
-    return (
-        <main>
-            <div className="project">
-                <ProjectNav/>
-            </div>
-        </main>
-    );
-}
+export default ExplorePage

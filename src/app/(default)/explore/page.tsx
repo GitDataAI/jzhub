@@ -48,6 +48,9 @@ export interface ExploreUser {
         description?: string,
         name: string,
         uid: string,
+        repo: number,
+        following: number,
+        followed: number,
         avatar?: string,
         updated_at: string,
     }[]
@@ -103,6 +106,15 @@ export default function ExplorePage() {
         if (response.status === 200) {
             response.json().then((result: ExplorePageProps) => {
                 if(result) {
+                    result.data.sort((a, b) => {
+                        if (a.updated_at > b.updated_at) {
+                            return -1;
+                        } else if (a.updated_at < b.updated_at) {
+                            return 1;
+                        } else {
+                            return 0;
+                        }
+                    });
                     setData(result);
                 }
             });
@@ -174,6 +186,9 @@ export default function ExplorePage() {
                             name: string,
                             uid: string,
                             avatar?: string,
+                            repo: number,
+                            followed: number,
+                            following: number,
                             updated_at: string,
                         }} key={index}/>
                     ))
