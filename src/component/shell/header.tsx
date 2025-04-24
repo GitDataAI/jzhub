@@ -40,23 +40,18 @@ export const AppHeader = (props: AppHeaderProps) => {
                             <Button className="app-header-right-create-target">+</Button>
                         </MenuTarget>
                         <MenuDropdown className="app-header-right-create">
-                            <MenuItem onClick={() => {
-                                nav("/product/new");
-                            }}>
-                                <RiGitRepositoryLine/><a>New Repository</a>
+                            <MenuItem onClick={() => nav("/product/new")}>
+                                <RiGitRepositoryLine /><a>New Repository</a>
                             </MenuItem>
-                            <MenuItem onClick={()=>{
-                                nav("/group/new");
-                            }}>
-                                <RiGroupLine/><a>New Group</a>
+                            <MenuItem onClick={() => nav("/group/new")}>
+                                <RiGroupLine /><a>New Group</a>
                             </MenuItem>
                         </MenuDropdown>
                     </Menu>
                 </div>
                 <div>
                     <div className="app-header-right-create-notify">
-                        <IoIosNotificationsOutline
-                        />
+                        <IoIosNotificationsOutline />
                     </div>
                 </div>
                 {

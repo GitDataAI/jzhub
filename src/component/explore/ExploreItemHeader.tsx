@@ -56,7 +56,7 @@ export const ExploreItemHeader = ({setRtype, rtype, Filter, setFilter, search,se
                     <div className="search-filter-container">
                         <Menu>
                             <Menu.Target>
-                                <Button variant="outline" color="gray">
+                                <Button variant="outline" color="gray" className="fixed-size-button">
                                     {
                                         Filter === "public" ? "public" : Filter === "private" ? "private" : "Filter"
                                     } <IconChevronDown size={14} className="icon-right"/>

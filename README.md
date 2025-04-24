@@ -43,6 +43,11 @@ JZHub’s use cases are designed to support researchers in open science and AI-d
 
 - Compliance and Governance for Sensitive Data: Manage sensitive data with access controls and compliance monitoring, ensuring ethical use in collaborative open science projects.
 
+## Enterprise Data Hub
+
+Enterprise data continues to grow exponentially, intensifying pressure on organizations to harness this valuable resource.   However, organizations find themselves unprepared to capture value from all this data, mainly because of disparate data sources and a lack of proper data sharing protocols.   Valuable enterprise data is often trapped in silos because of poor data sharing culture and inadequate infrastructure.   Current tooling for sharing data doesn’t cater to data consumers’ varying skill levels, hindering time to value from data.   Chief data officers and IT leaders must address this issue by shifting the mindset from creating ad hoc data projects to managing data as a product.
+
+JZHub, aka. JiaoZi Data Product Hub, enables Git protocol based data sharing across the organization and automates the delivery of data products to cater to the needs of data consumers of all skill levels.   It integrates with various source systems to simplify the onboarding of data products, no matter where data resides.   Data producers can use Git protocol to package, operationalize and share reusable data products, which could include datasets, AI models and notebooks.   Business users and other data consumers can then quickly and easily discover curated data products and have them delivered in a format optimized for their use case.   This can help reduce friction and improve the quality, reliability and discovery of valuable enterprise data.
 
 ## Getting Started
 
