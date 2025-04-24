@@ -44,6 +44,14 @@
             margin-right: 1rem;
         }
 
+        .fixed-size-button {
+            width: 95px;
+            height: 40px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
         .search-filter-container {
             display: flex;
             gap: 1rem;
@@ -72,13 +80,24 @@
     .explore-product {
         display: flex;
         flex-wrap: wrap;
-        max-height: 64px;
         border: 1px #efefef solid;
         border-radius: 5px;
         cursor: pointer;
+        padding: 5px;
+        height: auto;
+        min-height: 70px;
         .explore-product-avatar {
-            height: 60px;
-            margin: 0 0 0.125rem;
+            height: 50px;
+            width: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 5px 0 0 5px;
+            img {
+                max-height: 100%;
+                max-width: 100%;
+                object-fit: contain;
+            }
         }
         .explore-product-title {
             display: flex;
@@ -114,13 +133,24 @@
     .explore-users {
         display: flex;
         flex-wrap: wrap;
-        max-height: 64px;
-        cursor: pointer;
         border: 1px #efefef solid;
         border-radius: 5px;
+        cursor: pointer;
+        padding: 5px;
+        height: auto;
+        min-height: 70px;
         .explore-users-avatar {
-            height: 60px;
-            margin: 0 0 0.125rem;
+            height: 50px;
+            width: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 5px 0 0 5px;
+            img {
+                max-height: 100%;
+                max-width: 100%;
+                object-fit: contain;
+            }
         }
         .explore-users-title {
             display: flex;
@@ -153,16 +183,27 @@
             }
         }
     }
-    .explore-organization{
+    .explore-organization {
         display: flex;
         flex-wrap: wrap;
-        max-height: 64px;
         border: 1px #efefef solid;
-        cursor: pointer;
         border-radius: 5px;
+        cursor: pointer;
+        padding: 5px;
+        height: auto;
+        min-height: 70px;
         .explore-organization-avatar {
-            height: 60px;
-            margin: 0 0 0.125rem;
+            height: 50px;
+            width: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 5px 0 0 5px;
+            img {
+                max-height: 100%;
+                max-width: 100%;
+                object-fit: contain;
+            }
         }
         .explore-organization-title {
             display: flex;
@@ -182,7 +223,6 @@
         .explore-organization-data {
             display: flex;
             flex-direction: row;
-            cursor: pointer;
             justify-content: flex-end;
             align-items: center;
             margin-left: auto;
