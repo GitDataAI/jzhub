@@ -80,6 +80,12 @@ metadata:
     release:  gitdataweb-api
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - jzhub.io
+      secretName: tls-jzhub-io-key
+    - hosts:
+        - alpha.gitdata.ai
   rules:
     - host: jzhub.io
       http:
@@ -124,6 +130,12 @@ metadata:
     release: gitdataweb-http-git
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - jzhub.io
+      secretName: tls-jzhub-io-key
+    - hosts:
+        - alpha.gitdata.ai
   rules:
     - host: jzhub.io
       http:
@@ -168,6 +180,12 @@ metadata:
     release: gitdataweb-http-git
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - jzhub.io
+      secretName: tls-jzhub-io-key
+    - hosts:
+        - alpha.gitdata.ai
   rules:
     - host: jzhub.io
       http:
