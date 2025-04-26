@@ -75,7 +75,7 @@
         display: flex;
         padding: 0 1rem;
         flex-direction: column;
-        gap: 0.5rem;
+        gap: 0.125rem;
     }
     .explore-product {
         display: flex;
@@ -87,8 +87,8 @@
         height: auto;
         min-height: 70px;
         .explore-product-avatar {
-            height: 50px;
-            width: 50px;
+            height: 40px;
+            width: 40px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -140,8 +140,8 @@
         height: auto;
         min-height: 70px;
         .explore-users-avatar {
-            height: 50px;
-            width: 50px;
+            height: 40px;
+            width: 40px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -193,8 +193,8 @@
         height: auto;
         min-height: 70px;
         .explore-organization-avatar {
-            height: 50px;
-            width: 50px;
+            height: 40px;
+            width: 40px;
             display: flex;
             justify-content: center;
             align-items: center;
