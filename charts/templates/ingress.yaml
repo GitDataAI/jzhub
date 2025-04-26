@@ -28,7 +28,7 @@ spec:
   tls:
     - hosts:
         - jzhub.io
-      secretName: gitdataweb-tls
+      secretName: tls-jzhub-io-key
     - hosts:
         - alpha.gitdata.ai
       secretName: alpha
