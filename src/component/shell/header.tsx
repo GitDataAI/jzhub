@@ -5,6 +5,7 @@ import useUserContext from "@/store/useUserContext";
 import {IoIosNotificationsOutline} from "react-icons/io";
 import {useRouter} from "next/navigation";
 import { CiSettings,CiStar,CiLogout,CiCreditCard1,CiFileOn,CiDatabase,CiBoxes } from "react-icons/ci";
+import { TbSwitchHorizontal } from "react-icons/tb";
 
 interface AppHeaderProps {
     close: () => void,
@@ -193,6 +194,23 @@ export const AppHeader = (props: AppHeaderProps) => {
                                                 verticalAlign: "middle",
                                                 color: "red"
                                             }}>Logout</span>
+                                        </div>
+                                    </MenuItem>
+                                    <MenuItem onClick={()=>{
+                                        // TODO Get a list of all user contexts and display them below. When you click on another user, switch accounts.
+                                    }}>
+                                        <div style={{ lineHeight: "0.5rem" }}>
+                                            <TbSwitchHorizontal
+                                                style={{
+                                                    display: "inline-block",
+                                                    verticalAlign: "middle",
+                                                    marginRight: 8
+                                                }}
+                                            />
+                                            <span style={{
+                                                display: "inline-block",
+                                                verticalAlign: "middle",
+                                            }}>Switch Context</span>
                                         </div>
                                     </MenuItem>
                                 </MenuDropdown>
