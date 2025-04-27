@@ -1,4 +1,4 @@
-import {GroupMemberModel, GroupModel} from "@/app/(default)/group/page";
+import {GroupMemberModel, GroupModel} from "@/app/(default)/organization/page";
 import {RiGitRepositoryLine} from "react-icons/ri";
 import {FaUsers} from "react-icons/fa";
 import {useRouter} from "next/navigation";
