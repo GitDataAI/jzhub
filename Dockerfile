@@ -2,10 +2,12 @@
 
 FROM node:22 AS base
 WORKDIR /app
-COPY . .
 RUN npm install -g pnpm
+COPY . .
 RUN pnpm install
-RUN pnpm run build
+RUN pnpm run build && \
+    rm -rf node_modules && \
+    rm -rf .next/cache
 
 
 # Next.js collects completely anonymous telemetry data about general usage.
@@ -16,7 +18,8 @@ RUN pnpm run build
 
 
 # Production image, copy all the files and run next
-FROM base AS runner
+
+FROM node:22-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production

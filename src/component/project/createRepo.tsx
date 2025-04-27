@@ -390,6 +390,30 @@ export const CreateRepo = () => {
 
                     </InputLabel>
                 </div>
+                <br/>
+                <Divider/>
+                {
+                    form.getValues().type === "Data" && (
+                        <>
+
+                        </>
+                    )
+                }
+                {
+                    form.getValues().type === "Model" && (
+                        <>
+
+                        </>
+                    )
+                }
+                {
+                    form.getValues().type === "Code" && (
+                        <>
+
+                        </>
+                    )
+                }
+
                 <div style={{
                     display: "flex",
                     gap: "1rem",
