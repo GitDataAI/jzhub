@@ -2,7 +2,7 @@
 
 # JZHub
 
-JZHub is an open-source data hub designed to empower researchers, data scientists, and open science enthusiasts to manage, version, and publish scientific data with ease. Built on JZFS (a Git-like version control file system) and integrated with Resource Hub of models, workflows,storage and computation, JZHub provides a flexible platform for collaborative data workflows. Whether you're creating citable data papers, sharing datasets, or tracking experimental changes, JZHub streamlines the process with modern tools and automation.
+JZHub is an open-source data hub designed to empower Data practitioners (researchers, data scientists, and open science enthusiasts) to manage, version, and publish data products(datasets,models,apps) with ease. Built on JZFS (a Git-like version control file system) and integrated with Resource Hub of models, workflows,storage and computation, JZHub provides a flexible platform for collaborative data workflows. Whether you're creating citable data papers, sharing datasets, or tracking experimental changes, JZHub streamlines the process with modern tools and automation.
 
 ----
 ## Features
