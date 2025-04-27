@@ -8,7 +8,7 @@ export const OrgItemHeader = () => {
         <>
             <div className="project-nav">
                 <div className="nav-header">
-                    <h1 className="title">Group</h1>
+                    <h1 className="title">Organization</h1>
                     <div className="exnew">
                         <Button onClick={() => {
                             nav("/group/new");

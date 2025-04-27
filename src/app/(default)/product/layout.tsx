@@ -1,12 +1,12 @@
 import React from "react";
 
 export const metadata = {
-    title: "GitDataAI | Project",
+    title: "GitDataAI | Product",
 };
 
-export default function ProjectLayout({
-                                          children,
-                                      }: Readonly<{
+export default function WorkSpaceLayout({
+                                            children,
+                                        }: Readonly<{
     children: React.ReactNode;
 }>) {
     return (

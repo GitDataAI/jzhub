@@ -10,7 +10,7 @@ export const ProjectNav = () => {
     return (
         <div className="project-nav">
             <div className="nav-header">
-                <h1 className="title">Product</h1>
+                <h1 className="title">Repository</h1>
                 <div className="exnew">
                     <Button onClick={() => {
                         nav("/product/new");
