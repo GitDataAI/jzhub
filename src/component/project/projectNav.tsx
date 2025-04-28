@@ -13,7 +13,7 @@ export const ProjectNav = () => {
                 <h1 className="title">Repository</h1>
                 <div className="exnew">
                     <Button onClick={() => {
-                        nav("/product/new");
+                        nav("/repository/new");
                     }}>New</Button>
                 </div>
             </div>
